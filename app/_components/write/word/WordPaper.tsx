@@ -1,6 +1,7 @@
 'use client';
 
 import axios from 'axios';
+import { StaticImageData } from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
@@ -33,7 +34,7 @@ export default function WordPaper({
   const [meaning, setMeaning] = useState('');
   const [sentence, setSentence] = useState('');
   const [file, setFile] = useState<File | undefined>(undefined);
-  const [image, setImage] = useState('');
+  const [image, setImage] = useState<string | StaticImageData>('');
 
   const dispatch = useAppDispatch();
   const select = useAppSelector(state => state.noteReducer.select);

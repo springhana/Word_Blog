@@ -2,7 +2,7 @@
 import { HiViewGridAdd } from '@react-icons/all-files/hi/HiViewGridAdd';
 import axios from 'axios';
 import dynamic from 'next/dynamic';
-import Image from 'next/image';
+import Image, { StaticImageData } from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
@@ -27,7 +27,7 @@ export default function BookContainer() {
   const [value, setValue] = useState('');
   const [toggle, setToggle] = useState(true);
   const [file, setFile] = useState<File | undefined>(undefined);
-  const [image, setImage] = useState('');
+  const [image, setImage] = useState<string | StaticImageData>('');
 
   const { loading, error, note, hasMore } = useNote(id, 'user');
 
@@ -166,7 +166,9 @@ export default function BookContainer() {
                   onClick={() => {
                     setUpdate(item.name);
                     setValue(item.name);
-                    setImage(item.image);
+                    if (item.image) {
+                      setImage(item.image);
+                    }
                   }}
                 >
                   수정

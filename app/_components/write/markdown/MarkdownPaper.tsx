@@ -1,6 +1,6 @@
 'use client';
-
 import axios from 'axios';
+import { StaticImageData } from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { FileDrop } from 'react-file-drop';
@@ -36,7 +36,7 @@ export default function MarkdownPaper({
   const [boardColor, setBoardColor] = useState(false);
   const [show, setShow] = useState(false);
   const [imageUrl, setImageUrl] = useState('');
-  const [image, setImage] = useState('');
+  const [image, setImage] = useState<string | StaticImageData>('');
   const [file, setFile] = useState<File | undefined>(undefined);
 
   const dispatch = useAppDispatch();

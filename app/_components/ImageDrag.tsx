@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image, { StaticImageData } from 'next/image';
 import { useState } from 'react';
 import { FileDrop } from 'react-file-drop';
 
@@ -9,8 +9,8 @@ export default function ImageDrag({
   setImage,
   setFile,
 }: {
-  image: string;
-  setImage: (image: string) => void;
+  image: string | StaticImageData;
+  setImage: (image: string | StaticImageData) => void;
   setFile: (file: File | undefined) => void;
 }) {
   const [boardColor, setBoardColor] = useState(false);
@@ -87,7 +87,7 @@ export default function ImageDrag({
           <div>
             <Image
               src={image}
-              alt={image}
+              alt={'image'}
               width={10000}
               height={10000}
               style={{ width: '100%', height: '100%' }}
