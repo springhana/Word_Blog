@@ -1,0 +1,60 @@
+/* Sidebar */
+.sidebar {
+  padding: 10px 30px;
+}
+.sidebar_inner {
+  position: fixed;
+}
+.sidebar_menu {
+  border: 1px solid red;
+}
+
+/* SidebarItem */
+.item a,
+.setting_btn {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 25px;
+  font-weight: bold;
+}
+/* SidebarLogo */
+.logo {
+  margin-bottom: 10px;
+}
+
+/* settingBtn */
+.setting_btn {
+  cursor: pointer;
+}
+
+@media screen and (max-width: 1024px) {
+  .sidebar {
+    grid-column: span 1;
+    display: flex;
+    justify-content: right;
+  }
+  .item a,
+  .setting_btn {
+    position: relative;
+    font-size: 35px;
+  }
+  .item_icon {
+    position: absolute;
+    right: 0;
+  }
+  .item_label {
+    display: none;
+  }
+  .logo {
+    display: flex;
+    justify-content: end;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .sidebar {
+    justify-content: center;
+  }
+}
