@@ -35,12 +35,12 @@ export default function CardDetail({ id }: { id?: string | ObjectId }) {
       ) : (
         <div style={{ position: 'relative' }}>
           {id ? (
-            card.paper === 'word' ? (
+            card.program === 'word' ? (
               <WordItem item={card} memorize={memorize} />
             ) : (
               <MdItem item={card} memorize={memorize} />
             )
-          ) : card.paper === 'word' ? (
+          ) : card.program === 'word' ? (
             <Word item={card} />
           ) : (
             <Md item={card} />

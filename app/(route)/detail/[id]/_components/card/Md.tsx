@@ -67,12 +67,7 @@ export default function Md({ item }: { item: CardType }) {
         <Likes id={item._id} />
       </div>
 
-      <Setting
-        id={item._id}
-        paper={item.paper}
-        state={'card'}
-        Delete={Delete}
-      />
+      <Setting id={item._id} state={'card'} Delete={Delete} />
     </div>
   );
 }

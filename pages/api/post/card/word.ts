@@ -18,6 +18,7 @@ export default async function Word(req: NextApiRequest, res: NextApiResponse) {
       memorize: false,
       tag: req.body.tag,
       paper: req.body.paper,
+      program: req.body.program,
       image: req.body.image,
       date: new Date(),
     };

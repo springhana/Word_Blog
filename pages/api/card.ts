@@ -16,7 +16,7 @@ export default async function Card(req: NextApiRequest, res: NextApiResponse) {
           })
           .then(result => {
             if (result) {
-              if (result.paper === 'markdown') {
+              if (result.program === 'markdown') {
                 return res.json(result.title);
               } else {
                 return res.json(result.word);
@@ -30,7 +30,7 @@ export default async function Card(req: NextApiRequest, res: NextApiResponse) {
           })
           .then(result => {
             if (result) {
-              if (result.paper === 'markdown') {
+              if (result.program === 'markdown') {
                 const compressedData = result.md;
                 const buffer = Buffer.from(compressedData, 'base64');
                 inflate(buffer, (err: Error | null, data: Buffer) => {
@@ -46,6 +46,7 @@ export default async function Card(req: NextApiRequest, res: NextApiResponse) {
                       note: result.note,
                       author: result.author,
                       paper: result.paper,
+                      program: result.program,
                       image: result.image,
                     };
                     return res.json(item_card);
@@ -64,7 +65,7 @@ export default async function Card(req: NextApiRequest, res: NextApiResponse) {
     }
   } else if (req.method === 'PUT') {
     try {
-      if (req.body.paper === 'word') {
+      if (req.body.program === 'word') {
         const word = {
           word: req.body.word,
           meaning: req.body.meaning,
@@ -72,13 +73,17 @@ export default async function Card(req: NextApiRequest, res: NextApiResponse) {
           memorize: req.body.memorize,
           date: req.body.date + '수정됨',
           image: req.body.image,
+          paper: req.body.paper,
+          program: req.body.program,
+          md: req.body.md,
+          title: req.body.title,
         };
 
         db.collection('card').updateOne(
           { _id: new ObjectId(req.body.id) },
           { $set: word }
         );
-      } else if (req.body.paper === 'markdown') {
+      } else if (req.body.program === 'markdown') {
         deflate(req.body.md, (err, buffer) => {
           if (!err) {
             const md_compression = buffer.toString('base64');
@@ -88,6 +93,11 @@ export default async function Card(req: NextApiRequest, res: NextApiResponse) {
               memorize: req.body.memorize,
               date: req.body.date + '수정됨',
               image: req.body.image,
+              paper: req.body.paper,
+              program: req.body.program,
+              word: req.body.word,
+              meaning: req.body.meaning,
+              sentence: req.body.sentence,
             };
             db.collection('card').updateOne(
               { _id: new ObjectId(req.body.id) },

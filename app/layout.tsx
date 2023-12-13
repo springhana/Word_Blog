@@ -6,6 +6,8 @@ import { Providers } from '@/redux/provider';
 
 import Header from './_components/Header';
 import Sidebar from './_components/layout/Sidebar';
+import WirteModal from './_components/modal/WriteModal';
+import Tag from './_components/Tag';
 import Loading from './loading';
 
 export default function RootLayout({
@@ -24,8 +26,10 @@ export default function RootLayout({
                   <Sidebar />
                   <div className="content-container">
                     <Header />
+                    <WirteModal />
                     {children}
                   </div>
+                  <Tag />
                 </div>
               </div>
             </div>

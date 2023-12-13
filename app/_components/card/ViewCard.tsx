@@ -5,8 +5,6 @@ import { useTag } from '@/hook/useTag';
 import { useAppSelector } from '@/redux/hook';
 import { TagType } from '@/types/word_blog';
 
-import AddWord from '../AddWordBtn';
-
 const Cards = dynamic(() => import('./Cards').then(mod => mod.default), {
   ssr: false,
 });
@@ -24,9 +22,8 @@ export default function ViewCard() {
 
   return (
     <div>
-      {tag === 'all' ? (
+      {tag.id === 'all' ? (
         <div>
-          <AddWord />
           <Cards tag="all" />
         </div>
       ) : (
@@ -36,7 +33,7 @@ export default function ViewCard() {
 
           {hasMore &&
             tags.map(item => {
-              return tag === item._id ? <Cards tag={tag} /> : null;
+              return tag.id === item._id ? <Cards tag={tag.id} /> : null;
             })}
         </div>
       )}

@@ -12,6 +12,7 @@ export interface CardType {
   date: string;
   author: string;
   paper: string;
+  program: string;
   image: string;
   title?: string;
   word?: string;
@@ -38,6 +39,7 @@ export interface TagType {
 export interface NoteType {
   _id: string;
   name: string;
+  image: string;
   userID: string;
   cardID: string[];
 }

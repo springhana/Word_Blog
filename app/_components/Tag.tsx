@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 
 import { useTag } from '@/hook/useTag';
 import { tag_change } from '@/redux/features/tagSlice';
+import { onOpen } from '@/redux/features/writeSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/hook';
 
 export default function Tag() {
@@ -17,9 +18,7 @@ export default function Tag() {
   const { loading, error, tags, hasMore } = useTag(id, 'all');
 
   useEffect(() => {
-    if (pathname?.split('/')[1] !== 'add') {
-      dispatch(tag_change('all'));
-    }
+    dispatch(tag_change({ id: 'all', name: 'all' }));
   }, []);
 
   return (
@@ -30,10 +29,10 @@ export default function Tag() {
       {pathname?.split('/')[1] === 'add' ? null : (
         <span
           onClick={() => {
-            dispatch(tag_change('all'));
+            dispatch(tag_change({ id: 'all', name: 'all' }));
           }}
           style={
-            tag === 'all'
+            tag.id === 'all'
               ? { margin: '10px 10px 10px 0', color: 'red' }
               : { margin: '10px 10px 10px 0' }
           }
@@ -46,10 +45,10 @@ export default function Tag() {
             <span
               key={index}
               onClick={() => {
-                dispatch(tag_change(item._id));
+                dispatch(tag_change({ id: item._id, name: item.name }));
               }}
               style={
-                tag === item._id
+                tag.id === item._id
                   ? { margin: '10px 10px 10px 0', color: 'red' }
                   : { margin: '10px 10px 10px 0' }
               }
@@ -60,15 +59,16 @@ export default function Tag() {
         : null}
       <span
         onClick={() => {
-          dispatch(tag_change('태그 추가'));
+          dispatch(tag_change({ id: '태그 추가', name: '태그 추가' }));
+          dispatch(onOpen());
         }}
         style={
-          tag === '태그 추가'
+          tag.id === '태그 추가'
             ? { margin: '10px 10px 10px 0', color: 'red' }
             : { margin: '10px 10px 10px 0' }
         }
       >
-        {tag === '태그 추가' ? (
+        {tag.id === '태그 추가' ? (
           <span>
             <IoPricetagSharp />
             태그 추가

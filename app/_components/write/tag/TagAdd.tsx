@@ -16,7 +16,7 @@ export default function TagAdd({ id }: { id: string }) {
       await axios.post('/api/tag', { id: id, tag: tag }).then(res => {
         if (res.data.post) {
           dispatch(change_state());
-          dispatch(tag_change(tag));
+          dispatch(tag_change({ id: 'all', name: 'all' }));
         }
       });
     } catch (error) {

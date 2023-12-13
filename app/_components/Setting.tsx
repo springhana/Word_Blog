@@ -13,12 +13,10 @@ export default function Setting({
   id,
   state,
   Delete,
-  paper,
 }: {
   id: string | ObjectId;
   state: string;
   Delete: (id?: string | ObjectId) => void;
-  paper?: string;
 }) {
   const dispatch = useAppDispatch();
 
@@ -40,7 +38,7 @@ export default function Setting({
         <IoEllipsisHorizontal />
       </div>
 
-      <SettingModal id={id} state={state} paper={paper} />
+      <SettingModal id={id} state={state} />
       <DeleteModal id={id} state={state} Delete={Delete} />
     </div>
   );

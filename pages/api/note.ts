@@ -36,6 +36,7 @@ export default async function Note(req: NextApiRequest, res: NextApiResponse) {
       const note = {
         name: req.body.name,
         userID: new ObjectId(req.body.id),
+        image: req.body.image,
         cardID: [],
       };
 
@@ -52,7 +53,7 @@ export default async function Note(req: NextApiRequest, res: NextApiResponse) {
       collection
         .updateOne(
           { _id: new ObjectId(req.body.id) },
-          { $set: { name: req.body.name } }
+          { $set: { name: req.body.name, image: req.body.image } }
         )
         .then(result => {
           if (result) {

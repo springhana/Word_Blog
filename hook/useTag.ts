@@ -2,11 +2,12 @@ import axios, { CancelTokenSource } from 'axios';
 import { useEffect, useState } from 'react';
 
 import { useAppSelector } from '@/redux/hook';
+import { TagType } from '@/types/word_blog';
 
 export const useTag = (id: string, state: string) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  const [tags, setTags] = useState([]);
+  const [tags, setTags] = useState<TagType[]>([]);
   const [hasMore, setHasMore] = useState(false);
 
   const tag = useAppSelector(state => state.tagReducer.state);

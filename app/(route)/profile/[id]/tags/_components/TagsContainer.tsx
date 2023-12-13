@@ -57,13 +57,15 @@ export default function TagsContainer() {
         ? tags.map((item, index) => (
             <div key={index}>
               {item.name === update ? (
-                <input
-                  type="text"
-                  value={value}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                    setValue(e.target.value);
-                  }}
-                />
+                <>
+                  <input
+                    type="text"
+                    value={value}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                      setValue(e.target.value);
+                    }}
+                  />
+                </>
               ) : (
                 <div>{item.name}</div>
               )}

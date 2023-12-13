@@ -2,10 +2,12 @@
 import { HiViewGridAdd } from '@react-icons/all-files/hi/HiViewGridAdd';
 import axios from 'axios';
 import dynamic from 'next/dynamic';
+import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 
+import ImageDrag from '@/app/_components/ImageDrag';
 import { useNote } from '@/hook/useNote';
 import { change_state, onOpen } from '@/redux/features/noteSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/hook';
@@ -24,17 +26,52 @@ export default function BookContainer() {
   const [remove, setRemove] = useState('');
   const [value, setValue] = useState('');
   const [toggle, setToggle] = useState(true);
+  const [file, setFile] = useState<File | undefined>(undefined);
+  const [image, setImage] = useState('');
+
   const { loading, error, note, hasMore } = useNote(id, 'user');
 
   const NoteUpdate = async (id: string) => {
     try {
-      await axios.put('/api/note', { id: id, name: value }).then(res => {
-        if (res.data.update) {
-          setUpdate('');
-          setValue('');
-          dispatch(change_state());
-        }
-      });
+      let filename;
+      let fileurl;
+      if (file) {
+        filename = encodeURIComponent(new Date() + file.name);
+        await axios
+          .post(`/api/post/image?file=${filename}&id=${id}&state=note`)
+          .then(async res => {
+            const formData = new FormData();
+            Object.entries({ ...res.data.fields, file }).forEach(
+              ([key, value]) => {
+                formData.append(key, value as string | Blob);
+              }
+            );
+            return await fetch(res.data.url, {
+              method: 'POST',
+              body: formData,
+            });
+          })
+          .then(res => {
+            fileurl = res.url;
+          });
+      }
+
+      await axios
+        .put('/api/note', {
+          id: id,
+          name: value,
+          image:
+            image && fileurl && filename
+              ? fileurl + '/' + id + '/' + 'note' + '/' + filename
+              : image,
+        })
+        .then(res => {
+          if (res.data.update) {
+            setUpdate('');
+            setValue('');
+            dispatch(change_state());
+          }
+        });
     } catch (error) {
       console.error(error);
     }
@@ -73,15 +110,34 @@ export default function BookContainer() {
         ? note.map((item, index) => (
             <div key={index}>
               {item.name === update ? (
-                <input
-                  type="text"
-                  value={value}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                    setValue(e.target.value);
-                  }}
-                />
+                <>
+                  <ImageDrag
+                    image={image}
+                    setImage={setImage}
+                    setFile={setFile}
+                  />
+                  <input
+                    type="text"
+                    value={value}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                      setValue(e.target.value);
+                    }}
+                  />
+                </>
               ) : (
                 <>
+                  <div style={{ width: '200px' }}>
+                    {item.image === 'default' || !item.image ? null : (
+                      <Image
+                        src={item.image}
+                        alt={item.image}
+                        width={10000}
+                        height={10000}
+                        style={{ width: '100%', height: '100%' }}
+                      />
+                    )}
+                  </div>
+
                   <span style={{ cursor: 'pointer' }}>
                     <Link href={`/book/${item._id}/note`}>{item.name}</Link>
                   </span>
@@ -97,11 +153,20 @@ export default function BookContainer() {
                 >
                   확인
                 </button>
+              ) : item.name === remove ? (
+                <button
+                  onClick={() => {
+                    setRemove('');
+                  }}
+                >
+                  취소
+                </button>
               ) : (
                 <button
                   onClick={() => {
                     setUpdate(item.name);
                     setValue(item.name);
+                    setImage(item.image);
                   }}
                 >
                   수정
@@ -115,6 +180,14 @@ export default function BookContainer() {
                   }}
                 >
                   확인
+                </button>
+              ) : item.name === update ? (
+                <button
+                  onClick={() => {
+                    setUpdate('');
+                  }}
+                >
+                  취소
                 </button>
               ) : (
                 <button

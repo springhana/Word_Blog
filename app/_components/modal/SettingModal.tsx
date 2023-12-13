@@ -9,16 +9,15 @@ import {
   onClose_delete,
   onOpen_delete,
 } from '@/redux/features/cardSlice';
+import { onOpen, writeEditID_change } from '@/redux/features/writeSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/hook';
 
 export default function SettingModal({
   id,
   state,
-  paper,
 }: {
   id: string | ObjectId;
   state: string;
-  paper?: string;
 }) {
   const dispatch = useAppDispatch();
   const Open = useAppSelector(state => state.cardReducer);
@@ -78,7 +77,11 @@ export default function SettingModal({
         {state === 'card' ? (
           <div
             style={{ height: '30px', width: '90px', textAlign: 'center' }}
-            onClick={() => router.push(`/edit/card/${id}/${paper}`)}
+            onClick={() => {
+              dispatch(onClose());
+              dispatch(writeEditID_change(id));
+              dispatch(onOpen());
+            }}
           >
             수정
           </div>

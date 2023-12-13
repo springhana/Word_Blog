@@ -51,7 +51,7 @@ export default function CardsItem({
   const memoizedCard = useMemo(() => {
     return cards.result.map((item: CardType, index: number) => {
       if (cards.result.length === index + 1 && page !== cards.totalPages) {
-        if (item.paper === 'markdown') {
+        if (item.program === 'markdown') {
           return (
             <div
               key={index}
@@ -61,7 +61,7 @@ export default function CardsItem({
               <MdItem item={item} memorize={memorize} />
             </div>
           );
-        } else if (item.paper === 'word') {
+        } else if (item.program === 'word') {
           return (
             <div
               key={index}
@@ -73,13 +73,13 @@ export default function CardsItem({
           );
         }
       } else {
-        if (item.paper === 'markdown') {
+        if (item.program === 'markdown') {
           return (
             <div key={index}>
               <MdItem item={item} memorize={memorize} />
             </div>
           );
-        } else if (item.paper === 'word') {
+        } else if (item.program === 'word') {
           return (
             <div key={index}>
               <WordItem item={item} memorize={memorize} />

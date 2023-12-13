@@ -16,7 +16,7 @@ export default async function Cards(req: NextApiRequest, res: NextApiResponse) {
     db.collection('card')
       .countDocuments(
         req.query.tag !== 'all' && req.query.state === 'tag'
-          ? { tag: req.query.tag }
+          ? { tag: req.query.tag?.toString() }
           : req.query.state === 'my'
             ? { author: new ObjectId(req.query.author?.toString()) }
             : {}
@@ -35,7 +35,7 @@ export default async function Cards(req: NextApiRequest, res: NextApiResponse) {
         collection
           .find(
             req.query.tag !== 'all' && req.query.state === 'tag'
-              ? { tag: req.query.tag }
+              ? { tag: req.query.tag?.toString() }
               : req.query.state === 'my'
                 ? { author: new ObjectId(req.query.author?.toString()) }
                 : {}
@@ -49,7 +49,7 @@ export default async function Cards(req: NextApiRequest, res: NextApiResponse) {
               const card: CardType[] = [];
 
               for await (const item of result) {
-                if (item.paper === 'markdown') {
+                if (item.program === 'markdown') {
                   const inflateAsync = util.promisify(inflate);
                   const buffer = Buffer.from(item.md as string, 'base64');
                   try {
@@ -64,13 +64,14 @@ export default async function Cards(req: NextApiRequest, res: NextApiResponse) {
                       md: md_compression,
                       title: item.title,
                       paper: item.paper,
+                      program: item.program,
                       image: item.image,
                     };
                     card.push(item_card);
                   } catch (error) {
                     console.error('압축 해체 오류', error);
                   }
-                } else if (item.paper === 'word') {
+                } else if (item.program === 'word') {
                   const item_card: CardType = {
                     _id: item._id,
                     memorize: item.memorize,
@@ -80,6 +81,7 @@ export default async function Cards(req: NextApiRequest, res: NextApiResponse) {
                     word: item.word,
                     meaning: item.meaning,
                     paper: item.paper,
+                    program: item.program,
                     image: item.image,
                   };
                   card.push(item_card);

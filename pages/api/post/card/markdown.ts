@@ -21,6 +21,7 @@ export default function Markdown(req: NextApiRequest, res: NextApiResponse) {
           memorize: false,
           tag: req.body.tag,
           paper: req.body.paper,
+          program: req.body.program,
           date: new Date(),
           image: req.body.image,
         };

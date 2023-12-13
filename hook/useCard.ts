@@ -1,3 +1,4 @@
+import { useAppSelector } from '@/redux/hook';
 import axios, { CancelTokenSource } from 'axios';
 import { ObjectId } from 'mongodb';
 import { useEffect, useState } from 'react';
@@ -6,6 +7,8 @@ export const useCard = (_id: string | ObjectId) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [card, setCard] = useState({});
+
+  const state = useAppSelector(state => state.cardReducer.state);
 
   useEffect(() => {
     setCard([]);
@@ -43,6 +46,6 @@ export const useCard = (_id: string | ObjectId) => {
         cancel.cancel('Request canceled');
       }
     };
-  }, [_id]);
+  }, [_id, state]);
   return { loading, error, card };
 };

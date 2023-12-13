@@ -1,15 +1,9 @@
 'use client';
 
 import { HiViewGridAdd } from '@react-icons/all-files/hi/HiViewGridAdd';
-import { useEffect } from 'react';
 
 import { useNote } from '@/hook/useNote';
-import {
-  delete_note,
-  init_note,
-  onOpen,
-  select_note,
-} from '@/redux/features/noteSlice';
+import { delete_note, onOpen, select_note } from '@/redux/features/noteSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/hook';
 import { NoteType } from '@/types/word_blog';
 
@@ -19,10 +13,6 @@ export default function Note({ author }: { author: string }) {
   const Open = useAppSelector(state => state.noteReducer.Open);
   const tag = useAppSelector(state => state.tagReducer.tag);
   const { loading, error, note, hasMore } = useNote(author, 'user');
-
-  useEffect(() => {
-    dispatch(init_note());
-  }, [tag]);
 
   const selectNote = (name: string, id: string) => {
     if (
