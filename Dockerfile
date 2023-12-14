@@ -1,6 +1,7 @@
 FROM node:18-alpine as base
-Run apk --no-cache add --virtual builds-deps build-base python
 WORKDIR /app
+
+RUN apk add --no-cache g++ make py3-pip libc6-compat
 COPY package*.json ./
 EXPOSE 3000
 
