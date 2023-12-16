@@ -36,17 +36,15 @@ export default async function Sidebar() {
     <div className={styles.sidebar}>
       <div className={styles.sidebar_inner}>
         <SidebarLogo />
-        <div>
-          {items.map((item, index) => (
-            <SidebarItem
-              key={index}
-              icon={item.icon()}
-              visited_icon={item.visited_icon()}
-              label={item.label}
-              link={item.link}
-            />
-          ))}
-        </div>
+        {items.map((item, index) => (
+          <SidebarItem
+            key={index}
+            icon={item.icon()}
+            visited_icon={item.visited_icon()}
+            label={item.label}
+            link={item.link}
+          />
+        ))}
         <SidebarServerItem session={session} />
         <LoginBtn session={session} />
         <AddWordBtn />

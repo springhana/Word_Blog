@@ -1,5 +1,6 @@
 import '@/styles/globals.css';
 
+import dynamic from 'next/dynamic';
 import { Suspense } from 'react';
 
 import { Providers } from '@/redux/provider';
@@ -7,8 +8,12 @@ import { Providers } from '@/redux/provider';
 import Header from './_components/Header';
 import Sidebar from './_components/layout/Sidebar';
 import WirteModal from './_components/modal/WriteModal';
-import Tag from './_components/Tag';
 import Loading from './loading';
+
+const Tag = dynamic(
+  () => import('./_components/Tag').then(mod => mod.default),
+  { ssr: false }
+);
 
 export default function RootLayout({
   children,

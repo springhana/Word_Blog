@@ -1,10 +1,13 @@
 'use client';
 
-import { GiBookmark } from '@react-icons/all-files/gi/GiBookmark';
-import { GiBookmarklet } from '@react-icons/all-files/gi/GiBookmarklet';
 import axios from 'axios';
 import { ObjectId } from 'mongodb';
+import Image from 'next/image';
 import { useState } from 'react';
+
+import memo from '@/public/image/memo/memo.png';
+import memo_false from '@/public/image/memo/memo_false.png';
+import styles from '@/styles/Card.module.css';
 
 export default function Memorize({
   memorize,
@@ -28,17 +31,29 @@ export default function Memorize({
   };
 
   return (
-    <div onClick={MemorizeEvent}>
+    <div onClick={MemorizeEvent} className={styles.memo}>
       {memori ? (
-        <div>
-          <GiBookmark />
-          외웠어요
-        </div>
+        <>
+          <Image
+            src={memo}
+            alt="memo"
+            width={10000}
+            height={10000}
+            className={styles.memo_image}
+          />
+          <span>외웠어요</span>
+        </>
       ) : (
-        <div>
-          <GiBookmarklet />
-          못외웠어요
-        </div>
+        <>
+          <Image
+            src={memo_false}
+            alt="memo_flase"
+            width={10000}
+            height={10000}
+            className={styles.memo_image}
+          />
+          <span>못외웠어요</span>
+        </>
       )}
     </div>
   );

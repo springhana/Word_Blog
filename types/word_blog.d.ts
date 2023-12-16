@@ -49,6 +49,11 @@ export interface LikeType {
   userID: string[];
 }
 
+export interface LikesType {
+  result: number;
+  like: boolean;
+}
+
 export interface SubscribeType {
   _id: string;
   userID: [];

@@ -11,12 +11,11 @@ export default function LikeCards({ id }: { id: string | ObjectId }) {
     like: LikeType[];
     hasMore: boolean;
   };
-
   return (
     <div>
       {loading ? '로딩중' : null}
       {error ? '에러' : null}
-      {hasMore
+      {hasMore && like.length > 0
         ? like.map((item, index) => (
             <div key={index}>
               <CardDetail id={item._id} />

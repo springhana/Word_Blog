@@ -1,7 +1,6 @@
 'use client';
 
 import { ObjectId } from 'mongodb';
-import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
 import {
@@ -11,6 +10,7 @@ import {
 } from '@/redux/features/cardSlice';
 import { onOpen, writeEditID_change } from '@/redux/features/writeSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/hook';
+import styles from '@/styles/Setting.module.css';
 
 export default function SettingModal({
   id,
@@ -21,7 +21,6 @@ export default function SettingModal({
 }) {
   const dispatch = useAppDispatch();
   const Open = useAppSelector(state => state.cardReducer);
-  const router = useRouter();
 
   useEffect(() => {
     dispatch(onClose());
@@ -37,37 +36,17 @@ export default function SettingModal({
   }
 
   return (
-    <div
-      style={{
-        position: 'absolute',
-        top: 0,
-        right: 0,
-        width: '90px',
-        height: '90px',
-        background: 'red',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
-    >
+    <div className={styles.setting_modal}>
       <div
-        style={{
-          position: 'fixed',
-          left: '0',
-          top: '0',
-          width: '100%',
-          height: '100%',
-          border: '1px solid red',
-        }}
+        className={styles.setting_modal_background}
         onClick={() => {
           dispatch(onClose());
         }}
       ></div>
 
-      <div style={{ cursor: 'pointer', zIndex: '10' }}>
+      <div className={styles.setting_item_container}>
         <div
-          style={{ height: '30px', width: '90px', textAlign: 'center' }}
+          className={styles.setting_item}
           onClick={() => {
             dispatch(onClose());
           }}
@@ -76,7 +55,7 @@ export default function SettingModal({
         </div>
         {state === 'card' ? (
           <div
-            style={{ height: '30px', width: '90px', textAlign: 'center' }}
+            className={styles.setting_item}
             onClick={() => {
               dispatch(onClose());
               dispatch(writeEditID_change(id));
@@ -87,7 +66,7 @@ export default function SettingModal({
           </div>
         ) : null}
         <div
-          style={{ height: '30px', width: '90px', textAlign: 'center' }}
+          className={styles.setting_item}
           onClick={() => {
             dispatch(onOpen_delete());
           }}

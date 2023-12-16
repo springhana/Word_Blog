@@ -1,0 +1,157 @@
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
+  border-bottom: 1px solid #dae1e2;
+  transition: 0.3s all;
+}
+.card:hover {
+  background-color: #f7f7f7;
+}
+.card_profile {
+  width: 100%;
+  padding: 0 20px;
+}
+.card_profile a {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+.card_profile a span {
+  margin-left: 10px;
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+.card_profile a span div:nth-child(1) {
+  color: #566370;
+}
+.card_profile a span div:nth-child(2) {
+  color: #8599ad;
+}
+.card_profile a span div:nth-child(1):hover {
+  border-bottom: 1px solid #566370;
+}
+.card_info {
+  width: 500px;
+  height: 389px;
+  background-size: 500px 389px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.card_info_inner {
+  width: 450px;
+  height: 350px;
+  margin-top: 65px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.card_detail {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.card_image_pic {
+  width: 180px;
+}
+.card_image {
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+}
+.card_word {
+  width: 180px;
+  text-align: center;
+  font-family: 'Indie Flower', cursive;
+}
+.card_word div {
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.card_like {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 450px;
+  margin-top: 10px;
+}
+.card_tag {
+  color: #fb6072;
+  background-color: #e6eef6;
+  padding: 10px;
+  border-radius: 20px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+/* ----- like ----- */
+.like_true,
+.like_false {
+  position: relative;
+  background-color: white;
+  z-index: 10;
+  width: 100px;
+  height: 27px;
+  border: 2px solid black;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.like_true::before,
+.like_false::before {
+  position: absolute;
+  content: '';
+  width: 10px;
+  height: 100%;
+  top: 0;
+  right: 0;
+}
+.like_true span,
+.like_false span {
+  margin-left: 5px;
+}
+.like_true::before {
+  background-color: #fb6072;
+}
+.like_false::before {
+  background-color: #ffd645;
+}
+.like_icon {
+  transition: 0.2s all;
+}
+.like_true:hover .like_icon,
+.like_false:hover .like_icon {
+  font-size: 20px;
+}
+
+/* ----- Memorize ----- */
+.memo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 10px;
+  transition: 0.3s all;
+}
+.memo_image {
+  width: 43px;
+  height: 33px;
+}
+.memo:hover {
+  background-color: #e6eef6;
+}

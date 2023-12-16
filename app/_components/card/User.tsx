@@ -5,7 +5,7 @@ import { UsersType } from '@/types/word_blog_user';
 
 import UserImage from '../UserImage';
 
-export default function User({ id }: { id: string }) {
+export default function User({ id, date }: { id: string; date?: string }) {
   const { loading, error, user, hasMore } = useUser(id, 'id') as {
     loading: boolean;
     error: boolean;
@@ -14,18 +14,27 @@ export default function User({ id }: { id: string }) {
   };
 
   return (
-    <div>
+    <>
       {loading ? '로딩중' : null}
       {error ? '에러' : null}
 
       {hasMore ? (
-        <div>
+        <>
           <Link href={`/profile/${user._id}`}>
-            <UserImage image={user.image} size={10} />
-            <p>{user.name}</p>
+            <UserImage image={user.image} size={50} />
+            <span>
+              <div>{user.name}</div>
+              {date ? (
+                <div>
+                  {date.split('.')[0].split('T')[0] +
+                    '/' +
+                    date.split('.')[0].split('T')[1]}
+                </div>
+              ) : null}
+            </span>
           </Link>
-        </div>
+        </>
       ) : null}
-    </div>
+    </>
   );
 }

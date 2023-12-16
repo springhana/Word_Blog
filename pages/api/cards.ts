@@ -80,6 +80,7 @@ export default async function Cards(req: NextApiRequest, res: NextApiResponse) {
                     author: item.author,
                     word: item.word,
                     meaning: item.meaning,
+                    sentence: item.sentence,
                     paper: item.paper,
                     program: item.program,
                     image: item.image,

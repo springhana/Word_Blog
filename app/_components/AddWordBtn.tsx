@@ -7,6 +7,7 @@ import { init_note } from '@/redux/features/noteSlice';
 import { tag_change } from '@/redux/features/tagSlice';
 import { onOpen } from '@/redux/features/writeSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/hook';
+import styles from '@/styles/Sidebar.module.css';
 
 export default function AddWordBtn() {
   const dispatch = useAppDispatch();
@@ -30,9 +31,10 @@ export default function AddWordBtn() {
         }
         dispatch(init_note());
       }}
+      className={styles.addBtn}
     >
       <RiFilePaper2Line />
-      단어 추가
+      <span>단어 추가</span>
     </div>
   );
 }

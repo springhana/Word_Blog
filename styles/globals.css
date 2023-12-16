@@ -7,17 +7,18 @@ a {
   text-decoration: none;
   color: black;
 }
-/* Layout */
+
+/* ----- Layout ----- */
 .main-layout {
   height: 100vh;
   color: black;
   background-color: #ffffff;
 }
 .layout-inner {
+  width: 100%;
   height: 100%;
   margin: 0 auto;
-  width: 100%;
-  max-width: 75rem;
+  max-width: 80rem;
 }
 .layout-container {
   display: grid;
@@ -35,4 +36,70 @@ a {
   .content-container {
     grid-column: span 2;
   }
+}
+
+/* ----- Video ----- */
+.home_vedio {
+  display: block;
+  width: 100%;
+}
+
+/* ----- memoTab ----- */
+.tab_active {
+  color: #fb6072;
+  border-bottom: 3px solid #fb6072;
+}
+.memoTab {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-weight: 700;
+  width: 100%;
+  height: 35px;
+  border-top: 1px solid #dae1e2;
+  border-bottom: 1px solid #dae1e2;
+  background-color: #ffd645;
+  overflow: hidden;
+}
+.memoTab .tab {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+}
+
+/* ----- clip ----- */
+.clip {
+  position: absolute;
+  max-width: 50px;
+  max-height: 64.5px;
+  left: calc(50% - 25px);
+  top: -31px;
+}
+
+/* ----- home ----- */
+.home {
+  position: relative;
+  width: 100%;
+}
+
+/* ----- modal ----- */
+.modal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 20;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.modal_background {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0.6;
+  background: black;
 }

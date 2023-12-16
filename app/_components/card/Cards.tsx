@@ -26,9 +26,12 @@ export default function Cards({ tag }: { tag: string }) {
     <div>
       {loading ? '로딩중' : null}
       {error ? '에러' : null}
+
       {hasMore ? (
         <div>
-          <MemoTab />
+          <div className="memoTab">
+            <MemoTab />
+          </div>
           <CardsItem
             cards={cards}
             loading={loading}

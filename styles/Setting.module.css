@@ -1,0 +1,118 @@
+.setting_btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 30px;
+  height: 30px;
+  margin: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: 0.3s all;
+  border-radius: 50%;
+}
+.setting_btn:hover {
+  background-color: #e6eef6;
+}
+.setting_modal {
+  position: absolute;
+  background-color: #ffffff;
+  top: 0;
+  right: 0;
+  width: 90px;
+  height: 90px;
+  margin: 10px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  -webkit-box-shadow:
+    0 3px 6px rgba(0, 0, 0, 0.16),
+    0 3px 6px rgba(0, 0, 0, 0.23);
+  -moz-box-shadow:
+    0 3px 6px rgba(0, 0, 0, 0.16),
+    0 3px 6px rgba(0, 0, 0, 0.23);
+  -ms-box-shadow:
+    0 3px 6px rgba(0, 0, 0, 0.16),
+    0 3px 6px rgba(0, 0, 0, 0.23);
+  -o-box-shadow:
+    0 3px 6px rgba(0, 0, 0, 0.16),
+    0 3px 6px rgba(0, 0, 0, 0.23);
+  box-shadow:
+    0 3px 6px rgba(0, 0, 0, 0.16),
+    0 3px 6px rgba(0, 0, 0, 0.23);
+}
+.setting_modal_background {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+.setting_item_container {
+  width: 100%;
+  z-index: 10;
+  font-weight: bold;
+  cursor: pointer;
+}
+.setting_item {
+  height: 30px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.3s all;
+}
+.setting_item:hover {
+  background-color: #f7f7f7;
+}
+
+/* ----- DeleteModal ----- */
+.setting_modal_delete {
+  background: white;
+  width: 400px;
+  height: 300px;
+  padding: 50px;
+  gap: 20px;
+  z-index: 21;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.setting_modal_delete_title {
+  font-size: 20px;
+  font-weight: bold;
+}
+.setting_modal_delete_btn {
+  width: 100%;
+}
+.setting_modal_delete_btn div {
+  height: 50px;
+  border-radius: 30px;
+  font-size: 18px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.2s all;
+}
+.setting_modal_delete_btn div:nth-child(1) {
+  background-color: #e03c39;
+  color: white;
+}
+.setting_modal_delete_btn div:nth-child(2) {
+  border: 1px solid #d2d3d5;
+  margin-top: 10px;
+}
+.setting_modal_delete_btn div:nth-child(1):hover {
+  background-color: #ca3633;
+}
+.setting_modal_delete_btn div:nth-child(2):hover {
+  background-color: #e7e7e8;
+}

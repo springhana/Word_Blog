@@ -1,0 +1,15 @@
+.header {
+  background-color: #ffd645;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  height: 50px;
+  border-bottom: 1px solid #dae1e2;
+}
+.header div {
+  color: #fb6072;
+}
+.header div span {
+  padding-left: 10px;
+}

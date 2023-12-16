@@ -15,7 +15,7 @@ export default function SidebarItem({
   const pathname = usePathname();
 
   return (
-    <div className={styles.item}>
+    <div className={pathname === link ? styles.item_active : styles.item}>
       <Link href={link}>
         <div className={styles.item_icon}>
           {pathname === link ? visited_icon : icon}

@@ -17,7 +17,11 @@ export default function UserImage({
           alt="blabla Logo"
           width={10000}
           height={10000}
-          style={{ width: `${size}%`, height: `${size}%` }}
+          style={{
+            width: `${size}px`,
+            height: `${size}px`,
+            borderRadius: '50%',
+          }}
           priority
         />
       ) : (
@@ -26,7 +30,11 @@ export default function UserImage({
           alt="profile image"
           width={10000}
           height={10000}
-          style={{ width: `${size}%`, height: `${size}%` }}
+          style={{
+            width: `${size}px`,
+            height: `${size}px`,
+            borderRadius: '50%',
+          }}
           priority
         />
       )}

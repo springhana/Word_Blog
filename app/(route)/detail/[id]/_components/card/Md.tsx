@@ -4,7 +4,6 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
 import Like from '@/app/_components/card/Like';
-import Likes from '@/app/_components/card/Likes';
 import Memorize from '@/app/_components/card/Memorize';
 import User from '@/app/_components/card/User';
 import Setting from '@/app/_components/Setting';
@@ -64,7 +63,6 @@ export default function Md({ item }: { item: CardType }) {
       <div>
         <Memorize memorize={item.memorize} id={item._id} />
         <Like id={item._id} />
-        <Likes id={item._id} />
       </div>
 
       <Setting id={item._id} state={'card'} Delete={Delete} />

@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 
 import { onClose, onClose_delete } from '@/redux/features/cardSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/hook';
+import styles from '@/styles/Setting.module.css';
 
 export default function DeleteModal({
   id,
@@ -29,65 +30,39 @@ export default function DeleteModal({
   }
 
   return (
-    <div
-      style={{
-        position: 'fixed',
-        left: '0',
-        top: '0',
-        width: '100%',
-        height: '100%',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        zIndex: 20,
-      }}
-    >
+    <div className="modal">
       <div
-        style={{
-          position: 'absolute',
-          width: '100%',
-          height: '100%',
-          display: 'flex',
-          justifyContent: 'center',
-          border: '1px solid red',
-          alignItems: 'center',
-          background: 'black',
-          opacity: 0.7,
-        }}
+        className="modal_background"
         onClick={() => {
           dispatch(onClose_delete());
         }}
       ></div>
-      <div
-        style={{
-          zIndex: '21',
-          width: '200px',
-          height: '200px',
-          background: 'yellow',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          cursor: 'pointer',
-        }}
-      >
-        <div
-          onClick={() => {
-            dispatch(onClose_delete());
-          }}
-        >
-          취소
+      <div className={styles.setting_modal_delete}>
+        <p className={styles.setting_modal_delete_title}>카드를 삭제할까요?</p>
+        <div>
+          이 동작은 취소할 수 없으며 내 프로필에서 완전히 삭제되며, 검색
+          결과에서도 삭제됩니다.
         </div>
 
-        <div
-          onClick={() => {
-            if (state === 'card') {
-              Delete();
-            } else if (state === 'comment') {
-              Delete(id);
-            }
-          }}
-        >
-          삭제
+        <div className={styles.setting_modal_delete_btn}>
+          <div
+            onClick={() => {
+              if (state === 'card') {
+                Delete();
+              } else if (state === 'comment') {
+                Delete(id);
+              }
+            }}
+          >
+            삭제
+          </div>
+          <div
+            onClick={() => {
+              dispatch(onClose_delete());
+            }}
+          >
+            취소
+          </div>
         </div>
       </div>
     </div>

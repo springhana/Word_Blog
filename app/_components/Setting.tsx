@@ -5,6 +5,7 @@ import { ObjectId } from 'mongodb';
 
 import { cardID_chage, onOpen } from '@/redux/features/cardSlice';
 import { useAppDispatch } from '@/redux/hook';
+import styles from '@/styles/Setting.module.css';
 
 import DeleteModal from './modal/DeleteModal';
 import SettingModal from './modal/SettingModal';
@@ -21,21 +22,16 @@ export default function Setting({
   const dispatch = useAppDispatch();
 
   return (
-    <div>
+    <div className={styles.setting}>
       <div
         onClick={() => {
           dispatch(onOpen());
           dispatch(cardID_chage(id));
         }}
-        style={{
-          cursor: 'pointer',
-          position: 'absolute',
-          top: 0,
-          right: 0,
-          border: '1px solid red',
-        }}
+        className={styles.setting_btn}
+        style={{}}
       >
-        <IoEllipsisHorizontal />
+        <IoEllipsisHorizontal size={20} />
       </div>
 
       <SettingModal id={id} state={state} />

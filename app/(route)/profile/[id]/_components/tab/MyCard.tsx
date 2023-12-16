@@ -40,23 +40,32 @@ export default function MyCard({ id }: { id: string }) {
 
       {hasMore && <Chart cards={cards} />}
 
-      <div
-        onClick={() => {
-          setState('my');
-        }}
-      >
-        <MemoTab />
+      <div className="memoTab">
+        <MemoTab setState={setState} />
+        <div
+          onClick={() => {
+            if (memorize !== 'all') {
+              dispatch(memorize_change('all'));
+            }
+            setState('like');
+          }}
+          className={`tab ${state === 'like' ? 'tab_active' : ''}`}
+        >
+          좋아한 카드
+        </div>
+        <div
+          onClick={() => {
+            if (memorize !== 'all') {
+              dispatch(memorize_change('all'));
+            }
+            setState('comment');
+          }}
+          className={`tab ${state === 'comment' ? 'tab_active' : ''}`}
+        >
+          댓글단 카드
+        </div>
       </div>
-      <div
-        onClick={() => {
-          if (memorize !== 'all') {
-            dispatch(memorize_change('all'));
-          }
-          setState('like');
-        }}
-      >
-        좋아한 카드
-      </div>
+
       {hasMore && state === 'my' ? (
         <CardsItem
           cards={cards}

@@ -13,9 +13,15 @@ export default async function Like(req: NextApiRequest, res: NextApiResponse) {
           .findOne({ _id: new ObjectId(req.query._id?.toString()) })
           .then(result => {
             if (result) {
-              res.json({ result: result.userID.length });
+              if (
+                result.userID.some((item: string) => item !== req.query.user)
+              ) {
+                res.json({ result: result.userID.length, like: true });
+              } else {
+                res.json({ result: result.userID.length, like: false });
+              }
             } else {
-              res.json({ result: 0 });
+              res.json({ result: 0, like: false });
             }
           });
       } else if (req.query.field === 'user') {

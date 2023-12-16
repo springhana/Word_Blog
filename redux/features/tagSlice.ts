@@ -1,8 +1,18 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+interface TagState {
+  tag: { id: string; name: string };
+  state: boolean;
+}
+
+const initialState: TagState = {
+  tag: { id: 'all', name: 'all' },
+  state: false,
+};
+
 export const tag = createSlice({
   name: 'tag',
-  initialState: { tag: { id: 'all', name: 'all' }, state: false },
+  initialState,
   reducers: {
     tag_change: (
       state,
