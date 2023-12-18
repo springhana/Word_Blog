@@ -132,6 +132,9 @@
 # 12월 16일
 1. 카드 css
 
+# 12월 17일
+1. detail css, event, animation
+
 - - -
 1. 노트 페이지에 시각화 - react-force-graph ✔️
 2. 설정창
