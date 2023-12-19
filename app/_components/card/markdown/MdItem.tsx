@@ -10,6 +10,7 @@ import Link from 'next/link';
 import { useRef } from 'react';
 
 import { useTag } from '@/hook/useTag';
+import { Init } from '@/redux/features/cardSlice';
 import { tag_change } from '@/redux/features/tagSlice';
 import { useAppDispatch } from '@/redux/hook';
 import styles from '@/styles/Card.module.css';
@@ -84,7 +85,10 @@ export default function MdItem({
   return (
     <div className={styles.card} ref={cardRef}>
       <div className={styles.card_profile}>
-        <User id={item.author} date={item.date} />
+        <User
+          id={item.author}
+          date={item.updateDate ? item.updateDate : item.date}
+        />
       </div>
 
       <div className={styles.card_info} style={Papers(item.paper)}>
@@ -118,6 +122,7 @@ export default function MdItem({
       <div
         className={styles.card_tag}
         onClick={() => {
+          dispatch(Init());
           dispatch(tag_change({ id: tags[0]._id, name: tags[0].name }));
         }}
       >

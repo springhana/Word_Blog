@@ -1,8 +1,11 @@
 'use client';
+
+import { FaEye } from '@react-icons/all-files/fa/FaEye';
+import { FaEyeSlash } from '@react-icons/all-files/fa/FaEyeSlash';
 import axios from 'axios';
 import { StaticImageData } from 'next/image';
-import { usePathname, useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useEffect, useRef, useState } from 'react';
 import { FileDrop } from 'react-file-drop';
 
 import { state_change } from '@/redux/features/cardSlice';
@@ -13,6 +16,7 @@ import {
   writetag_change,
 } from '@/redux/features/writeSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/hook';
+import stylse from '@/styles/Card.module.css';
 import { CardType } from '@/types/word_blog';
 
 import ImageDrag from '../../ImageDrag';
@@ -33,7 +37,6 @@ export default function MarkdownPaper({
 }) {
   const [md, setMd] = useState<string | undefined>('');
   const [title, setTitle] = useState<string>('제목');
-  const [boardColor, setBoardColor] = useState(false);
   const [show, setShow] = useState(false);
   const [imageUrl, setImageUrl] = useState('');
   const [image, setImage] = useState<string | StaticImageData>('');
@@ -41,12 +44,13 @@ export default function MarkdownPaper({
 
   const dispatch = useAppDispatch();
   const select = useAppSelector(state => state.noteReducer.select);
-  const pathname = usePathname();
   const router = useRouter();
   const noteState = useAppSelector(state => state.noteReducer.select);
 
+  const ref_md = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
-    if (card) {
+    if (card?._id) {
       setTitle(card.title || '');
       setMd(card.md || '');
       setImage(card.image || 'default');
@@ -137,7 +141,6 @@ export default function MarkdownPaper({
         md: md,
         title: title,
         memorize: card.memorize,
-        date: card.date,
         note: noteState,
         paper: card.paper,
         program: program === 1 ? 'word' : 'markdown',
@@ -185,7 +188,7 @@ export default function MarkdownPaper({
           if (typeof md !== 'undefined') {
             newMd =
               md +
-              '\n\n ![' +
+              '![' +
               filename +
               `](${res.url}/` +
               id +
@@ -193,9 +196,10 @@ export default function MarkdownPaper({
               filename +
               ')';
             setImageUrl(res.url + '/' + id + '/card/' + filename);
+            setImage(res.url + '/' + id + '/card/' + filename);
           } else {
             newMd =
-              '\n\n ![' +
+              '![' +
               filename +
               `](${res.url}/` +
               id +
@@ -209,14 +213,60 @@ export default function MarkdownPaper({
     } else {
       alert('png, jpg, jpeg 파일이 아닙니다.');
     }
-    setBoardColor(false);
+  };
+
+  const ShowVisible = () => {
+    if (ref_md.current) {
+      if (!show) {
+        ref_md.current.style.right = '100%';
+        setShow(true);
+      } else {
+        ref_md.current.style.right = '0';
+        setShow(false);
+      }
+    }
   };
 
   return (
-    <div>
-      <ImageDrag image={image} setImage={setImage} setFile={setFile} />
+    <div className={stylse.write_card}>
+      <ImageDrag
+        image={image}
+        setImage={setImage}
+        setFile={setFile}
+        imgsize={150}
+      />
+      <button className={stylse.write_card_eye} onClick={ShowVisible}>
+        {!show ? <FaEye size={20} /> : <FaEyeSlash size={20} />}
+      </button>
+
+      <div className={stylse.write_card_post}>
+        <input
+          className={stylse.write_card_title}
+          type="text"
+          value={title}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            setTitle(e.target.value);
+          }}
+          placeholder="제목"
+        />
+      </div>
+
+      <FileDrop
+        onDrop={async (files: FileList | null) => {
+          if (files != null) {
+            DragImage(files);
+          }
+        }}
+      >
+        <div className={stylse.write_card_md}>
+          <div className={stylse.write_card_md_inner} ref={ref_md}>
+            <MarkdownEditor value={md} onChange={setMd} height={250} />
+          </div>
+        </div>
+      </FileDrop>
 
       <button
+        className={stylse.write_card_btn}
         onClick={() => {
           if (card?._id) {
             EditMd();
@@ -227,61 +277,6 @@ export default function MarkdownPaper({
       >
         포스트
       </button>
-      <button
-        onClick={() => {
-          setShow(!show);
-        }}
-      >
-        눈
-      </button>
-      <input
-        type="text"
-        style={{ fontSize: '2.125rem' }}
-        value={title}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-          setTitle(e.target.value);
-        }}
-      />
-      <FileDrop
-        onDragOver={() => {
-          setBoardColor(true);
-        }}
-        onDragLeave={() => {
-          setBoardColor(false);
-        }}
-        onDrop={async (files: FileList | null) => {
-          if (files != null) {
-            DragImage(files);
-          }
-        }}
-      >
-        <div style={{ padding: '10px' }}>
-          {show ? (
-            <MarkdownEditor
-              value={md}
-              onChange={setMd}
-              preview="preview"
-              height={400}
-              style={
-                boardColor
-                  ? { backgroundColor: '#adb5bd' }
-                  : { backgroundColor: 'none' }
-              }
-            />
-          ) : (
-            <MarkdownEditor
-              value={md}
-              onChange={setMd}
-              height={400}
-              style={
-                boardColor
-                  ? { backgroundColor: '#adb5bd' }
-                  : { backgroundColor: 'none' }
-              }
-            />
-          )}
-        </div>
-      </FileDrop>
     </div>
   );
 }

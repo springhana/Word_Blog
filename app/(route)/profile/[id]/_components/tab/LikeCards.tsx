@@ -11,6 +11,7 @@ export default function LikeCards({ id }: { id: string | ObjectId }) {
     like: LikeType[];
     hasMore: boolean;
   };
+
   return (
     <div>
       {loading ? '로딩중' : null}

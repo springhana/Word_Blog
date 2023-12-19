@@ -3,27 +3,20 @@
 import { FaCameraRetro } from '@react-icons/all-files/fa/FaCameraRetro';
 import { useRef } from 'react';
 
+import stylse from '@/styles/Images.module.css';
+
 export default function ImageEdit({
   handleFileChange,
+  imgsize,
 }: {
   handleFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  imgsize?: number;
 }) {
   const imageInput = useRef<HTMLInputElement>(null);
 
   return (
     <div
-      style={{
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        cursor: 'pointer',
-        border: '1px solid red',
-      }}
+      className={stylse.image_edit}
       onClick={() => {
         if (imageInput.current) {
           imageInput.current.click();
@@ -37,7 +30,8 @@ export default function ImageEdit({
         onChange={handleFileChange}
         style={{ display: 'none' }}
       />
-      <FaCameraRetro />
+      <span>{imgsize && `${imgsize} x ${imgsize}`}</span>
+      <FaCameraRetro size={25} />
     </div>
   );
 }

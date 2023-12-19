@@ -3,6 +3,7 @@
 import { RiFilePaper2Line } from '@react-icons/all-files/ri/RiFilePaper2Line';
 
 import { useTag } from '@/hook/useTag';
+import { Init } from '@/redux/features/cardSlice';
 import { init_note } from '@/redux/features/noteSlice';
 import { tag_change } from '@/redux/features/tagSlice';
 import { onOpen } from '@/redux/features/writeSlice';
@@ -29,6 +30,7 @@ export default function AddWordBtn() {
         } else {
           dispatch(tag_change({ id: '태그 추가', name: '태그 추가' }));
         }
+        dispatch(Init());
         dispatch(init_note());
       }}
       className={styles.addBtn}

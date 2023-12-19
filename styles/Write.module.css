@@ -1,0 +1,161 @@
+.write_ouuter {
+  z-index: 10;
+}
+.write {
+  position: relative;
+  width: 563px;
+  height: 700px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: url('../public/image/modal/modal.png');
+  background-size: cover;
+}
+.write p {
+  position: absolute;
+  top: 90px;
+  right: 50px;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+/* ----- ImagePaper ----- */
+
+.write_paper {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 480px;
+  height: 680px;
+  overflow: hidden;
+}
+.write_paper_inner {
+  position: relative;
+  right: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.write_paper_inner div {
+  width: 100%;
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.write_paper_inner div img {
+  position: relative;
+  left: 11px;
+  width: 310px;
+  height: 235px;
+}
+.write_paper button:nth-child(1),
+.write_paper button:nth-child(2) {
+  position: absolute;
+  z-index: 22;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  transition: 0.2s all;
+}
+.write_paper button:nth-child(1) {
+  left: 40px;
+}
+.write_paper button:nth-child(2) {
+  right: 20px;
+}
+.write_paper button:nth-child(1):hover,
+.write_paper button:nth-child(2):hover {
+  background: #e6eef6;
+}
+
+/* ----- write_card ----- */
+.write_card {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 480px;
+  height: 680px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 50px;
+}
+.write_card div {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.write_card span {
+  position: absolute;
+  font-weight: bold;
+  font-size: 20px;
+  top: -30px;
+}
+.write_card div img {
+  width: 150px;
+  height: 150px;
+}
+.write_card_word {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.write_card_word::before {
+  position: absolute;
+  content: '기본';
+  width: 100%;
+  height: 95px;
+  border-radius: 20px;
+  background-color: #ffd645;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+/* ----- Btn ----- */
+.prevBtn,
+.nextBtn {
+  position: absolute;
+  bottom: 40px;
+  width: 120px;
+  height: 35px;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s all;
+}
+.prevBtn {
+  left: 175px;
+  background-color: #ffd645;
+}
+.prevBtn:hover {
+  background-color: #ffbf00;
+}
+.nextBtn {
+  right: 95px;
+  background-color: #fb6072;
+}
+.nextBtn:hover {
+  background-color: #ff1e46;
+}

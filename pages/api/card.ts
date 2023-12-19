@@ -71,12 +71,12 @@ export default async function Card(req: NextApiRequest, res: NextApiResponse) {
           meaning: req.body.meaning,
           sentence: req.body.sentence,
           memorize: req.body.memorize,
-          date: req.body.date + '수정됨',
+          updateDate: new Date(),
           image: req.body.image,
           paper: req.body.paper,
           program: req.body.program,
-          md: req.body.md,
-          title: req.body.title,
+          md: '',
+          title: '',
         };
 
         db.collection('card').updateOne(
@@ -91,13 +91,13 @@ export default async function Card(req: NextApiRequest, res: NextApiResponse) {
               md: md_compression,
               title: req.body.title,
               memorize: req.body.memorize,
-              date: req.body.date + '수정됨',
+              updateDate: new Date(),
               image: req.body.image,
               paper: req.body.paper,
               program: req.body.program,
-              word: req.body.word,
-              meaning: req.body.meaning,
-              sentence: req.body.sentence,
+              word: '',
+              meaning: '',
+              sentence: '',
             };
             db.collection('card').updateOne(
               { _id: new ObjectId(req.body.id) },

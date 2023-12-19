@@ -72,7 +72,7 @@ export default function MyCard({ id }: { id: string }) {
           loading={loading}
           hasMore={hasMore}
           page={page}
-          pageEvent={pageEvent}
+          setPage={setPage}
           tag={'all'}
         />
       ) : (

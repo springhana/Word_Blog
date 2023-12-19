@@ -32,20 +32,21 @@ export default function ProfileContainer({
       {error ? '에러' : null}
       {hasMore ? (
         <div>
-          {session && session.user.email === user.email ? (
-            <p>
-              <Link href={`/edit/profile/${id}`}>프로필 수정</Link>
-            </p>
-          ) : (
-            <SubscribeBtn user={user._id} />
-          )}
-
           <BannerImage image={user.bannerImage} />
-          <UserImage image={user.image} size={100} />
+          <div>
+            <UserImage image={user.image} size={100} />
 
-          <p>이름: {user.name}</p>
-          {user.intro ? <p>자기소개: {user.intro}</p> : null}
+            {session && session.user.email === user.email ? (
+              <p>
+                <Link href={`/edit/profile/${id}`}>프로필 수정</Link>
+              </p>
+            ) : (
+              <SubscribeBtn user={user._id} />
+            )}
 
+            <p>이름: {user.name}</p>
+            {user.intro ? <p>자기소개: {user.intro}</p> : null}
+          </div>
           <p>
             <Link href={`/book/${id}`}>단어장</Link>
           </p>

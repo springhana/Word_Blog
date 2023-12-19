@@ -1,11 +1,15 @@
 'use client';
 
 import { HiViewGridAdd } from '@react-icons/all-files/hi/HiViewGridAdd';
+import Image from 'next/image';
 
 import { useNote } from '@/hook/useNote';
 import { delete_note, onOpen, select_note } from '@/redux/features/noteSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/hook';
+import styles from '@/styles/Note.module.css';
 import { NoteType } from '@/types/word_blog';
+
+import NoteModal from './modal/NoteModal';
 
 export default function Note({ author }: { author: string }) {
   const dispatch = useAppDispatch();
@@ -27,45 +31,61 @@ export default function Note({ author }: { author: string }) {
   };
 
   return (
-    <div>
+    <div className={styles.note}>
       {loading ? '로딩중' : null}
       {error ? '에러' : null}
-
-      <p>단어집</p>
-      {!Open ? (
-        <div
-          onClick={() => {
-            dispatch(onOpen());
-          }}
-        >
-          <HiViewGridAdd />
-          노트 추가
+      <div className={styles.note_add}>
+        {!Open ? (
+          <div
+            className={styles.note_add_btn}
+            onClick={() => {
+              dispatch(onOpen());
+            }}
+          >
+            <HiViewGridAdd />
+            노트 추가
+          </div>
+        ) : null}
+        <div className={styles.note_modal}>
+          <NoteModal />
         </div>
-      ) : null}
+      </div>
 
-      {hasMore
-        ? note.map((item: NoteType, index: number) => {
-            return (
-              <div
-                key={index}
-                onClick={() => {
-                  selectNote(item.name, item._id);
-                }}
-                style={
-                  select.some(
-                    selectItme =>
-                      selectItme.id === item._id &&
-                      selectItme.name === item.name
-                  )
-                    ? { color: 'red' }
-                    : { color: 'black' }
-                }
-              >
-                {item.name}
-              </div>
-            );
-          })
-        : null}
+      <div className={styles.note_inner}>
+        {hasMore
+          ? note.map((item: NoteType, index: number) => {
+              return (
+                <div
+                  key={index}
+                  onClick={() => {
+                    selectNote(item.name, item._id);
+                  }}
+                  className={styles.note_item}
+                  style={
+                    select.some(
+                      selectItme =>
+                        selectItme.id === item._id &&
+                        selectItme.name === item.name
+                    )
+                      ? { color: 'red' }
+                      : { color: 'black' }
+                  }
+                >
+                  {item.image || item.image !== 'default' ? (
+                    <Image
+                      src={item.image}
+                      alt={item.image}
+                      width={10000}
+                      height={10000}
+                    />
+                  ) : null}
+
+                  {item.name}
+                </div>
+              );
+            })
+          : null}
+      </div>
     </div>
   );
 }

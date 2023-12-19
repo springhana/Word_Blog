@@ -31,44 +31,115 @@ export default async function Tag(req: NextApiRequest, res: NextApiResponse) {
     }
   } else if (req.method === 'POST') {
     try {
-      collection
-        .find({ userID: new ObjectId(req.body.id) })
-        .toArray()
-        .then(result => {
-          if (result) {
-            if (result.some(item => item._id === req.body.tag)) {
-              return res.status(405).end();
-            }
+      collection.findOne({ name: req.body.tag }).then(result => {
+        if (result) {
+          if (
+            result.userID.some(
+              (item: string) =>
+                item.toString() === new ObjectId(req.body.id).toString()
+            )
+          ) {
+            return res.json({ post: false });
+          } else {
+            const orginalTag = [
+              new ObjectId(...result.userID),
+              new ObjectId(req.body.id),
+            ];
             collection
-              .insertOne({
-                userID: new ObjectId(req.body.id),
-                name: req.body.tag,
-              })
+              .updateOne({ _id: result._id }, { $set: { userID: orginalTag } })
               .then(() => {
                 return res.json({ post: true });
               });
           }
-        });
+        } else {
+          collection
+            .insertOne({
+              userID: [new ObjectId(req.body.id)],
+              name: req.body.tag,
+            })
+            .then(() => {
+              return res.json({ post: true });
+            });
+        }
+      });
     } catch (error) {
       return res.status(400).end();
     }
   } else if (req.method === 'PUT') {
-    collection
-      .updateOne(
-        { _id: new ObjectId(req.body.id) },
-        { $set: { name: req.body.name } }
-      )
-      .then(result => {
-        if (result) {
-          return res.json({ update: true });
-        }
-      });
+    collection.findOne({ _id: new ObjectId(req.body.tagId) }).then(result => {
+      if (result) {
+        const originalTag = result.userID.filter(
+          (item: string) =>
+            item.toString() !== new ObjectId(req.body.id).toString()
+        );
+        collection
+          .updateOne(
+            { _id: new ObjectId(req.body.tagId) },
+            { $set: { userID: originalTag } }
+          )
+          .then(() => {
+            collection.findOne({ name: req.body.name }).then(result => {
+              if (result) {
+                if (
+                  result.userID.some(
+                    (item: string) =>
+                      item.toString() === new ObjectId(req.body.id).toString()
+                  )
+                ) {
+                  return res.json({ update: false });
+                } else {
+                  const orginalTag = [
+                    ...new Set([
+                      new ObjectId(...result.userID),
+                      new ObjectId(req.body.id),
+                    ]),
+                  ];
+
+                  collection
+                    .updateOne(
+                      { name: req.body.name },
+                      { $set: { userID: orginalTag } }
+                    )
+                    .then(result => {
+                      if (result) {
+                        return res.json({ update: true });
+                      }
+                    });
+                }
+              } else {
+                collection
+                  .insertOne({
+                    userID: [new ObjectId(req.body.id)],
+                    name: req.body.name,
+                  })
+                  .then(() => {
+                    return res.json({ update: true });
+                  });
+              }
+            });
+          });
+      }
+    });
   } else if (req.method === 'DELETE') {
     collection
-      .deleteOne({ _id: new ObjectId(req.query.id?.toString()) })
+      .findOne({ _id: new ObjectId(req.query.userId?.toString()) })
       .then(result => {
         if (result) {
-          return res.json({ delete: true });
+          const originalTag = result.userID.filter(
+            (item: string) =>
+              item.toString() !==
+              new ObjectId(req.query.id?.toString()).toString()
+          );
+          collection
+            .updateOne(
+              { _id: new ObjectId(req.query.userId?.toString()) },
+              { $set: { userID: originalTag } }
+            )
+            .then(() => {
+              if (result) {
+                return res.json({ delete: true });
+              }
+            });
         }
       });
   } else {

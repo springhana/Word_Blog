@@ -22,28 +22,32 @@ export default function TagsContainer() {
     hasMore: boolean;
   };
 
-  const TagUpdate = async (id: string) => {
+  const TagUpdate = async (tagId: string) => {
     try {
-      await axios.put('/api/tag', { id: id, name: value }).then(res => {
-        if (res.data.update) {
-          setUpdate('');
-          setValue('');
-          dispatch(change_state());
-        }
-      });
+      await axios
+        .put('/api/tag', { id: id, name: value, tagId: tagId })
+        .then(res => {
+          if (res.data.update) {
+            setUpdate('');
+            setValue('');
+            dispatch(change_state());
+          }
+        });
     } catch (error) {
       console.error(error);
     }
   };
 
-  const TagDelete = async (id: string) => {
+  const TagDelete = async (userId: string) => {
     try {
-      await axios.delete('/api/tag', { params: { id: id } }).then(res => {
-        if (res.data.delete) {
-          setRemove('');
-          dispatch(change_state());
-        }
-      });
+      await axios
+        .delete('/api/tag', { params: { id: id, userId: userId } })
+        .then(res => {
+          if (res.data.delete) {
+            setRemove('');
+            dispatch(change_state());
+          }
+        });
     } catch (error) {
       console.error(error);
     }

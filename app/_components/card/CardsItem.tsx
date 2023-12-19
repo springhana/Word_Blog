@@ -15,14 +15,14 @@ export default function CardsItem({
   loading,
   hasMore,
   page,
-  pageEvent,
+  setPage,
   tag,
 }: {
   cards: CardsType;
   loading: boolean;
   hasMore: boolean;
   page: number;
-  pageEvent: () => void;
+  setPage: (page: number) => void;
   tag: string;
 }) {
   const dispatch = useAppDispatch();
@@ -37,7 +37,7 @@ export default function CardsItem({
       observer.current = new IntersectionObserver(
         entries => {
           if (entries[0].isIntersecting && hasMore) {
-            pageEvent();
+            setPage(page + 1);
             dispatch(page_change(page + 1));
           }
         },

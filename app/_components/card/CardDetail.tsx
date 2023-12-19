@@ -10,6 +10,7 @@ import Md from '@/app/(route)/detail/[id]/_components/card/Md';
 import Word from '@/app/(route)/detail/[id]/_components/card/Word';
 import { useCard } from '@/hook/useCard';
 import { useAppSelector } from '@/redux/hook';
+import styles from '@/styles/CardDetail.module.css';
 import { CardType } from '@/types/word_blog';
 
 import CardNote from './CardNote';
@@ -33,7 +34,10 @@ export default function CardDetail({ id }: { id?: string | ObjectId }) {
       {loading ? (
         '로딩중'
       ) : (
-        <div style={{ position: 'relative' }}>
+        <div
+          className={styles.card}
+          style={id ? {} : { backgroundImage: 'url(/image/background.jpeg)' }}
+        >
           {id ? (
             card.program === 'word' ? (
               <WordItem item={card} memorize={memorize} />
@@ -45,7 +49,11 @@ export default function CardDetail({ id }: { id?: string | ObjectId }) {
           ) : (
             <Md item={card} />
           )}
-          {!id ? <CardNote id={card._id as string | ObjectId} /> : null}
+          {!id ? (
+            <div className={styles.note}>
+              <CardNote id={card._id as string | ObjectId} />
+            </div>
+          ) : null}
         </div>
       )}
     </div>

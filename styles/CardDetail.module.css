@@ -1,0 +1,211 @@
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
+
+.card {
+  position: relative;
+  border-bottom: 1px solid #dae1e2;
+  width: 100%;
+  height: 100%;
+  background-size: contain;
+}
+.card_container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
+  transition: 0.3s all;
+}
+.card_profile {
+  width: 100%;
+  padding: 0 20px;
+}
+.card_profile a {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+.card_profile a span {
+  margin-left: 10px;
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+.card_profile a span div:nth-child(1) {
+  color: #566370;
+}
+.card_profile a span div:nth-child(2) {
+  color: #8599ad;
+}
+.card_profile a span div:nth-child(1):hover {
+  border-bottom: 1px solid #566370;
+}
+
+.card_info {
+  width: 100%;
+  height: 100%;
+  padding: 30px;
+}
+.card_info_inner {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.card_image_pic {
+  width: 70%;
+}
+.card_image {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+}
+.card_word,
+.card_md {
+  width: 100%;
+  text-align: center;
+  font-family: 'Indie Flower', cursive;
+  font-size: 30px;
+}
+.card_word div {
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.card_like {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 450px;
+  margin-top: 10px;
+}
+.card_tag {
+  color: #fb6072;
+  background-color: #e6eef6;
+  padding: 10px;
+  border-radius: 20px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+/* ----- note ----- */
+
+.note {
+  position: relative;
+  margin-bottom: 20px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.note button:nth-child(1),
+.note button:nth-child(2) {
+  position: absolute;
+  background: none;
+  border: none;
+  font-weight: bold;
+  width: 50px;
+  height: 50px;
+  z-index: 10;
+  transition: 0.2s all;
+  cursor: pointer;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.note button:nth-child(1) {
+  left: 10px;
+}
+.note button:nth-child(2) {
+  right: 10px;
+}
+.note button:nth-child(1):hover {
+  background-color: #e6eef6;
+}
+.note button:nth-child(2):hover {
+  background-color: #e6eef6;
+}
+.note span {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  right: 100%;
+}
+.note span div {
+  width: 100%;
+  height: 192px;
+  flex: 0 0 auto;
+  font-size: 20px;
+  background: no-repeat center url('/image/book/book1.png');
+  background-size: 240px 192px;
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: 0.2s all;
+}
+.note span div div {
+  width: 240px;
+  height: 192px;
+  cursor: pointer;
+}
+
+.note span div div img {
+  width: 100px;
+  height: 100px;
+  border-radius: 10px;
+}
+
+/* ----- comment ----- */
+.comment_post {
+  border-top: 1px solid #dae1e2;
+  border-bottom: 1px solid #dae1e2;
+  padding: 20px;
+}
+.comment_input {
+  display: flex;
+  padding: 20px;
+}
+.comment_input textarea {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  overflow-y: hidden;
+  border: none;
+  resize: none;
+}
+.comment_input textarea:focus {
+  outline: none;
+  border-bottom: 2px solid #dae1e2;
+}
+
+.comment_input button {
+  width: 100px;
+  height: 30px;
+  background-color: #ffd645;
+  border-radius: 20px;
+  border: none;
+  font-weight: bold;
+}
+.comment_inner {
+  padding: 20px;
+  border-bottom: 1px solid #dae1e2;
+  transition: 0.3s all;
+}
+.comment_content {
+  padding: 20px 30px;
+  font-size: 18px;
+}
+.comment_inner:hover {
+  background-color: #f7f7f7;
+}

@@ -14,6 +14,7 @@ export interface CardType {
   paper: string;
   program: string;
   image: string;
+  updateDate?: string;
   title?: string;
   word?: string;
   meaning?: string;
@@ -32,7 +33,7 @@ export interface CommentType {
 
 export interface TagType {
   _id: string;
-  userID: string;
+  userID: string[];
   name: string;
 }
 

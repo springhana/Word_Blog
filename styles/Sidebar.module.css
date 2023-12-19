@@ -94,11 +94,12 @@
   position: fixed;
   background-color: #ffd645;
   width: 300px;
-  height: 90vh;
+  height: 500px;
   border-radius: 10px;
   margin: 30px 0 0 30px;
   padding: 30px;
   text-align: left;
+  overflow-y: auto;
 }
 .hash_add {
   text-align: center;

@@ -1,5 +1,4 @@
 import { NoteType } from '@/types/word_blog';
-import axios from 'axios';
 
 export default function getGraph(note: NoteType[]) {
   if (!note[0]) {

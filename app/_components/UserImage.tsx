@@ -21,6 +21,7 @@ export default function UserImage({
             width: `${size}px`,
             height: `${size}px`,
             borderRadius: '50%',
+            border: '2px solid white',
           }}
           priority
         />
@@ -34,6 +35,7 @@ export default function UserImage({
             width: `${size}px`,
             height: `${size}px`,
             borderRadius: '50%',
+            border: '2px solid white',
           }}
           priority
         />

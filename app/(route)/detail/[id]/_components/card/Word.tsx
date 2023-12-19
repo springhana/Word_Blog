@@ -1,3 +1,4 @@
+import { HiHashtag } from '@react-icons/all-files/hi/HiHashtag';
 import axios from 'axios';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -7,10 +8,15 @@ import Memorize from '@/app/_components/card/Memorize';
 import User from '@/app/_components/card/User';
 import Setting from '@/app/_components/Setting';
 import { useTag } from '@/hook/useTag';
+import { Init } from '@/redux/features/cardSlice';
+import { tag_change } from '@/redux/features/tagSlice';
+import { useAppDispatch } from '@/redux/hook';
+import styles from '@/styles/CardDetail.module.css';
 import { CardType, TagType } from '@/types/word_blog';
 
 export default function Word({ item }: { item: CardType }) {
   const router = useRouter();
+  const dispatch = useAppDispatch();
 
   const { loading, error, tags, hasMore } = useTag(item.tag, 'one') as {
     loading: boolean;
@@ -34,33 +40,60 @@ export default function Word({ item }: { item: CardType }) {
   };
 
   return (
-    <div>
-      <User id={item.author} />
+    <div className={styles.card_container}>
+      <div className={styles.card_profile}>
+        <User
+          id={item.author}
+          date={item.updateDate ? item.updateDate : item.date}
+        />
+      </div>
 
-      <div>{hasMore && !loading && !error && tags[0].name}</div>
-      <div>{item.word}</div>
-      <div>{item.meaning}</div>
-      <div>{item.sentence}</div>
-      <div>{item.date}</div>
-
-      <div style={{ width: '200px' }}>
-        {item.image === 'default' ? null : (
-          <Image
-            src={item.image}
-            alt={item.image}
-            width={10000}
-            height={10000}
-            style={{ width: '100%', height: '100%' }}
-          />
+      <div
+        className={styles.card_tag}
+        onClick={() => {
+          dispatch(Init());
+          dispatch(tag_change({ id: tags[0]._id, name: tags[0].name }));
+          router.push('/');
+        }}
+      >
+        {hasMore && !loading && !error && (
+          <>
+            <HiHashtag />
+            <span>{tags[0].name}</span>
+          </>
         )}
       </div>
 
-      <div>
-        <Memorize memorize={item.memorize} id={item._id} />
-        <Like id={item._id} />
-      </div>
+      <div className={styles.card_info}>
+        <div className={styles.card_info_inner}>
+          {item.image === 'default' ? null : (
+            <div className={styles.card_image_pic}>
+              <Image
+                src={item.image}
+                alt={item.image}
+                width={10000}
+                height={10000}
+                className={styles.card_image}
+              />
+            </div>
+          )}
 
-      <Setting id={item._id} state={'card'} Delete={Delete} />
+          <div className={styles.card_word}>
+            <div>{item.word}</div>
+            <div>{item.meaning}</div>
+            <div>{item.sentence}</div>
+          </div>
+
+          <div className={`${styles.card_like} markdown`}>
+            <Memorize memorize={item.memorize} id={item._id} />
+            <div>
+              <Like id={item._id} />
+            </div>
+          </div>
+        </div>
+
+        <Setting id={item._id} state={'card'} Delete={Delete} />
+      </div>
     </div>
   );
 }

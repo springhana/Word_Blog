@@ -4,6 +4,7 @@ import { useRef } from 'react';
 
 import User from '@/app/_components/card/User';
 import Setting from '@/app/_components/Setting';
+import styles from '@/styles/CardDetail.module.css';
 import { CommentType } from '@/types/word_blog';
 
 export default function CommentItem({ item }: { item: CommentType }) {
@@ -27,9 +28,15 @@ export default function CommentItem({ item }: { item: CommentType }) {
   };
 
   return (
-    <div ref={commentRef} style={{ position: 'relative' }}>
-      <User id={item.author} />
-      <div>{item.comment}</div>
+    <div
+      ref={commentRef}
+      style={{ position: 'relative' }}
+      className={styles.comment_inner}
+    >
+      <div className={styles.card_profile}>
+        <User id={item.author} date={item.date} />
+      </div>
+      <div className={styles.comment_content}>{item.comment}</div>
 
       <Setting id={item._id} state={'comment'} Delete={Delete} />
     </div>

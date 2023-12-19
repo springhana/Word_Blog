@@ -2,8 +2,8 @@
 
 import axios from 'axios';
 import { StaticImageData } from 'next/image';
-import { usePathname, useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useEffect, useRef, useState } from 'react';
 
 import { state_change } from '@/redux/features/cardSlice';
 import {
@@ -13,6 +13,7 @@ import {
   writetag_change,
 } from '@/redux/features/writeSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/hook';
+import stylse from '@/styles/Card.module.css';
 import { CardType } from '@/types/word_blog';
 
 import ImageDrag from '../../ImageDrag';
@@ -36,14 +37,17 @@ export default function WordPaper({
   const [file, setFile] = useState<File | undefined>(undefined);
   const [image, setImage] = useState<string | StaticImageData>('');
 
+  const ref_word = useRef<HTMLTextAreaElement>(null);
+  const ref_meaning = useRef<HTMLTextAreaElement>(null);
+  const ref_sentence = useRef<HTMLTextAreaElement>(null);
+
   const dispatch = useAppDispatch();
   const select = useAppSelector(state => state.noteReducer.select);
-  const pathname = usePathname();
   const router = useRouter();
   const noteState = useAppSelector(state => state.noteReducer.select);
 
   useEffect(() => {
-    if (card) {
+    if (card?._id) {
       setWord(card.word || '');
       setMeaning(card.meaning || '');
       setSentence(card.sentence || '');
@@ -131,7 +135,6 @@ export default function WordPaper({
         meaning: meaning,
         sentence: sentence,
         memorize: card.memorize,
-        date: card.date,
         note: noteState,
         paper: card.paper,
         program: program === 1 ? 'word' : 'markdown',
@@ -152,44 +155,69 @@ export default function WordPaper({
       });
   };
 
+  const handleResizeHeight = (textarea: HTMLTextAreaElement) => {
+    if (textarea) {
+      textarea.style.height = 'auto';
+      textarea.style.height = textarea.scrollHeight + 'px';
+    }
+  };
+
   return (
-    <div>
-      <div style={{ display: 'flex' }}>
+    <div className={stylse.write_card}>
+      <ImageDrag
+        image={image}
+        setImage={setImage}
+        setFile={setFile}
+        imgsize={150}
+      />
+
+      <div className={stylse.write_card_info}>
         <div>
-          <h5>단어</h5>
-          <input
-            type="text"
+          <textarea
+            ref={ref_word}
             value={word}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
+              if (ref_word.current) {
+                handleResizeHeight(ref_word.current);
+              }
               setWord(e.target.value);
             }}
+            placeholder="뜻"
+            rows={1}
           />
         </div>
         <div>
-          <h5>뜻</h5>
-          <input
-            type="text"
+          <textarea
+            ref={ref_meaning}
             value={meaning}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
+              if (ref_meaning.current) {
+                handleResizeHeight(ref_meaning.current);
+              }
               setMeaning(e.target.value);
             }}
+            placeholder="단어"
+            rows={1}
           />
         </div>
         <div>
-          <h5>문장</h5>
-          <input
-            type="text"
+          <textarea
+            ref={ref_sentence}
             value={sentence}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
+              if (ref_sentence.current) {
+                handleResizeHeight(ref_sentence.current);
+              }
               setSentence(e.target.value);
             }}
+            placeholder="문장"
+            rows={1}
           />
         </div>
       </div>
 
-      <ImageDrag image={image} setImage={setImage} setFile={setFile} />
-
       <button
+        className={stylse.post_btn}
         onClick={() => {
           if (card?._id) {
             EditWord();

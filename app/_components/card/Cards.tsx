@@ -1,19 +1,20 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { useCards } from '@/hook/useCards';
+import { useAppSelector } from '@/redux/hook';
 import { CardsType } from '@/types/global';
 
-import MemoTab from '../MemoTab';
 import CardsItem from './CardsItem';
 
 export default function Cards({ tag }: { tag: string }) {
   const [page, setPage] = useState<number>(1);
+  const pages = useAppSelector(state => state.pageReducer.page);
 
-  const pageEvent = () => {
-    setPage(page + 1);
-  };
+  useEffect(() => {
+    setPage(pages);
+  }, [pages]);
 
   const { loading, error, cards, hasMore } = useCards(page, tag, 'tag') as {
     loading: boolean;
@@ -29,15 +30,12 @@ export default function Cards({ tag }: { tag: string }) {
 
       {hasMore ? (
         <div>
-          <div className="memoTab">
-            <MemoTab />
-          </div>
           <CardsItem
             cards={cards}
             loading={loading}
             hasMore={hasMore}
             page={page}
-            pageEvent={pageEvent}
+            setPage={setPage}
             tag={tag}
           />
         </div>

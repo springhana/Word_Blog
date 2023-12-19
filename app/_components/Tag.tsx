@@ -8,6 +8,7 @@ import { usePathname } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 
 import { useTag } from '@/hook/useTag';
+import { Init } from '@/redux/features/cardSlice';
 import { tag_change } from '@/redux/features/tagSlice';
 import { onOpen } from '@/redux/features/writeSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/hook';
@@ -88,6 +89,7 @@ export default function Tag() {
 
         <div
           onClick={() => {
+            dispatch(Init());
             dispatch(tag_change({ id: '태그 추가', name: '태그 추가' }));
             dispatch(onOpen());
           }}
@@ -111,6 +113,7 @@ export default function Tag() {
         {pathname?.split('/')[1] === 'add' ? null : (
           <div
             onClick={() => {
+              dispatch(Init());
               dispatch(tag_change({ id: 'all', name: 'all' }));
               TagSlide();
             }}
@@ -127,6 +130,7 @@ export default function Tag() {
               <div
                 key={index}
                 onClick={() => {
+                  dispatch(Init());
                   dispatch(tag_change({ id: item._id, name: item.name }));
                   TagSlide();
                 }}

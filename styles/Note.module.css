@@ -1,0 +1,181 @@
+.note {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 480px;
+  height: 680px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.note_inner {
+  width: 100%;
+  height: 300px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: start;
+  overflow-y: auto;
+}
+.note_inner::-webkit-scrollbar {
+  display: none;
+}
+.note_item {
+  width: 50%;
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.note_item:nth-child(odd) {
+  background: no-repeat center url('/image/book/book1.png');
+  background-size: 150px 120px;
+}
+.note_item:nth-child(even) {
+  background: no-repeat center url('/image/book/book2.png');
+  background-size: 150px 120px;
+}
+.note_item img {
+  width: 60px;
+  height: 60px;
+  border-radius: 5px;
+}
+.note_add {
+  position: relative;
+  width: 100%;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.note_add .note_add_btn {
+  background-color: #fb6072;
+  width: 120px;
+  height: 40px;
+  border: 2px solid black;
+  border-radius: 20px;
+  transition: 0.2s all;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 21;
+}
+.note_add .note_add_btn:hover {
+  background-color: #ff1e46;
+}
+
+/* ----- note modal ----- */
+.note_modal {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 150px;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+.note_modal button:nth-child(1),
+.note_modal button:nth-child(2) {
+  position: absolute;
+  z-index: 22;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  transition: 0.2s all;
+}
+.note_modal button:nth-child(1) {
+  left: 35px;
+}
+.note_modal button:nth-child(2) {
+  right: 15px;
+}
+.note_modal button:nth-child(1):hover,
+.note_modal button:nth-child(2):hover {
+  background: #e6eef6;
+}
+
+.note_default_image {
+  position: relative;
+  width: 100%;
+  right: 100%;
+  display: flex;
+}
+.note_default_image div {
+  flex: 0 0 auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.note_default_image div img {
+  width: 100px;
+  height: 100px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.note_input {
+  width: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.note_input input {
+  width: 200px;
+  height: 25px;
+  margin-top: 5px;
+  border: none;
+  border-bottom: 2px solid #c4bebe;
+  background: none;
+  padding: 5px 20px;
+  font-weight: bold;
+}
+.note_input input:focus {
+  outline: none;
+}
+.note_input_btn {
+  position: absolute;
+  right: 30px;
+  gap: 10px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.note_input_btn div {
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid black;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+}
+.note_input_btn div:nth-child(1) {
+  background-color: #ffd645;
+}
+.note_input_btn div:nth-child(2) {
+  background-color: #fb6072;
+}
+.note_input_btn div:nth-child(1):hover {
+  background-color: #ffbf00;
+}
+.note_input_btn div:nth-child(2):hover {
+  background-color: #ff1e46;
+}

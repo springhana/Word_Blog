@@ -7,6 +7,7 @@ interface StateType {
   Open_delete: boolean;
   memorize: string;
   state: boolean;
+  init: boolean;
 }
 
 const initialState: StateType = {
@@ -15,6 +16,7 @@ const initialState: StateType = {
   Open_delete: false,
   memorize: 'all',
   state: false,
+  init: false,
 };
 
 export const card = createSlice({
@@ -42,6 +44,9 @@ export const card = createSlice({
     state_change: state => {
       state.state = !state.state;
     },
+    Init: state => {
+      state.init = !state.init;
+    },
   },
 });
 
@@ -53,5 +58,6 @@ export const {
   onClose_delete,
   memorize_change,
   state_change,
+  Init,
 } = card.actions;
 export default card.reducer;

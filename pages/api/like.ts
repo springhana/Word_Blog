@@ -30,7 +30,7 @@ export default async function Like(req: NextApiRequest, res: NextApiResponse) {
           .toArray()
           .then(result => {
             if (result) {
-              res.json({ result });
+              res.json(result);
             }
           });
       }

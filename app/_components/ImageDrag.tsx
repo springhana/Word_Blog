@@ -2,16 +2,20 @@ import Image, { StaticImageData } from 'next/image';
 import { useState } from 'react';
 import { FileDrop } from 'react-file-drop';
 
+import styles from '@/styles/Images.module.css';
+
 import ImageEdit from '../(route)/edit/profile/[id]/_components/ImageEdit';
 
 export default function ImageDrag({
   image,
   setImage,
   setFile,
+  imgsize,
 }: {
   image: string | StaticImageData;
   setImage: (image: string | StaticImageData) => void;
   setFile: (file: File | undefined) => void;
+  imgsize?: number;
 }) {
   const [boardColor, setBoardColor] = useState(false);
 
@@ -67,42 +71,36 @@ export default function ImageDrag({
       }}
     >
       <div
+        className={styles.image_pic}
         style={
           image
             ? {
-                width: '350px',
-                border: '1px solid red',
-                position: 'relative',
+                width: imgsize ? imgsize : '350px',
+                height: imgsize ? imgsize : '350px',
               }
             : {
-                width: '350px',
-                height: '350px',
-                border: '1px solid red',
-                position: 'relative',
+                width: imgsize ? imgsize : '350px',
+                height: imgsize ? imgsize : '350px',
               }
         }
       >
-        드래그
         {image !== 'default' && image ? (
-          <div>
-            <Image
-              src={image}
-              alt={'image'}
-              width={10000}
-              height={10000}
-              style={{ width: '100%', height: '100%' }}
-            />
-            <button
+          <div className={styles.image}>
+            <Image src={image} alt={'image'} width={10000} height={10000} />
+            <div
+              className={styles.image_delete}
               onClick={() => {
                 setImage('default');
                 setFile(undefined);
               }}
             >
               삭제
-            </button>
+            </div>
           </div>
         ) : (
-          <ImageEdit handleFileChange={handleFileChange} />
+          <>
+            <ImageEdit handleFileChange={handleFileChange} imgsize={imgsize} />
+          </>
         )}
       </div>
     </FileDrop>
