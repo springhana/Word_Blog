@@ -2,6 +2,7 @@ import { usePathname } from 'next/navigation';
 import { useEffect } from 'react';
 
 import { memorize_change } from '@/redux/features/cardSlice';
+import { page_change } from '@/redux/features/pageSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/hook';
 export default function MemoTab({
   setState,
@@ -14,6 +15,7 @@ export default function MemoTab({
 
   useEffect(() => {
     dispatch(memorize_change('all'));
+    dispatch(page_change(1));
   }, []);
 
   return (
