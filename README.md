@@ -135,6 +135,8 @@
 # 12월 17일
 1. detail css, event, animation
 
+# 12월 18일
+1. write modal css, event, animation
 - - -
 1. 노트 페이지에 시각화 - react-force-graph ✔️
 2. 설정창
