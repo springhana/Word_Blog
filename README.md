@@ -137,6 +137,7 @@
 
 # 12월 18일
 1. write modal css, event, animation
+2. 퀴즈 페이지 만들어야됨
 - - -
 1. 노트 페이지에 시각화 - react-force-graph ✔️
 2. 설정창
