@@ -1,3 +1,5 @@
+이미지 crop 모달 고치기, 세부적인 loading, error text 수정, 카드 이미지는 width만 100%, 이미지 관련 생각해보기, erd, 화면 흐름도 수정
+
 # ERD
 
 ![단블ERD drawio](https://github.com/springhana/word_blog/assets/97121074/e26c6b76-e0bc-40c8-8f5d-b86d212bb71c)
