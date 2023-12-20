@@ -53,21 +53,13 @@ export default function CardsItem({
       if (cards.result.length === index + 1 && page !== cards.totalPages) {
         if (item.program === 'markdown') {
           return (
-            <div
-              key={index}
-              ref={lastElementRef}
-              style={{ background: 'blue' }}
-            >
+            <div key={index} ref={lastElementRef}>
               <MdItem item={item} memorize={memorize} />
             </div>
           );
         } else if (item.program === 'word') {
           return (
-            <div
-              key={index}
-              ref={lastElementRef}
-              style={{ background: 'blue' }}
-            >
+            <div key={index} ref={lastElementRef}>
               <WordItem item={item} memorize={memorize} />
             </div>
           );

@@ -1,9 +1,15 @@
+import { useEffect } from 'react';
+
 import User from '@/app/_components/card/User';
 import SubscribeBtn from '@/app/_components/SubscribeBtn';
 import { useSubscribe } from '@/hook/useSubscribe';
+import { setTitle } from '@/redux/features/headerSlice';
+import { useAppDispatch } from '@/redux/hook';
+import styles from '@/styles/Profile.module.css';
 import { SubscribeType } from '@/types/word_blog';
 
 export default function FollowingContainer({ id }: { id: string }) {
+  const dispatch = useAppDispatch();
   const { loading, error, subscribe, hasMore } = useSubscribe(id, 'author') as {
     loading: boolean;
     error: boolean;
@@ -11,13 +17,17 @@ export default function FollowingContainer({ id }: { id: string }) {
     hasMore: boolean;
   };
 
+  useEffect(() => {
+    dispatch(setTitle('following'));
+  }, []);
+
   return (
-    <div>
+    <div className={styles.follow}>
       {loading ? '로딩중' : null}
       {error ? '에러' : null}
       {hasMore && subscribe[0]
         ? subscribe[0].userID.map((item, index) => (
-            <div key={index}>
+            <div key={index} className={styles.follow_item}>
               <User id={item} />
               <SubscribeBtn user={item} value="구독해체" />
             </div>

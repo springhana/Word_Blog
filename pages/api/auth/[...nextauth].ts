@@ -29,12 +29,20 @@ export const authOptions: NextAuthOptions = {
         if (credentials === undefined) {
           throw new Error('Invalid credentials');
         }
+        if (
+          credentials.email.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&')[0]
+        ) {
+          return null;
+        }
         const db = (await connectDB).db('word_blog_user');
         const user = await db
           .collection('users')
           .findOne({ email: credentials.email });
 
         if (!user) {
+          return null;
+        }
+        if (user.deactivate) {
           return null;
         }
         const pwcheck = await bcrypt.compare(

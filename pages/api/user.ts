@@ -16,6 +16,9 @@ export default async function User(req: NextApiRequest, res: NextApiResponse) {
         )
         .then(result => {
           if (result) {
+            if (result.deactivate) {
+              return res.status(405).end();
+            }
             if (req.query.state === 'id') {
               return res.json(result);
             } else if (req.query.state === 'email') {
@@ -58,6 +61,33 @@ export default async function User(req: NextApiRequest, res: NextApiResponse) {
             return res.json({ post: false });
           }
         }
+      });
+  } else if (req.method === 'DELETE') {
+    db.collection('users')
+      .updateOne(
+        { _id: new ObjectId(req.query.user?.toString()) },
+        {
+          $set: {
+            email: req.query.email + '/deactivate',
+            deactivate: true,
+          },
+        }
+      )
+      .then(() => {
+        db.collection('accounts')
+          .updateOne(
+            { userId: new ObjectId(req.query.user?.toString()) },
+            {
+              $set: {
+                userId:
+                  new ObjectId(req.query.user?.toString()) + '/deactivate',
+                deactivate: true,
+              },
+            }
+          )
+          .then(() => {
+            return res.json({ delete: true });
+          });
       });
   } else {
     return res.status(405).end();

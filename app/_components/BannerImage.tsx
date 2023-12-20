@@ -8,7 +8,7 @@ export default function BannerImage({
   image: StaticImageData | string;
 }) {
   return (
-    <div>
+    <>
       {image === 'default' || !image ? (
         <Image
           src={BannerImage_img}
@@ -28,6 +28,6 @@ export default function BannerImage({
           priority
         />
       )}
-    </div>
+    </>
   );
 }

@@ -3,6 +3,8 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
+import styles from '@/styles/UserSetting.module.css';
+
 export default function Password({ user }: { user: string }) {
   const [password, setPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
@@ -34,39 +36,40 @@ export default function Password({ user }: { user: string }) {
   };
 
   return (
-    <div>
+    <div className={styles.password}>
+      <p>비밀 번호 변경</p>
       <div>
-        <div>현재 비밀번호</div>
         <input
           type="text"
           value={password}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             setPassword(e.target.value);
           }}
+          placeholder="현재 비밀번호"
         />
       </div>
       <div>
-        <div>새 비밀번호</div>
         <input
           type="text"
           value={newPassword}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             setNewPassword(e.target.value);
           }}
+          placeholder="새 비밀번호"
         />
       </div>
       <div>
-        <div>비밀번호 확인</div>
         <input
           type="text"
           value={passwordCheck}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             setPasswordCheck(e.target.value);
           }}
+          placeholder="비밀번호 확인"
         />
       </div>
 
-      <button onClick={PasswordPost}>저장</button>
+      <button onClick={PasswordPost}>비밀번호 변경</button>
     </div>
   );
 }

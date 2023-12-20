@@ -1,7 +1,9 @@
 'use client';
 import dynamic from 'next/dynamic';
+import { useEffect } from 'react';
 
-import { useAppSelector } from '@/redux/hook';
+import { setTitle } from '@/redux/features/headerSlice';
+import { useAppDispatch, useAppSelector } from '@/redux/hook';
 
 import MemoTab from '../MemoTab';
 
@@ -11,6 +13,10 @@ const Cards = dynamic(() => import('./Cards').then(mod => mod.default), {
 
 export default function ViewCard() {
   const tag = useAppSelector(state => state.tagReducer.tag);
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(setTitle('home'));
+  }, []);
 
   return (
     <div>

@@ -1,0 +1,73 @@
+.edit_modal {
+  position: relative;
+}
+.edit_modal_back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: calc(100vh - 111px);
+  background: black;
+  opacity: 0.7;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.edit_modal_btn_prev,
+.edit_modal_btn_next {
+  position: absolute;
+  bottom: 30px;
+  z-index: 11;
+  width: 120px;
+  height: 35px;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s all;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.edit_modal_btn_prev {
+  margin-right: 150px;
+  background-color: #ffd645;
+  border: 2px solid #fb6072;
+}
+.edit_modal_btn_next {
+  margin-left: 150px;
+  background-color: #fb6072;
+  border: 2px solid #ffd645;
+}
+.edit_modal_btn_prev:hover {
+  background-color: #ffbf00;
+}
+.edit_modal_btn_next:hover {
+  background-color: #ff1e46;
+}
+.edit_img {
+  position: absolute;
+  top: -50px;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.edit_user {
+  position: absolute;
+  bottom: -50px;
+  padding: 20px;
+}
+.edit_user input {
+  padding: 10px;
+  border: none;
+  font-size: 16px;
+  border-radius: 20px;
+}
+.edit_user input:focus {
+  outline: none;
+}
+.name {
+  font-size: 18px;
+  font-weight: bold;
+}

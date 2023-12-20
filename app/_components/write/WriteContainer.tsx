@@ -15,6 +15,7 @@ import styles from '@/styles/Write.module.css';
 import { CardType, NoteType } from '@/types/word_blog';
 
 import ImagePaper from './ImagePaper';
+import TagAdd from './tag/TagAdd';
 
 const WordPaper = dynamic(
   () => import('./word/WordPaper').then(mod => mod.default),
@@ -166,7 +167,9 @@ export default function WriteContainer() {
             다음
           </button>
         </>
-      ) : null}
+      ) : (
+        <TagAdd id={id} />
+      )}
     </div>
   );
 }

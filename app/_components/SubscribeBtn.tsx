@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useState } from 'react';
 
 import { useAppSelector } from '@/redux/hook';
+import styles from '@/styles/Profile.module.css';
 
 export default function SubscribeBtn({
   user,
@@ -14,6 +15,11 @@ export default function SubscribeBtn({
 }) {
   const [fallow, setFallow] = useState(value ? value : '구독');
   const id = useAppSelector(state => state.idReducer.id);
+
+  if (!id) {
+    return null;
+  }
+
   const SubscribePost = async () => {
     try {
       axios.post('/api/subscribe', { author: id, user: user }).then(res => {
@@ -29,5 +35,9 @@ export default function SubscribeBtn({
       console.error(error);
     }
   };
-  return <div onClick={SubscribePost}>{fallow}</div>;
+  return (
+    <div onClick={SubscribePost} className={styles.subscribe_btn}>
+      {fallow}
+    </div>
+  );
 }

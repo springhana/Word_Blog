@@ -1,0 +1,111 @@
+.setting_btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+  border-top: 1px solid #dae1e2;
+}
+.setting_btn button {
+  width: 100%;
+  text-align: left;
+  padding: 20px;
+  background: none;
+  border: none;
+  border-bottom: 1px solid #dae1e2;
+  cursor: pointer;
+  transition: 0.2s all;
+  font-weight: bold;
+}
+.setting_btn button:hover {
+  background-color: #f7f7f7;
+}
+
+/* ----- Mydata ----- */
+.mydata {
+  border-top: 1px solid #dae1e2;
+}
+.mydata div {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid #dae1e2;
+  font-weight: bold;
+}
+.mydata div:hover {
+  background-color: #f7f7f7;
+}
+
+.mydata div span {
+  display: block;
+  width: 100px;
+  font-weight: bold;
+  transition: 0.2s all;
+}
+
+.mydata div:hover span {
+  margin-right: 30px;
+}
+
+/* ----- password ----- */
+.password {
+  border-top: 1px solid #dae1e2;
+  padding: 20px;
+  text-align: center;
+}
+.password p {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+.password div {
+  width: 100%;
+  height: 80px;
+  text-align: center;
+}
+.password div input {
+  width: 300px;
+  height: 50px;
+  padding: 0 20px;
+  border-radius: 10px;
+}
+.password button {
+  width: 120px;
+  height: 40px;
+  border-radius: 20px;
+  background-color: #fb6072;
+  transition: 0.2s all;
+  cursor: pointer;
+}
+.password button:hover {
+  background-color: #ff1e46;
+}
+
+/* ----- deactivate ----- */
+.deactivate {
+  border-top: 1px solid #dae1e2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.deactivate div {
+  padding: 20px;
+  border-bottom: 1px solid #dae1e2;
+}
+.deactivate div p {
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+.deactivate button {
+  width: 120px;
+  height: 40px;
+  border-radius: 20px;
+  background-color: #fb6072;
+  transition: 0.2s all;
+  cursor: pointer;
+  margin-top: 30px;
+}
+.deactivate button:hover {
+  background-color: #ff1e46;
+}

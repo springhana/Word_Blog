@@ -1,11 +1,10 @@
 'use client';
-
 import { IoArrowBack } from '@react-icons/all-files/io5/IoArrowBack';
 import { useRouter } from 'next/navigation';
 
-import RegisterContainer from './_components/RegisterContainer';
+import AccountContainer from './_components/AccountContainer';
 
-export default function Register() {
+export default function Info() {
   const router = useRouter();
   return (
     <div>
@@ -18,7 +17,7 @@ export default function Register() {
         <IoArrowBack />
         <span>뒤로가기</span>
       </div>
-      <RegisterContainer />
+      <AccountContainer />
     </div>
   );
 }

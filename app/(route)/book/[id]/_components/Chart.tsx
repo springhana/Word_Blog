@@ -6,6 +6,8 @@ import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 
+import styles from '@/styles/Book.module.css';
+
 const ForceGraph2D = dynamic(() => import('react-force-graph-2d'), {
   ssr: false,
 });
@@ -96,7 +98,7 @@ export default function Chart({ note }: { note: NoteType[] }) {
   );
 
   return (
-    <div>
+    <div className={styles.graph}>
       <ForceGraph2D
         onNodeClick={handleNodeClick}
         graphData={prunedTree}

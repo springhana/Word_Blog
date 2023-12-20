@@ -7,6 +7,7 @@ export interface AccountsType {
   token_type: string;
   scope: string;
   userId: string;
+  deactivate: boolean?;
 }
 
 export interface UsersType {
@@ -18,4 +19,5 @@ export interface UsersType {
   bannerImage: string;
   password: string?;
   emailVerified: string | null;
+  deactivate: boolean?;
 }

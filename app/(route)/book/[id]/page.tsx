@@ -1,8 +1,8 @@
 import { getServerSession } from 'next-auth';
 
 import Login from '@/app/_components/Login';
-import NoteModal from '@/app/_components/modal/NoteModal';
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
+import styles from '@/styles/Book.module.css';
 import { SessionType } from '@/types/global';
 
 import BookContainer from './_components/BookContainer';
@@ -13,8 +13,7 @@ export default async function Book() {
     return <Login />;
   }
   return (
-    <div>
-      <NoteModal />
+    <div className={styles.book}>
       <BookContainer />
     </div>
   );

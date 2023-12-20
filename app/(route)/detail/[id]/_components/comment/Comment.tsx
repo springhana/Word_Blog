@@ -3,10 +3,11 @@
 import axios from 'axios';
 import dynamic from 'next/dynamic';
 import { usePathname } from 'next/navigation';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import User from '@/app/_components/card/User';
 import { change_state, commentID_change } from '@/redux/features/commentSlice';
+import { setTitle } from '@/redux/features/headerSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/hook';
 import styles from '@/styles/CardDetail.module.css';
 
@@ -23,6 +24,10 @@ export default function Comment() {
   const user = useAppSelector(state => state.idReducer.id);
   const pathname = usePathname();
   const _id = pathname?.split('/')[2] as string;
+
+  useEffect(() => {
+    dispatch(setTitle('detail'));
+  }, []);
 
   const commentPost = async () => {
     await axios

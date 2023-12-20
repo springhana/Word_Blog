@@ -124,6 +124,7 @@
 .note button:nth-child(2) {
   right: 10px;
 }
+
 .note button:nth-child(1):hover {
   background-color: #e6eef6;
 }

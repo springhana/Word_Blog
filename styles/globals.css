@@ -106,3 +106,25 @@ input[type='radio'] {
   opacity: 0.6;
   background: black;
 }
+
+/* ----- back ----- */
+.back {
+  width: 100%;
+  padding: 20px;
+  background-color: white;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  cursor: pointer;
+  transition: 0.2s all;
+  font-weight: bold;
+}
+.back:hover {
+  background-color: #f7f7f7;
+}
+.back span {
+  transition: 0.2s all;
+}
+.back:hover.back span {
+  transform: translateX(30px);
+}

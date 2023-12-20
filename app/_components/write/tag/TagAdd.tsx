@@ -4,7 +4,9 @@ import axios from 'axios';
 import { useState } from 'react';
 
 import { change_state, tag_change } from '@/redux/features/tagSlice';
+import { onClose } from '@/redux/features/writeSlice';
 import { useAppDispatch } from '@/redux/hook';
+import styles from '@/styles/Write.module.css';
 
 export default function TagAdd({ id }: { id: string }) {
   const [tag, setTag] = useState('');
@@ -17,6 +19,7 @@ export default function TagAdd({ id }: { id: string }) {
         if (res.data.post) {
           dispatch(change_state());
           dispatch(tag_change({ id: 'all', name: 'all' }));
+          dispatch(onClose());
         }
       });
     } catch (error) {
@@ -25,7 +28,7 @@ export default function TagAdd({ id }: { id: string }) {
   };
 
   return (
-    <div>
+    <div className={styles.tag_add}>
       <input
         type="text"
         value={tag}

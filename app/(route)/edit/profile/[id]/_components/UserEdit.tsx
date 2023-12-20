@@ -1,5 +1,6 @@
 'use client';
 
+import { IoArrowBack } from '@react-icons/all-files/io5/IoArrowBack';
 import axios from 'axios';
 import { StaticImageData } from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
@@ -11,6 +12,7 @@ import UserImage from '@/app/_components/UserImage';
 import { useUser } from '@/hook/useUser';
 import { onOpen } from '@/redux/features/imageSlice';
 import { useAppDispatch } from '@/redux/hook';
+import styles from '@/styles/Edit.module.css';
 import { UsersType } from '@/types/word_blog_user';
 
 import ImageEdit from './ImageEdit';
@@ -107,79 +109,54 @@ export default function UserEdit() {
   };
 
   return (
-    <div>
+    <div className={styles.edit}>
       {loading ? '로딩중' : null}
       {error ? '에러' : null}
 
-      {page > 1 ? (
-        <span
-          onClick={() => {
-            if (page > 1) {
-              setPage(page - 1);
-            }
-          }}
-        >
-          이전으로
-        </span>
-      ) : null}
-
-      {page < 4 ? (
-        <span
-          onClick={() => {
-            if (page < 4) {
-              setPage(page + 1);
-            }
-          }}
-        >
-          다음으로
-        </span>
-      ) : (
-        <span onClick={UpdateUser}>저장하기</span>
-      )}
+      <div
+        className="back"
+        onClick={() => {
+          router.back();
+        }}
+      >
+        <IoArrowBack />
+        <span>뒤로가기</span>
+      </div>
 
       {hasMore ? (
-        <div style={{ position: 'relative' }}>
-          <div
-            style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              width: '100%',
-              height: '100%',
-              background: 'black',
-              opacity: 0.7,
-              zIndex: 10,
-            }}
-          ></div>
-          <div style={CurrentTarget(1)}>
-            <input
-              type="text"
-              value={name}
-              placeholder="이름"
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                setName(e.target.value);
-              }}
-            />
-          </div>
-
-          <div style={CurrentTarget(2)}>
-            {page === 2 ? (
-              <>
-                <ImageEdit handleFileChange={handleFileChange} />
-                <ImageEditModal
-                  image={image as string}
-                  fileName={fileName}
-                  ImageEvent={ImageEvent}
-                  aspects={1 / 1.01}
-                  id={pathname}
-                  type="image"
-                />
-              </>
+        <div className={styles.edit_modal}>
+          <div className={styles.edit_modal_back}>
+            {page > 1 ? (
+              <span
+                onClick={() => {
+                  if (page > 1) {
+                    setPage(page - 1);
+                  }
+                }}
+                className={styles.edit_modal_btn_prev}
+              >
+                이전으로
+              </span>
             ) : null}
-            <UserImage image={image} size={100} />
+            {page < 4 ? (
+              <span
+                onClick={() => {
+                  if (page < 4) {
+                    setPage(page + 1);
+                  }
+                }}
+                className={styles.edit_modal_btn_next}
+              >
+                다음으로
+              </span>
+            ) : (
+              <span onClick={UpdateUser} className={styles.edit_modal_btn_next}>
+                저장하기
+              </span>
+            )}
           </div>
 
-          <div style={CurrentTarget(3)}>
+          <div style={CurrentTarget(3)} className={styles.edit_banner}>
             {page === 3 ? (
               <>
                 <ImageEdit handleFileChange={handleFileChange} />
@@ -196,15 +173,45 @@ export default function UserEdit() {
             <BannerImage image={bannerImage} />
           </div>
 
-          <div style={CurrentTarget(4)}>
-            <input
-              type="text"
-              value={self_Intro}
-              placeholder="자기소개"
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                setSelf_Intro(e.target.value);
-              }}
-            />
+          <div style={CurrentTarget(2)} className={styles.edit_img}>
+            {page === 2 ? (
+              <>
+                <ImageEdit handleFileChange={handleFileChange} />
+                <ImageEditModal
+                  image={image as string}
+                  fileName={fileName}
+                  ImageEvent={ImageEvent}
+                  aspects={1 / 1.01}
+                  id={pathname}
+                  type="image"
+                />
+              </>
+            ) : null}
+            <UserImage image={image} size={100} />
+          </div>
+
+          <div className={styles.edit_user}>
+            <div style={CurrentTarget(1)}>
+              <input
+                type="text"
+                value={name}
+                placeholder="이름"
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  setName(e.target.value);
+                }}
+                className={styles.name}
+              />
+            </div>
+            <div style={CurrentTarget(4)}>
+              <input
+                type="text"
+                value={self_Intro}
+                placeholder="자기소개"
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  setSelf_Intro(e.target.value);
+                }}
+              />
+            </div>
           </div>
         </div>
       ) : null}

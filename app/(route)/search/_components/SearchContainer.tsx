@@ -1,19 +1,24 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import CardDetail from '@/app/_components/card/CardDetail';
 import { useSearch } from '@/hook/useSearch';
+import { setTitle } from '@/redux/features/headerSlice';
+import { useAppDispatch } from '@/redux/hook';
 
 export default function SearchContainer() {
   const [value, setValue] = useState('');
-
+  const dispatch = useAppDispatch();
   const { loading, error, cards, hasMore } = useSearch(value) as {
     loading: boolean;
     error: boolean;
     cards: { _id: string }[];
     hasMore: boolean;
   };
+  useEffect(() => {
+    dispatch(setTitle('home'));
+  }, [hasMore]);
 
   return (
     <div>

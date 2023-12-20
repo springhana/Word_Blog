@@ -1,0 +1,152 @@
+.profile {
+  width: 100%;
+}
+.profile_image {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+.profile_banner img {
+  width: 100%;
+  height: 100%;
+}
+.profile_user {
+  position: absolute;
+  bottom: -50px;
+}
+.profile_info {
+  position: relative;
+  margin-top: 50px;
+  padding: 20px;
+}
+.profile_info p {
+  position: absolute;
+  top: -50px;
+  right: 0;
+  width: 120px;
+  height: 35px;
+  border-radius: 20px;
+  transition: 0.2s all;
+  background-color: #fb6072;
+  border: 2px solid black;
+  margin: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.profile_info p:hover {
+  background-color: #ff1e46;
+}
+.profile_info div {
+  padding: 10px;
+}
+.name {
+  font-size: 18px;
+  font-weight: bold;
+}
+.follower span {
+  margin-right: 30px;
+}
+.follower span a {
+  padding: 5px 10px;
+  border-radius: 20px;
+  background-color: #e7e7e8;
+  transition: 0.2s all;
+  font-weight: bold;
+}
+.follower span a:hover {
+  background-color: #d2d3d5;
+}
+
+/* ----- subscribe ------ */
+.subscribe_btn {
+  width: 120px;
+  height: 35px;
+  border-radius: 20px;
+  transition: 0.2s all;
+  background-color: #fb6072;
+  border: 2px solid black;
+  margin: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.subscribe_btn:hover {
+  background-color: #ff1e46;
+}
+/* ----- Chart ----- */
+.chart {
+  width: 100%;
+  border-top: 1px solid #dae1e2;
+}
+
+/* ----- following, follower ----- */
+
+.follow_item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid #dae1e2;
+  transition: 0.2s all;
+}
+.follow_item:hover {
+  background-color: #f7f7f7;
+}
+.follow_item a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  font-weight: bold;
+}
+
+/* ----- tag ----- */
+.tag_item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid #dae1e2;
+  transition: 0.2s all;
+}
+
+.btn button {
+  width: 80px;
+  height: 35px;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s all;
+  margin-right: 10px;
+}
+.btn_ok {
+  background-color: #fb6072;
+}
+.btn_cancel {
+  background-color: #ffd645;
+}
+.btn button:hover {
+  background-color: #ff1e46;
+}
+.btn_cancel:hover {
+  background-color: #ffbf00;
+}
+.tag_name {
+  font-weight: bold;
+}
+.tag_input {
+  padding: 10px;
+  border: none;
+  border-bottom: 2px solid #e7e7e8;
+}
+.tag_input:focus {
+  outline: none;
+  border-bottom: 2px solid #e7e7e8;
+}

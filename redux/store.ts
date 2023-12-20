@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 
 import cardReducer from './features/cardSlice';
 import commentReducer from './features/commentSlice';
+import headerReducer from './features/headerSlice';
 import idReducer from './features/idSlice';
 import imageReducer from './features/imageSlice';
 import likeReducer from './features/likeSlice';
@@ -21,6 +22,7 @@ export const store = configureStore({
     commentReducer,
     cardReducer,
     imageReducer,
+    headerReducer,
   },
   devTools: process.env.NODE_ENV !== 'production',
 });

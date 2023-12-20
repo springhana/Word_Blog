@@ -31,7 +31,7 @@ export default function ImageEdit({
         style={{ display: 'none' }}
       />
       <span>{imgsize && `${imgsize} x ${imgsize}`}</span>
-      <FaCameraRetro size={25} />
+      <FaCameraRetro size={20} />
     </div>
   );
 }

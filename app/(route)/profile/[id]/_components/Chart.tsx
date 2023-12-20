@@ -2,6 +2,8 @@ import dynamic from 'next/dynamic';
 import { CardsType } from '@/types/global';
 import { useMemo } from 'react';
 
+import styles from '@/styles/Profile.module.css';
+
 const ApexChart = dynamic(
   () => import('react-apexcharts').then(mod => mod.default),
   { ssr: false }
@@ -90,14 +92,8 @@ export default function Chart({ cards }: { cards: CardsType }) {
   }, []);
 
   return (
-    <div>
-      <ApexChart
-        options={options}
-        series={memo}
-        type="heatmap"
-        height={250}
-        width={500}
-      />
+    <div className={styles.chart}>
+      <ApexChart options={options} series={memo} type="heatmap" height={350} />
     </div>
   );
 }

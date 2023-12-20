@@ -1,5 +1,5 @@
+import { MdDelete } from '@react-icons/all-files/md/MdDelete';
 import Image, { StaticImageData } from 'next/image';
-import { useState } from 'react';
 import { FileDrop } from 'react-file-drop';
 
 import styles from '@/styles/Images.module.css';
@@ -17,8 +17,6 @@ export default function ImageDrag({
   setFile: (file: File | undefined) => void;
   imgsize?: number;
 }) {
-  const [boardColor, setBoardColor] = useState(false);
-
   const DragImage = (files: FileList) => {
     if (files[0].size >= 5000000) {
       alert('5MB 이상 파일은 업로드가 불가능합니다.');
@@ -58,12 +56,6 @@ export default function ImageDrag({
 
   return (
     <FileDrop
-      onDragOver={() => {
-        setBoardColor(true);
-      }}
-      onDragLeave={() => {
-        setBoardColor(false);
-      }}
       onDrop={async (files: FileList | null) => {
         if (files != null) {
           DragImage(files);
@@ -94,7 +86,7 @@ export default function ImageDrag({
                 setFile(undefined);
               }}
             >
-              삭제
+              <MdDelete size={15} />
             </div>
           </div>
         ) : (

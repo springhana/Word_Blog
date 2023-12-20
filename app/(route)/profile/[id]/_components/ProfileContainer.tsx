@@ -2,9 +2,13 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useEffect } from 'react';
 
 import UserImage from '@/app/_components/UserImage';
 import { useUser } from '@/hook/useUser';
+import { setTitle } from '@/redux/features/headerSlice';
+import { useAppDispatch } from '@/redux/hook';
+import styles from '@/styles/Profile.module.css';
 import { SessionType } from '@/types/global';
 import { UsersType } from '@/types/word_blog_user';
 
@@ -18,7 +22,7 @@ export default function ProfileContainer({
 }) {
   const pathname = usePathname();
   const id = pathname?.split('/')[2] as string;
-
+  const dispatch = useAppDispatch();
   const { loading, error, user, hasMore } = useUser(id, 'id') as {
     loading: boolean;
     error: boolean;
@@ -26,16 +30,27 @@ export default function ProfileContainer({
     hasMore: boolean;
   };
 
+  useEffect(() => {
+    if (!loading && !error && hasMore) {
+      dispatch(setTitle(user.name));
+    }
+  }, [hasMore]);
+
   return (
-    <div>
+    <div className={styles.profile}>
       {loading ? '로딩중' : null}
       {error ? '에러' : null}
       {hasMore ? (
         <div>
-          <BannerImage image={user.bannerImage} />
-          <div>
-            <UserImage image={user.image} size={100} />
-
+          <div className={styles.profile_image}>
+            <div className={styles.profile_banner}>
+              <BannerImage image={user.bannerImage} />
+            </div>
+            <div className={styles.profile_user}>
+              <UserImage image={user.image} size={100} />
+            </div>
+          </div>
+          <div className={styles.profile_info}>
             {session && session.user.email === user.email ? (
               <p>
                 <Link href={`/edit/profile/${id}`}>프로필 수정</Link>
@@ -43,17 +58,18 @@ export default function ProfileContainer({
             ) : (
               <SubscribeBtn user={user._id} />
             )}
+            <div className={styles.name}>{user.name}</div>
+            {user.intro ? <div>{user.intro}</div> : null}
+            <div className={styles.follower}>
+              <span>
+                <Link href={`/book/${id}`}>단어장</Link>
+              </span>
 
-            <p>이름: {user.name}</p>
-            {user.intro ? <p>자기소개: {user.intro}</p> : null}
+              <span>
+                <Link href={`${id}/following`}>팔로우</Link>
+              </span>
+            </div>
           </div>
-          <p>
-            <Link href={`/book/${id}`}>단어장</Link>
-          </p>
-
-          <p>
-            <Link href={`${id}/following`}>팔로우</Link>
-          </p>
         </div>
       ) : null}
     </div>

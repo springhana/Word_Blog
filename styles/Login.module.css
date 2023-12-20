@@ -1,0 +1,106 @@
+/* ----- login ----- */
+.login {
+  padding: 50px;
+}
+.title {
+  padding-bottom: 30px;
+  text-align: center;
+}
+.title img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+}
+.title p {
+  margin-top: 50px;
+  font-size: 24px;
+  font-weight: bold;
+}
+.login_auth,
+.login_email {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.login_auth {
+  padding-bottom: 30px;
+}
+.login_auth button {
+  width: 300px;
+  height: 40px;
+  border-radius: 20px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  background-color: white;
+  border: 1px solid #dae1e2;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.2s all;
+}
+.login_auth button:nth-child(1) {
+  margin-bottom: 10px;
+}
+.login_auth button:hover {
+  background-color: #dae1e2;
+}
+.login_email {
+  border-top: 2px solid #dae1e2;
+  padding-top: 30px;
+}
+.login_email input {
+  width: 300px;
+  height: 40px;
+  border-radius: 20px;
+  padding: 0 30px;
+  margin-bottom: 10px;
+}
+.login_email button {
+  width: 300px;
+  height: 40px;
+  border-radius: 20px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.2s all;
+  margin-top: 10px;
+}
+.login_btn {
+  border: 1px solid #dae1e2;
+  background-color: white;
+}
+.login_btn:hover {
+  background-color: #dae1e2;
+}
+.register_btn {
+  border: none;
+  background-color: #fb6072;
+}
+.register_btn:hover {
+  background-color: #ff1e46;
+}
+
+.email_post {
+  margin: 10px 0;
+}
+.email_check {
+  width: 100%;
+  border-bottom: 1px solid #dae1e2;
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.register {
+  border-top: 1px solid #dae1e2;
+}

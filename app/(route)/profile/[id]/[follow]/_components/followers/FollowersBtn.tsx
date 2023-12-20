@@ -23,7 +23,9 @@ export default function FollowersBtn({
         ) : (
           <SubscribeBtn user={userId} value="구독" />
         )
-      ) : null}
+      ) : (
+        <SubscribeBtn user={userId} value="구독" />
+      )}
     </div>
   );
 }

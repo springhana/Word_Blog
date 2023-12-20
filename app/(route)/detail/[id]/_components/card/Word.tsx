@@ -47,7 +47,6 @@ export default function Word({ item }: { item: CardType }) {
           date={item.updateDate ? item.updateDate : item.date}
         />
       </div>
-
       <div
         className={styles.card_tag}
         onClick={() => {
@@ -63,7 +62,6 @@ export default function Word({ item }: { item: CardType }) {
           </>
         )}
       </div>
-
       <div className={styles.card_info}>
         <div className={styles.card_info_inner}>
           {item.image === 'default' ? null : (
