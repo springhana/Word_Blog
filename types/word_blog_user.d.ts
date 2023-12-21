@@ -20,4 +20,5 @@ export interface UsersType {
   password: string?;
   emailVerified: string | null;
   deactivate: boolean?;
+  auth: boolean?;
 }

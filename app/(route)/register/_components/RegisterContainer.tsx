@@ -31,7 +31,7 @@ export default function RegisterContainer() {
         state: 'register',
       })
       .then(res => {
-        if (res) {
+        if (res.data.post) {
           router.push('/login');
         }
       });
@@ -114,7 +114,7 @@ export default function RegisterContainer() {
         </div>
 
         <input
-          type="text"
+          type="password"
           placeholder="password"
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             setPassword(e.target.value);

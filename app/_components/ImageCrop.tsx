@@ -12,6 +12,7 @@ import ReactCrop, {
 
 import { onClose } from '@/redux/features/imageSlice';
 import { useAppDispatch } from '@/redux/hook';
+import styles from '@/styles/Images.module.css';
 import { canvasPreview } from '@/utils/crop/canvasPreview';
 import { useDebounceEffect } from '@/utils/crop/useDebounceEffect';
 
@@ -168,7 +169,7 @@ function ImageCrop({
 
   return (
     <div>
-      <div>
+      <div className={styles.image_crop_setting}>
         <div>
           <label htmlFor="scale-input">Scale: </label>
           <input
@@ -210,9 +211,8 @@ function ImageCrop({
             height={10000}
             style={{
               transform: `scale(${scale}) rotate(${rotate}deg)`,
-              width: '500px',
-              height: '100%',
             }}
+            className={styles.image_crop_img}
             onLoad={onImageLoad}
           />
         </ReactCrop>
@@ -228,8 +228,8 @@ function ImageCrop({
               }}
             />
           </div>
-          <div>
-            <button onClick={onDownloadCropClick}>Download Crop</button>
+          <div className={styles.image_crop_btn}>
+            <button onClick={onDownloadCropClick}>확인</button>
           </div>
         </>
       )}

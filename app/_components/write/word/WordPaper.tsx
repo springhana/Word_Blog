@@ -36,6 +36,7 @@ export default function WordPaper({
   const [sentence, setSentence] = useState('');
   const [file, setFile] = useState<File | undefined>(undefined);
   const [image, setImage] = useState<string | StaticImageData>('');
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   const ref_word = useRef<HTMLTextAreaElement>(null);
   const ref_meaning = useRef<HTMLTextAreaElement>(null);
@@ -53,6 +54,18 @@ export default function WordPaper({
       setSentence(card.sentence || '');
       setImage(card.image || 'default');
     }
+  }, []);
+
+  useEffect(() => {
+    function handleResize() {
+      setWindowWidth(window.innerWidth);
+    }
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
 
   const CardPost = async () => {
@@ -168,7 +181,7 @@ export default function WordPaper({
         image={image}
         setImage={setImage}
         setFile={setFile}
-        imgsize={150}
+        imgsize={windowWidth <= 768 ? 80 : 150}
       />
 
       <div className={stylse.write_card_info}>

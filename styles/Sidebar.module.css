@@ -3,6 +3,7 @@
   display: flex;
   justify-content: end;
   padding: 10px 30px;
+  min-width: 75px;
 }
 .sidebar_inner {
   position: fixed;
@@ -94,13 +95,12 @@
   position: fixed;
   background-color: #ffd645;
   width: 300px;
-  height: 500px;
   border-radius: 10px;
   margin: 30px 0 0 30px;
   padding: 30px;
   text-align: left;
-  overflow-y: auto;
 }
+
 .hash_add {
   text-align: center;
   font-size: 18px;
@@ -173,7 +173,6 @@
     padding: 5px;
     transition: 0.5s all;
   }
-
   .tag_inner {
     width: 30%;
     height: 100vh;
@@ -182,12 +181,20 @@
     right: -30%;
     transition: 0.5s all;
   }
+  .tag_container {
+    height: 100%;
+    padding: 0 0 10px 0;
+    overflow-y: scroll;
+  }
+  .tag_container::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 @media screen and (max-width: 768px) {
   /* ------ Sidebar ------ */
   .sidebar {
-    justify-content: right;
+    justify-content: center;
   }
 
   /* ----- SidebarItem ------ */
@@ -203,6 +210,9 @@
   .item_active a,
   .setting_btn {
     font-size: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   .item::before,
   .item_active::before {
@@ -212,6 +222,18 @@
   /* ------ SidebarLogo ------ */
   .logo {
     display: flex;
+    justify-content: center;
+  }
+
+  /* ----- tag ----- */
+  .tag_inner {
+    width: 100%;
+    height: 100%;
+    right: -100%;
+  }
+}
+@media screen and (max-width: 375px) {
+  .sidebar {
     justify-content: center;
   }
 }

@@ -10,7 +10,9 @@
   justify-content: center;
   align-items: center;
   background: url('../public/image/modal/modal.png');
-  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
 }
 .write p {
   position: absolute;
@@ -21,7 +23,6 @@
 }
 
 /* ----- ImagePaper ----- */
-
 .write_paper {
   position: absolute;
   right: 0;
@@ -194,4 +195,66 @@
 }
 .tag_add button:hover {
   background-color: #ff1e46;
+}
+
+@media screen and (max-width: 768px) {
+  .write {
+    width: 375px;
+    height: 465px;
+  }
+  .prevBtn,
+  .nextBtn {
+    width: 80px;
+  }
+  .prevBtn {
+    left: 125px;
+  }
+  .nextBtn {
+    right: 45px;
+  }
+  .write p {
+    top: 60px;
+    right: 20px;
+    font-size: 18px;
+  }
+
+  .write_paper button:nth-child(1),
+  .write_paper button:nth-child(2) {
+    width: 30px;
+    height: 30px;
+  }
+
+  /* ----- ImagePaper ----- */
+  .write_paper,
+  .write_card,
+  .tag_add {
+    width: 320px;
+    height: 450px;
+  }
+  .write_paper_inner div img {
+    width: 200px;
+    height: 150px;
+  }
+  .write_paper button:nth-child(1) {
+    left: 38px;
+  }
+  .write_paper button:nth-child(2) {
+    right: 17px;
+  }
+  /* ----- write_card ----- */
+  .write_card span {
+    font-size: 16px;
+  }
+  .write_card div img,
+  .write_card_word {
+    width: 100px;
+    height: 100px;
+  }
+  .write_card_word::before {
+    height: 65px;
+  }
+  /* ----- tag add ----- */
+  .tag_add input {
+    width: 200px;
+  }
 }

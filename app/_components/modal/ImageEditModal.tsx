@@ -5,6 +5,7 @@ import React, { useEffect } from 'react';
 
 import { onClose } from '@/redux/features/imageSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/hook';
+import styles from '@/styles/Images.module.css';
 
 import ImageCrop from '../ImageCrop';
 
@@ -35,36 +36,14 @@ function ImageEditModal({
   }
 
   return (
-    <div
-      style={{
-        position: 'fixed',
-        left: '0',
-        top: '0',
-        width: '100vw',
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        zIndex: 20,
-      }}
-    >
+    <div className={styles.image_edit_modal}>
       <div
-        style={{
-          position: 'absolute',
-          width: '100%',
-          height: '100%',
-          display: 'flex',
-          justifyContent: 'center',
-          border: '1px solid red',
-          alignItems: 'center',
-          background: 'black',
-          opacity: 0.7,
-        }}
+        className={styles.image_edit_modal_back}
         onClick={() => {
           dispatch(onClose());
         }}
       ></div>
-      <div style={{ color: 'white', zIndex: 21 }}>
+      <div className={styles.image_crop}>
         <ImageCrop
           image={image}
           fileName={fileName}

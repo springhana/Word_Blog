@@ -15,7 +15,7 @@
 }
 .card_profile {
   width: 100%;
-  padding: 0 20px;
+  padding: 10px 20px;
 }
 .card_profile a {
   display: flex;
@@ -45,6 +45,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 .card_info_inner {
   width: 450px;
@@ -107,7 +110,6 @@
 .like_false {
   position: relative;
   background-color: white;
-  z-index: 10;
   width: 100px;
   height: 27px;
   border: 2px solid black;
@@ -261,4 +263,58 @@
   right: 0;
   width: 200%;
   transition: 0.3s all;
+}
+
+@media (max-width: 768px) {
+  .card_detail {
+    justify-content: center;
+  }
+  .card_info {
+    width: 100%;
+  }
+  .card_info_inner {
+    width: 100%;
+  }
+  .card_image_pic {
+    width: 30%;
+  }
+
+  .card_word {
+    width: 50%;
+    height: 100%;
+  }
+  .card_word div {
+    height: 33%;
+  }
+  .card_like {
+    width: 100%;
+    margin: 0;
+  }
+
+  /* ----- memorize ----- */
+  .memo span {
+    display: none;
+  }
+
+  /* ----- write card ----- */
+  .write_card {
+    width: 320px;
+    height: 450px;
+  }
+  .write_card_info div {
+    margin: 15px 0;
+  }
+  .write_card_info div textarea {
+    height: 30px;
+    max-height: 45px;
+  }
+  .write_card_btn,
+  .post_btn {
+    width: 80px;
+  }
+  .write_card_eye {
+    top: 135px;
+    width: 30px;
+    height: 30px;
+  }
 }

@@ -41,6 +41,7 @@ export default function MarkdownPaper({
   const [imageUrl, setImageUrl] = useState('');
   const [image, setImage] = useState<string | StaticImageData>('');
   const [file, setFile] = useState<File | undefined>(undefined);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   const dispatch = useAppDispatch();
   const select = useAppSelector(state => state.noteReducer.select);
@@ -55,6 +56,18 @@ export default function MarkdownPaper({
       setMd(card.md || '');
       setImage(card.image || 'default');
     }
+  }, []);
+
+  useEffect(() => {
+    function handleResize() {
+      setWindowWidth(window.innerWidth);
+    }
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
 
   const PostCard = async () => {
@@ -233,7 +246,7 @@ export default function MarkdownPaper({
         image={image}
         setImage={setImage}
         setFile={setFile}
-        imgsize={150}
+        imgsize={windowWidth <= 768 ? 80 : 150}
       />
       <button className={stylse.write_card_eye} onClick={ShowVisible}>
         {!show ? <FaEye size={20} /> : <FaEyeSlash size={20} />}
@@ -260,7 +273,11 @@ export default function MarkdownPaper({
       >
         <div className={stylse.write_card_md}>
           <div className={stylse.write_card_md_inner} ref={ref_md}>
-            <MarkdownEditor value={md} onChange={setMd} height={250} />
+            <MarkdownEditor
+              value={md}
+              onChange={setMd}
+              height={windowWidth <= 768 ? 125 : 250}
+            />
           </div>
         </div>
       </FileDrop>

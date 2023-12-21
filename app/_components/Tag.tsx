@@ -30,10 +30,10 @@ export default function Tag() {
 
     function handleResize() {
       setWindowWidth(window.innerWidth);
-      if (tagRef.current && tagBtnRef.current && window.innerWidth > 1024) {
+      if (tagRef.current && tagBtnRef.current && window.innerWidth > 768) {
         tagRef.current.style.removeProperty('right');
         tagBtnRef.current.style.removeProperty('left');
-        tagBtnRef.current.style.removeProperty('backgroundColor');
+        tagBtnRef.current.style.backgroundColor = '#fb6072';
         setToggle(0);
       }
     }
@@ -62,7 +62,11 @@ export default function Tag() {
       toggle === 1 &&
       windowWidth <= 1024
     ) {
-      tagRef.current.style.right = '-30%';
+      if (windowWidth <= 764) {
+        tagRef.current.style.right = '-100%';
+      } else {
+        tagRef.current.style.right = '-30%';
+      }
       tagBtnRef.current.style.left = '-50px';
       tagBtnRef.current.style.backgroundColor = '#fb6072';
       setToggle(0);
@@ -125,24 +129,26 @@ export default function Tag() {
             <span>all</span>
           </div>
         )}
-        {hasMore
-          ? tags.map((item: { _id: string; name: string }, index: number) => (
-              <div
-                key={index}
-                onClick={() => {
-                  dispatch(Init());
-                  dispatch(tag_change({ id: item._id, name: item.name }));
-                  TagSlide();
-                }}
-                className={`${styles.hash_tag} ${
-                  tag.id === item._id ? styles.hash_active : ''
-                }`}
-              >
-                <HiHashtag />
-                <span>{item.name}</span>
-              </div>
-            ))
-          : null}
+        <div className={styles.tag_container}>
+          {hasMore
+            ? tags.map((item: { _id: string; name: string }, index: number) => (
+                <div
+                  key={index}
+                  onClick={() => {
+                    dispatch(Init());
+                    dispatch(tag_change({ id: item._id, name: item.name }));
+                    TagSlide();
+                  }}
+                  className={`${styles.hash_tag} ${
+                    tag.id === item._id ? styles.hash_active : ''
+                  }`}
+                >
+                  <HiHashtag />
+                  <span>{item.name}</span>
+                </div>
+              ))
+            : null}
+        </div>
       </div>
     </div>
   );

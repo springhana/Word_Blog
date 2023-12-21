@@ -21,24 +21,29 @@ export default function SearchContainer() {
   }, [hasMore]);
 
   return (
-    <div>
-      <input
-        type="text"
-        value={value}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-          setValue(e.target.value);
-        }}
-      />
+    <div className="search">
+      <div className="search_input">
+        <input
+          type="text"
+          value={value}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            setValue(e.target.value);
+          }}
+          placeholder="검색어를 입력해주세요"
+        />
+      </div>
       {loading ? '로딩중' : null}
       {error ? '에러' : null}
 
-      {hasMore
-        ? cards.map((item, index) => (
-            <div key={index}>
-              <CardDetail id={item._id} />
-            </div>
-          ))
-        : '검색 결과가 없습니다.'}
+      {hasMore ? (
+        cards.map((item, index) => (
+          <div key={index}>
+            <CardDetail id={item._id} />
+          </div>
+        ))
+      ) : (
+        <div className="search_result">검색 결과가 없습니다.</div>
+      )}
     </div>
   );
 }

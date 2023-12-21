@@ -63,27 +63,27 @@ export default async function Register(
 
       const user = {
         name: req.body.name,
-        email: req.body.email,
+        email: req.body.email + '/auth',
         password: req.body.password,
         image: req.body.image,
       };
 
       const db = (await connectDB).db('word_blog_user');
       db.collection('users')
-        .findOne({ email: req.body.email })
+        .findOne({ email: req.body.email.split('/')[0] })
         .then(result => {
           if (!result) {
             db.collection('users')
               .insertOne(user)
               .then(result => {
-                return res.json(result);
+                return res.json({ post: true });
               });
           } else {
             if (!result.password) {
               db.collection('users')
                 .insertOne(user)
                 .then(result => {
-                  return res.json(result);
+                  return res.json({ post: true });
                 });
             } else {
               return res.status(405).end();

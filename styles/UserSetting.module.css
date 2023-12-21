@@ -37,7 +37,7 @@
 
 .mydata div span {
   display: block;
-  width: 100px;
+  min-width: 100px;
   font-weight: bold;
   transition: 0.2s all;
 }
@@ -63,7 +63,8 @@
   text-align: center;
 }
 .password div input {
-  width: 300px;
+  width: 80%;
+  min-width: 250px;
   height: 50px;
   padding: 0 20px;
   border-radius: 10px;
@@ -108,4 +109,7 @@
 }
 .deactivate button:hover {
   background-color: #ff1e46;
+}
+.deactivate div span ul {
+  padding: 20px;
 }

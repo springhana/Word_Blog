@@ -13,7 +13,6 @@ import { Init } from '@/redux/features/cardSlice';
 import { tag_change } from '@/redux/features/tagSlice';
 import { useAppDispatch } from '@/redux/hook';
 import styles from '@/styles/CardDetail.module.css';
-import markdown from '@/styles/Markdown.module.css';
 import { CardType, TagType } from '@/types/word_blog';
 
 const Markdown = dynamic(
@@ -86,10 +85,7 @@ export default function Md({ item }: { item: CardType }) {
 
           <div className={styles.card_md}>
             <div>{item.title}</div>
-            <Markdown
-              source={item.md as string}
-              className={markdown.markdown}
-            />
+            <Markdown source={item.md as string} className={styles.markdown} />
           </div>
 
           <div className={styles.card_like}>

@@ -91,6 +91,11 @@
   margin-top: 10px;
   cursor: pointer;
 }
+.markdown {
+  border: 2px solid #dae1e2;
+  padding: 10px;
+  border-radius: 20px;
+}
 
 /* ----- note ----- */
 
@@ -209,4 +214,26 @@
 }
 .comment_inner:hover {
   background-color: #f7f7f7;
+}
+
+@media screen and (max-width: 1024px) {
+  .card_word div {
+    height: 100%;
+    border: 1px solid red;
+  }
+  .card_like {
+    justify-content: center;
+    gap: 10px;
+  }
+  .note button:nth-child(1),
+  .note button:nth-child(2) {
+    width: 30px;
+    height: 30px;
+  }
+  .note button:nth-child(1) {
+    left: 0px;
+  }
+  .note button:nth-child(2) {
+    right: 0px;
+  }
 }

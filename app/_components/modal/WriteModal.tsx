@@ -14,31 +14,9 @@ export default function WirteModal() {
   }
 
   return (
-    <div
-      style={{
-        position: 'fixed',
-        left: '0',
-        top: '0',
-        width: '100vw',
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        zIndex: 20,
-      }}
-    >
+    <div className="modal">
       <div
-        style={{
-          position: 'absolute',
-          width: '100%',
-          height: '100%',
-          display: 'flex',
-          justifyContent: 'center',
-          border: '1px solid red',
-          alignItems: 'center',
-          background: 'black',
-          opacity: 0.7,
-        }}
+        className="modal_background"
         onClick={() => {
           dispatch(onClose());
           dispatch(init_note());

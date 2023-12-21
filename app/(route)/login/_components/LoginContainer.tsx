@@ -64,7 +64,7 @@ export default function LoginContainer() {
         <button
           onClick={async () => {
             await signIn('credentials', {
-              email: email,
+              email: email + '/auth',
               password: password,
             });
           }}

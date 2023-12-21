@@ -101,10 +101,11 @@
 }
 .follow_item a {
   display: flex;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
   gap: 10px;
   font-weight: bold;
+  width: 100%;
 }
 
 /* ----- tag ----- */
@@ -116,7 +117,9 @@
   border-bottom: 1px solid #dae1e2;
   transition: 0.2s all;
 }
-
+.btn {
+  display: flex;
+}
 .btn button {
   width: 80px;
   height: 35px;
@@ -139,9 +142,11 @@
   background-color: #ffbf00;
 }
 .tag_name {
+  width: 100%;
   font-weight: bold;
 }
 .tag_input {
+  width: 100%;
   padding: 10px;
   border: none;
   border-bottom: 2px solid #e7e7e8;
@@ -149,4 +154,16 @@
 .tag_input:focus {
   outline: none;
   border-bottom: 2px solid #e7e7e8;
+}
+
+@media screen and (max-width: 768px) {
+  .profile_info p,
+  .subscribe_btn {
+    font-size: 12px;
+    width: 80px;
+  }
+  .btn button {
+    width: 50px;
+    font-size: 12px;
+  }
 }

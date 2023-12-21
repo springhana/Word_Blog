@@ -179,3 +179,43 @@
 .note_input_btn div:nth-child(2):hover {
   background-color: #ff1e46;
 }
+
+@media screen and (max-width: 768px) {
+  .note {
+    width: 320px;
+    height: 450px;
+  }
+  .note_inner {
+    height: 150px;
+  }
+  .note_item {
+    width: 100%;
+  }
+  .note_add .note_add_btn {
+    width: 80px;
+    height: 30px;
+    font-size: 12px;
+  }
+  /* ----- node modal ----- */
+  .note_default_image div img {
+    width: 80px;
+    height: 80px;
+  }
+  .note_input_btn {
+    gap: 5px;
+  }
+  .note_input_btn div {
+    margin-bottom: 5px;
+  }
+  .note_input input {
+    width: 100px;
+  }
+  .note_modal button:nth-child(1),
+  .note_modal button:nth-child(2) {
+    width: 30px;
+    height: 30px;
+  }
+  .note_modal button:nth-child(2) {
+    right: 25px;
+  }
+}

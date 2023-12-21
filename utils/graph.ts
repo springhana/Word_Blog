@@ -13,7 +13,7 @@ export default function getGraph(note: NoteType[]) {
       id: item._id,
       value: item.name + ' (' + item.cardID.length + ')',
       val: item.cardID.length,
-      color: getColor(index),
+      color: getColor(index + 1),
     });
     if (item.cardID) {
       item.cardID.map(id => {
@@ -21,7 +21,7 @@ export default function getGraph(note: NoteType[]) {
           id: index + '/' + id,
           value: '',
           val: 1,
-          color: getColor(index),
+          color: getColor(index + 1),
         });
       });
     }
