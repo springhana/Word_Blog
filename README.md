@@ -2,6 +2,9 @@
 
 # 개발 일지
 <a href="https://github.com/springhana/word_blog/blob/main/doc/plan">개발일지 이동</a>
+</br>
+<a href="word-blog.vercel.app">단블 이동</a>
+
 
 # ERD
 
