@@ -1,5 +1,8 @@
 이미지 crop 모달 고치기, 세부적인 loading, error text 수정, 카드 이미지는 width만 100%, 이미지 관련 생각해보기, erd, 화면 흐름도 수정
 
+# 개발 일지
+<a href="https://github.com/springhana/word_blog/blob/main/doc/plan">개발일지 이동</a>
+
 # ERD
 
 ![단블ERD drawio](https://github.com/springhana/word_blog/assets/97121074/3784210f-95da-4666-862b-9df4155c3f27)
