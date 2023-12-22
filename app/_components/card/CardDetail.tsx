@@ -44,10 +44,7 @@ export default function CardDetail({ id }: { id?: string | ObjectId }) {
         </div>
       )}
 
-      {error ? '에러' : null}
-      {loading ? (
-        '로딩중'
-      ) : (
+      {error && loading ? null : (
         <div
           className={styles.card}
           style={id ? {} : { backgroundImage: 'url(/image/background.jpeg)' }}

@@ -35,10 +35,7 @@ export default function MyCard({ id }: { id: string }) {
 
   return (
     <div>
-      {loading ? '로딩' : null}
-      {error ? '에러' : null}
-
-      {hasMore && <Chart cards={cards} />}
+      {!loading && !error && hasMore && <Chart cards={cards} />}
 
       <div className="memoTab">
         <MemoTab setState={setState} />

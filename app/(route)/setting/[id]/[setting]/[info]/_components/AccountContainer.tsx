@@ -24,9 +24,7 @@ export default function AccountContainer() {
 
   return (
     <div>
-      {loading ? '로딩중' : null}
-      {error ? '에러' : null}
-      {hasMore ? (
+      {!loading && !error && hasMore ? (
         <div>
           {pathname === 'mydata' ? (
             <Mydata user={user} />

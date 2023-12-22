@@ -76,9 +76,6 @@ export default function Tag() {
   return (
     <div className={styles.tag}>
       <div className={styles.tag_inner} ref={tagRef}>
-        {loading ? id && '로딩중' : null}
-        {error ? id && '에러' : null}
-
         {windowWidth <= 1024 ? (
           <div onClick={TagSlide} className={styles.tagBtn} ref={tagBtnRef}>
             {toggle === 0 ? (
@@ -130,7 +127,7 @@ export default function Tag() {
           </div>
         )}
         <div className={styles.tag_container}>
-          {hasMore
+          {!loading && !error && hasMore
             ? tags.map((item: { _id: string; name: string }, index: number) => (
                 <div
                   key={index}

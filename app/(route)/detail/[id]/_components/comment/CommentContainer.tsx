@@ -60,8 +60,7 @@ function CommentContainer({ _id }: { _id: string }) {
 
   return (
     <div>
-      {loading ? '로딩중' : null}
-      {hasMore && !error ? (
+      {hasMore && !error && !loading ? (
         <div>{memoizedComment}</div>
       ) : (
         <div className="search_result">댓글이 없습니다</div>

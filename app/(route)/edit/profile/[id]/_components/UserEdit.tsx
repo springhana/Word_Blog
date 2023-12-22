@@ -110,9 +110,6 @@ export default function UserEdit() {
 
   return (
     <div className={styles.edit}>
-      {loading ? '로딩중' : null}
-      {error ? '에러' : null}
-
       <div
         className="back"
         onClick={() => {
@@ -123,7 +120,7 @@ export default function UserEdit() {
         <span>뒤로가기</span>
       </div>
 
-      {hasMore ? (
+      {!loading && !error && hasMore ? (
         <div className={styles.edit_modal}>
           <div className={styles.edit_modal_back}>
             {page > 1 ? (

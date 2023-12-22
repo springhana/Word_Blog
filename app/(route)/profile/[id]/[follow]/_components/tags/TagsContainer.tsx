@@ -59,10 +59,7 @@ export default function TagsContainer() {
   };
   return (
     <div>
-      {loading ? '로딩중' : null}
-      {error ? '에러' : null}
-
-      {hasMore
+      {!loading && !error && hasMore
         ? tags.map((item, index) => (
             <div key={index} className={styles.tag_item}>
               {item.name === update ? (

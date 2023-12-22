@@ -8,8 +8,6 @@ export default function Mydata({ user }: { user: UsersType }) {
 
   return (
     <div className={styles.mydata}>
-      {loading ? '로딩중' : null}
-      {error ? '에러' : null}
       <div>
         <span>이메일: </span>
         {user.email}
@@ -18,7 +16,7 @@ export default function Mydata({ user }: { user: UsersType }) {
         <span>이름: </span>
         {user.name}
       </div>
-      {hasMore && (
+      {!loading && !error && hasMore && (
         <>
           <div>
             <span>카드 수: </span>

@@ -28,11 +28,7 @@ export default function CommentItem({ item }: { item: CommentType }) {
   };
 
   return (
-    <div
-      ref={commentRef}
-      style={{ position: 'relative' }}
-      className={styles.comment_inner}
-    >
+    <div ref={commentRef} className={styles.comment_inner}>
       <div className={styles.card_profile}>
         <User id={item.author} date={item.date} />
       </div>

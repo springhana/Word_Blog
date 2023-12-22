@@ -38,9 +38,7 @@ export default function ProfileContainer({
 
   return (
     <div className={styles.profile}>
-      {loading ? '로딩중' : null}
-      {error ? '에러' : null}
-      {hasMore ? (
+      {!loading && !error && hasMore ? (
         <div>
           <div className={styles.profile_image}>
             <div className={styles.profile_banner}>

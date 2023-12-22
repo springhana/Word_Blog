@@ -15,10 +15,7 @@ export default function User({ id, date }: { id: string; date?: string }) {
 
   return (
     <>
-      {loading ? '로딩중' : null}
-      {error ? '에러' : null}
-
-      {hasMore ? (
+      {!loading && !error && hasMore ? (
         <>
           <Link href={`/profile/${user._id}`}>
             <UserImage image={user.image} size={50} />

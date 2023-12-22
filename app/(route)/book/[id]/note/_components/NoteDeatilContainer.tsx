@@ -26,8 +26,6 @@ export default function NoteDeatilContainer() {
 
   return (
     <div>
-      {loading ? '로딩중' : null}
-      {error ? '에러' : null}
       <div
         className="back"
         onClick={() => {
@@ -37,7 +35,7 @@ export default function NoteDeatilContainer() {
         <IoArrowBack />
         <span>뒤로가기</span>
       </div>
-      {hasMore ? (
+      {!loading && !error && hasMore ? (
         <>
           <div className="memoTab">
             <MemoTab />

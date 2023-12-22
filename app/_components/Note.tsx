@@ -32,8 +32,6 @@ export default function Note({ author }: { author: string }) {
 
   return (
     <div className={styles.note}>
-      {loading ? '로딩중' : null}
-      {error ? '에러' : null}
       <div className={styles.note_add}>
         {!Open ? (
           <div
@@ -52,7 +50,7 @@ export default function Note({ author }: { author: string }) {
       </div>
 
       <div className={styles.note_inner}>
-        {hasMore
+        {!loading && !error && hasMore
           ? note.map((item: NoteType, index: number) => {
               return (
                 <div

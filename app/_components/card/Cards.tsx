@@ -25,10 +25,7 @@ export default function Cards({ tag }: { tag: string }) {
 
   return (
     <div>
-      {loading ? '로딩중' : null}
-      {error ? '에러' : null}
-
-      {hasMore ? (
+      {!loading && !error && hasMore ? (
         <div>
           <CardsItem
             cards={cards}
@@ -39,9 +36,7 @@ export default function Cards({ tag }: { tag: string }) {
             tag={tag}
           />
         </div>
-      ) : (
-        '글이없어요'
-      )}
+      ) : null}
     </div>
   );
 }

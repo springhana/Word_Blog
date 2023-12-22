@@ -32,10 +32,8 @@ export default function SearchContainer() {
           placeholder="검색어를 입력해주세요"
         />
       </div>
-      {loading ? '로딩중' : null}
-      {error ? '에러' : null}
 
-      {hasMore ? (
+      {!loading && !error && hasMore ? (
         cards.map((item, index) => (
           <div key={index}>
             <CardDetail id={item._id} />

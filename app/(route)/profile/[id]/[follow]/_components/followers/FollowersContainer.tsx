@@ -25,9 +25,7 @@ export default function FollowersContainer({ id }: { id: string }) {
 
   return (
     <div className={styles.follow}>
-      {loading ? '로딩중' : null}
-      {error ? '에러' : null}
-      {hasMore && subscribe
+      {!loading && !error && hasMore && subscribe
         ? subscribe.map((item, index) => (
             <div key={index} className={styles.follow_item}>
               <User id={item._id} />

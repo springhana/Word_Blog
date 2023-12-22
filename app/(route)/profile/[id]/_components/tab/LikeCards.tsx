@@ -14,9 +14,7 @@ export default function LikeCards({ id }: { id: string | ObjectId }) {
 
   return (
     <div>
-      {loading ? '로딩중' : null}
-      {error ? '에러' : null}
-      {hasMore && like.length > 0
+      {!loading && !error && hasMore && like.length > 0
         ? like.map((item, index) => (
             <div key={index}>
               <CardDetail id={item._id} />

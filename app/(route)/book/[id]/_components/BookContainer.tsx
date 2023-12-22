@@ -144,9 +144,7 @@ export default function BookContainer() {
 
       {write_open ? null : <NoteModal />}
 
-      {loading ? '로딩중' : null}
-      {error ? '에러' : null}
-      {hasMore && toggle ? (
+      {!loading && !error && hasMore && toggle ? (
         <div className={styles.books_inner}>
           {note.map((item, index) => (
             <div key={index} className={styles.book_item_container}>

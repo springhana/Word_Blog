@@ -23,9 +23,7 @@ export default function FollowingContainer({ id }: { id: string }) {
 
   return (
     <div className={styles.follow}>
-      {loading ? '로딩중' : null}
-      {error ? '에러' : null}
-      {hasMore && subscribe[0]
+      {!loading && !error && hasMore && subscribe[0]
         ? subscribe[0].userID.map((item, index) => (
             <div key={index} className={styles.follow_item}>
               <User id={item} />
