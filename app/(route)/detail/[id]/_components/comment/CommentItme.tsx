@@ -34,7 +34,12 @@ export default function CommentItem({ item }: { item: CommentType }) {
       </div>
       <div className={styles.comment_content}>{item.comment}</div>
 
-      <Setting id={item._id} state={'comment'} Delete={Delete} />
+      <Setting
+        id={item._id}
+        state={'comment'}
+        Delete={Delete}
+        author={item.author}
+      />
     </div>
   );
 }

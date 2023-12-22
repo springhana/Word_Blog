@@ -89,14 +89,23 @@ export default function Md({ item }: { item: CardType }) {
           </div>
 
           <div className={styles.card_like}>
-            <Memorize memorize={item.memorize} id={item._id} />
+            <Memorize
+              memorize={item.memorize}
+              id={item._id}
+              author={item.author}
+            />
             <div>
               <Like id={item._id} />
             </div>
           </div>
         </div>
 
-        <Setting id={item._id} state={'card'} Delete={Delete} />
+        <Setting
+          id={item._id}
+          state={'card'}
+          Delete={Delete}
+          author={item.author}
+        />
       </div>
     </div>
   );

@@ -7,26 +7,31 @@ import { useState } from 'react';
 
 import memo from '@/public/image/memo/memo.png';
 import memo_false from '@/public/image/memo/memo_false.png';
+import { useAppSelector } from '@/redux/hook';
 import styles from '@/styles/Card.module.css';
 
 export default function Memorize({
   memorize,
   id,
+  author,
 }: {
   memorize: boolean;
   id: string | ObjectId;
+  author: string;
 }) {
   const [memori, setMemori] = useState(memorize);
-
+  const _id = useAppSelector(state => state.idReducer.id);
   const MemorizeEvent = async () => {
-    try {
-      await axios.put('/api/update/memorize', { id: id }).then(res => {
-        if (res.data.update) {
-          setMemori(res.data.memorize);
-        }
-      });
-    } catch (e) {
-      console.error(e);
+    if (author === _id) {
+      try {
+        await axios.put('/api/update/memorize', { id: id }).then(res => {
+          if (res.data.update) {
+            setMemori(res.data.memorize);
+          }
+        });
+      } catch (e) {
+        console.error(e);
+      }
     }
   };
 
