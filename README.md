@@ -2,12 +2,14 @@
 
 # ERD
 
-![단블ERD drawio](https://github.com/springhana/word_blog/assets/97121074/e26c6b76-e0bc-40c8-8f5d-b86d212bb71c)
+![단블ERD drawio](https://github.com/springhana/word_blog/assets/97121074/3784210f-95da-4666-862b-9df4155c3f27)
+
 
 
 # 화면 흐름도
 
-![단블 화면흐름도 drawio](https://github.com/springhana/word_blog/assets/97121074/13ea30ed-ca92-4735-b8c6-ed0778b0c1c8)
+![단블 화면흐름도 drawio](https://github.com/springhana/word_blog/assets/97121074/68fae9ca-cab5-49a8-859a-ff3bf322d78a)
+
 
 1. 단어 추가 ✔️
 2. 단어장 ✔️
