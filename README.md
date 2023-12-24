@@ -1,4 +1,5 @@
 성능 최적화 실행
+구글 소셜 로그인
 
 # 개발 일지
 <a href="https://github.com/springhana/word_blog/blob/main/doc/plan">개발일지 이동</a>
