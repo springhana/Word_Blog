@@ -73,8 +73,8 @@ export default function ImagePaper({
           <Image
             src={papers[papers.length - 1]}
             alt="종이"
-            width={10000}
-            height={10000}
+            width={310}
+            height={235}
           />
           <input type="radio" name="paper" />
         </div>
@@ -86,7 +86,7 @@ export default function ImagePaper({
               setPaper('Paper' + (index + 1));
             }}
           >
-            <Image src={item} alt="종이" width={10000} height={10000} />
+            <Image src={item} alt="종이" width={310} height={235} />
             <input
               type="radio"
               name="paper"
@@ -95,7 +95,7 @@ export default function ImagePaper({
           </div>
         ))}
         <div>
-          <Image src={papers[0]} alt="종이" width={10000} height={10000} />
+          <Image src={papers[0]} alt="종이" width={310} height={235} />
           <input type="radio" name="paper" />
         </div>
       </div>

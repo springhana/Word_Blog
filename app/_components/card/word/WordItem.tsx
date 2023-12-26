@@ -96,8 +96,8 @@ export default function WordItem({
                 <Image
                   src={item.image}
                   alt={item.image}
-                  width={10000}
-                  height={10000}
+                  width={180}
+                  height={180}
                   className={styles.card_image}
                 />
               </div>

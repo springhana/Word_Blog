@@ -132,8 +132,8 @@ export default function NoteModal() {
           <Image
             src={amys[amys.length - 1]}
             alt="배너"
-            width={10000}
-            height={10000}
+            width={80}
+            height={80}
           />
           <input type="radio" name="amys" />
         </div>
@@ -157,14 +157,14 @@ export default function NoteModal() {
                   setImage(item);
                 }}
               >
-                <Image src={item} alt="배너" width={10000} height={10000} />
+                <Image src={item} alt="배너" width={80} height={80} />
                 <input type="radio" name="amys" checked={image === item} />
               </div>
             );
           }
         })}
         <div>
-          <Image src={amys[0]} alt="배너" width={10000} height={10000} />
+          <Image src={amys[0]} alt="배너" width={80} height={80} />
           <input type="radio" name="amys" />
         </div>
       </div>

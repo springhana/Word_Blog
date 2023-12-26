@@ -13,8 +13,8 @@ export default function BannerImage({
         <Image
           src={BannerImage_img}
           alt="bannerImage"
-          width={10000}
-          height={10000}
+          width={1000}
+          height={1000}
           style={{ width: '100%', height: '100%' }}
           priority
         />
@@ -22,8 +22,8 @@ export default function BannerImage({
         <Image
           src={image}
           alt="profile image"
-          width={10000}
-          height={10000}
+          width={1000}
+          height={1000}
           style={{ width: '100%', height: '100%' }}
           priority
         />

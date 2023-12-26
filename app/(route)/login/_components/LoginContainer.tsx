@@ -27,7 +27,7 @@ export default function LoginContainer() {
   return (
     <div className={styles.login}>
       <div className={styles.title}>
-        <Image src={icon} alt={'이미지'} width={10000} height={10000} />
+        <Image src={icon} alt={'이미지'} width={80} height={80} />
         <p>로그인</p>
       </div>
 

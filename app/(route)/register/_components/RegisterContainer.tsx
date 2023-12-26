@@ -69,7 +69,7 @@ export default function RegisterContainer() {
   return (
     <div className={`${styles.login} ${styles.register}`}>
       <div className={styles.title}>
-        <Image src={icon} alt={'이미지'} width={10000} height={10000} />
+        <Image src={icon} alt={'이미지'} width={80} height={80} />
         <p>회원가입</p>
       </div>
 

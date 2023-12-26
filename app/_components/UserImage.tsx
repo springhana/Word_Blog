@@ -15,11 +15,9 @@ export default function UserImage({
         <Image
           src={defaut_img}
           alt="blabla Logo"
-          width={10000}
-          height={10000}
+          width={size}
+          height={size}
           style={{
-            width: `${size}px`,
-            height: `${size}px`,
             borderRadius: '50%',
             border: '3px solid white',
           }}
@@ -29,11 +27,9 @@ export default function UserImage({
         <Image
           src={image}
           alt="profile image"
-          width={10000}
-          height={10000}
+          width={size}
+          height={size}
           style={{
-            width: `${size}px`,
-            height: `${size}px`,
             borderRadius: '50%',
             border: '3px solid white',
           }}

@@ -36,7 +36,9 @@ export default function Cards({ tag }: { tag: string }) {
             tag={tag}
           />
         </div>
-      ) : null}
+      ) : (
+        <div className="search_result">카드가 없습니다.</div>
+      )}
     </div>
   );
 }

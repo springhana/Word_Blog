@@ -73,8 +73,8 @@ export default function Note({ author }: { author: string }) {
                     <Image
                       src={item.image}
                       alt={item.image}
-                      width={10000}
-                      height={10000}
+                      width={60}
+                      height={60}
                     />
                   ) : null}
 

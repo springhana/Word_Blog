@@ -70,8 +70,8 @@ export default function CardNote({ id }: { id: string | ObjectId }) {
                   <Image
                     src={note[note.length - 1].image}
                     alt={note[note.length - 1].image}
-                    width={10000}
-                    height={10000}
+                    width={100}
+                    height={100}
                   />
                 ) : null}
                 {note[note.length - 1].name}
@@ -88,8 +88,8 @@ export default function CardNote({ id }: { id: string | ObjectId }) {
                     <Image
                       src={item.image}
                       alt={item.image}
-                      width={10000}
-                      height={10000}
+                      width={100}
+                      height={100}
                     />
                   ) : null}
                   {item.name}
@@ -102,8 +102,8 @@ export default function CardNote({ id }: { id: string | ObjectId }) {
                   <Image
                     src={note[0].image}
                     alt={note[0].image}
-                    width={10000}
-                    height={10000}
+                    width={100}
+                    height={100}
                   />
                 ) : null}
                 {note[0].name}

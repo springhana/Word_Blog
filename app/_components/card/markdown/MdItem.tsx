@@ -99,9 +99,9 @@ export default function MdItem({
                 <Image
                   src={item.image}
                   alt={item.image}
-                  width={10000}
-                  height={10000}
-                  style={{ width: '100%', height: '100%' }}
+                  width={180}
+                  height={180}
+                  className={styles.card_image}
                 />
               </div>
             )}

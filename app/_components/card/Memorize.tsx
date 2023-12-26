@@ -42,8 +42,8 @@ export default function Memorize({
           <Image
             src={memo}
             alt="memo"
-            width={10000}
-            height={10000}
+            width={43}
+            height={33}
             className={styles.memo_image}
           />
           <span>외웠어요</span>
@@ -53,8 +53,8 @@ export default function Memorize({
           <Image
             src={memo_false}
             alt="memo_flase"
-            width={10000}
-            height={10000}
+            width={43}
+            height={33}
             className={styles.memo_image}
           />
           <span>못외웠어요</span>

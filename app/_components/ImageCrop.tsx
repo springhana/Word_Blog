@@ -207,8 +207,8 @@ function ImageCrop({
             ref={imgRef}
             alt="Crop me"
             src={image}
-            width={10000}
-            height={10000}
+            width={1000}
+            height={1000}
             style={{
               transform: `scale(${scale}) rotate(${rotate}deg)`,
             }}

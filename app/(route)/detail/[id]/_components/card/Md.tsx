@@ -76,8 +76,8 @@ export default function Md({ item }: { item: CardType }) {
               <Image
                 src={item.image}
                 alt={item.image}
-                width={10000}
-                height={10000}
+                width={1000}
+                height={1000}
                 className={styles.card_image}
               />
             </div>

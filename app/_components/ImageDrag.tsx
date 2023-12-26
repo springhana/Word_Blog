@@ -78,7 +78,7 @@ export default function ImageDrag({
       >
         {image !== 'default' && image ? (
           <div className={styles.image}>
-            <Image src={image} alt={'image'} width={10000} height={10000} />
+            <Image src={image} alt={'image'} width={1000} height={1000} />
             <div
               className={styles.image_delete}
               onClick={() => {

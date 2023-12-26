@@ -13,9 +13,9 @@ import styles from '@/styles/Sidebar.module.css';
 export default function AddWordBtn() {
   const dispatch = useAppDispatch();
   const id = useAppSelector(state => state.idReducer.id);
+  const tag = useAppSelector(state => state.tagReducer.tag);
 
   const { loading, error, tags, hasMore } = useTag(id, 'all');
-
   if (!id) {
     return null;
   }
@@ -26,7 +26,11 @@ export default function AddWordBtn() {
         dispatch(onOpen());
 
         if (!loading && !error && hasMore && tags[0]) {
-          dispatch(tag_change({ id: tags[0]._id, name: tags[0].name }));
+          if (tag && tag.id !== 'all') {
+            return;
+          } else {
+            dispatch(tag_change({ id: tags[0]._id, name: tags[0].name }));
+          }
         } else {
           dispatch(tag_change({ id: '태그 추가', name: '태그 추가' }));
         }

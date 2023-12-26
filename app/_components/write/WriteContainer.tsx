@@ -112,8 +112,8 @@ export default function WriteContainer() {
                   <Image
                     src={markdown}
                     alt="마크다운"
-                    width={10000}
-                    height={10000}
+                    width={150}
+                    height={150}
                   />
                   <input type="radio" name="card" checked={program === 2} />
                 </div>
