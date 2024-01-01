@@ -1,6 +1,8 @@
 성능 최적화 실행
 <br/>
 구글 소셜 로그인
+<br/>
+마크 다운 이미지 드래그 시 aws s3로 넣었는데 이미지 인코딩으로 방법 변경
 
 # 개발 일지
 <a href="https://github.com/springhana/word_blog/blob/main/doc/plan.md">개발일지 이동</a>
