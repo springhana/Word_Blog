@@ -5,6 +5,7 @@
 - 마크다운 라이브러리 변경 고민 해보기
 - 상태관리 Redux -> zustand
 - 서버 상태관리 react-query
+- 이미지 Webp
 
 
 # 추가구현
