@@ -14,6 +14,12 @@
 - 구글 소셜 로그인
 - 퀴즈 페이지 && 알고리즘 구현
 
+# 수정
+- 카드 수정 부분 버벅거림 및 태그 바로 안감
+- 수정 후 처리 어떻게 할지
+- 글쓰기 모달 최적화
+- 태그 꼬임 방지
+
 # 개발 일지
 <a href="https://github.com/springhana/word_blog/blob/main/doc/plan.md">개발일지 이동</a>
 </br>
