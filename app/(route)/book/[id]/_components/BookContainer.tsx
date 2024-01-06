@@ -102,12 +102,12 @@ export default function BookContainer() {
   const bookBackground = (index: number) => {
     if (index % 2 == 0) {
       return {
-        background: "no-repeat center url('/image/book/book1.png')",
+        background: "no-repeat center url('/image/book/book1.avif')",
         backgroundSize: 'contain',
       };
     } else {
       return {
-        background: "no-repeat center url('/image/book/book2.png')",
+        background: "no-repeat center url('/image/book/book2.avif')",
         backgroundSize: 'contain',
       };
     }
