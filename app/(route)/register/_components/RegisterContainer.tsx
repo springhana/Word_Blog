@@ -5,7 +5,6 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
-import icon from '@/public/image/icon.jpeg';
 import styles from '@/styles/Login.module.css';
 
 export default function RegisterContainer() {
@@ -69,7 +68,12 @@ export default function RegisterContainer() {
   return (
     <div className={`${styles.login} ${styles.register}`}>
       <div className={styles.title}>
-        <Image src={icon} alt={'이미지'} width={80} height={80} />
+        <Image
+          src={'/image/logo/icon.avif'}
+          alt={'이미지'}
+          width={80}
+          height={80}
+        />
         <p>회원가입</p>
       </div>
 
