@@ -18,6 +18,7 @@ module.exports = removeImports({
     },
   },
   images: {
+    formats: ['image/avif', 'image/webp'],
     domains: [
       'avatars.githubusercontent.com',
       's3.ap-northeast-2.amazonaws.com',

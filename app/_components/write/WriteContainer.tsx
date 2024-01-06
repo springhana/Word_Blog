@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react';
 
 import { useCard } from '@/hook/useCard';
 import { useNote } from '@/hook/useNote';
-import markdown from '@/public/image/paper/markdown.png';
 import { Init } from '@/redux/features/cardSlice';
 import { select_note } from '@/redux/features/noteSlice';
 import { tag_change } from '@/redux/features/tagSlice';
@@ -98,7 +97,7 @@ export default function WriteContainer() {
                 >
                   <span>마크 다운</span>
                   <Image
-                    src={markdown}
+                    src={'/image/paper/markdown.avif'}
                     alt="마크다운"
                     width={150}
                     height={150}

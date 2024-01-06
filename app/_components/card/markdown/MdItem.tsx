@@ -66,19 +66,19 @@ export default function MdItem({
   const Papers = (paper: string) => {
     switch (paper) {
       case 'Paper1':
-        return { backgroundImage: 'url(/image/paper/paper1.png)' };
+        return { backgroundImage: 'url(/image/paper/paper1.avif)' };
       case 'Paper2':
-        return { backgroundImage: 'url(/image/paper/paper2.png)' };
+        return { backgroundImage: 'url(/image/paper/paper2.avif)' };
       case 'Paper3':
-        return { backgroundImage: 'url(/image/paper/paper3.png)' };
+        return { backgroundImage: 'url(/image/paper/paper3.avif)' };
       case 'Paper4':
-        return { backgroundImage: 'url(/image/paper/paper4.png)' };
+        return { backgroundImage: 'url(/image/paper/paper4.avif)' };
       case 'Paper5':
-        return { backgroundImage: 'url(/image/paper/paper5.png)' };
+        return { backgroundImage: 'url(/image/paper/paper5.avif)' };
       case 'Paper6':
-        return { backgroundImage: 'url(/image/paper/paper6.png)' };
+        return { backgroundImage: 'url(/image/paper/paper6.avif)' };
       default:
-        return { backgroundImage: 'url(/image/paper/paper1.png)' };
+        return { backgroundImage: 'url(/image/paper/paper1.avif)' };
     }
   };
 

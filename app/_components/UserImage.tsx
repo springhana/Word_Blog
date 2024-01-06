@@ -1,7 +1,5 @@
 import Image, { StaticImageData } from 'next/image';
 
-import defaut_img from '@/public/image/default.png';
-
 export default function UserImage({
   image,
   size,
@@ -13,7 +11,7 @@ export default function UserImage({
     <div>
       {image === 'default' || !image ? (
         <Image
-          src={defaut_img}
+          src={'/image/user/default.avif'}
           alt="blabla Logo"
           width={size}
           height={size}

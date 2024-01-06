@@ -31,11 +31,11 @@
   cursor: pointer;
 }
 .note_item:nth-child(odd) {
-  background: no-repeat center url('/image/book/book1.png');
+  background: no-repeat center url('/image/book/book1.avif');
   background-size: 150px 120px;
 }
 .note_item:nth-child(even) {
-  background: no-repeat center url('/image/book/book2.png');
+  background: no-repeat center url('/image/book/book2.avif');
   background-size: 150px 120px;
 }
 .note_item img {

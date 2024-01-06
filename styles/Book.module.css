@@ -1,7 +1,7 @@
 /* ----- BookContainer ----- */
 .book {
   position: relative;
-  background: url('/image/background.jpeg');
+  background: url('/image/background/background.avif');
   border-bottom: 1px solid #dae1e2;
 }
 .book_container {
@@ -34,11 +34,11 @@
   cursor: pointer;
 }
 .book_item:nth-child(odd) {
-  background: no-repeat center url('/image/book/book1.png');
+  background: no-repeat center url('/image/book/book1.avif');
   background-size: contain;
 }
 .book_item:nth-child(even) {
-  background: no-repeat center url('/image/book/book2.png');
+  background: no-repeat center url('/image/book/book2.avif');
   background-size: contain;
 }
 .book_item_img {
