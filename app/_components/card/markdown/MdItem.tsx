@@ -101,6 +101,9 @@ export default function MdItem({
                   alt={item.image}
                   width={180}
                   height={180}
+                  layout="responsive"
+                  placeholder="blur"
+                  blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8f821HgAHkQKbZgg/jgAAAABJRU5ErkJggg=="
                   className={styles.card_image}
                 />
               </div>
