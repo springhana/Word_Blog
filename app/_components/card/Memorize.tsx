@@ -5,8 +5,6 @@ import { ObjectId } from 'mongodb';
 import Image from 'next/image';
 import { useState } from 'react';
 
-import memo from '@/public/image/memo/memo.png';
-import memo_false from '@/public/image/memo/memo_false.png';
 import { useAppSelector } from '@/redux/hook';
 import styles from '@/styles/Card.module.css';
 
@@ -40,7 +38,7 @@ export default function Memorize({
       {memori ? (
         <>
           <Image
-            src={memo}
+            src={'/image/memo/memo.avif'}
             alt="memo"
             width={43}
             height={33}
@@ -51,7 +49,7 @@ export default function Memorize({
       ) : (
         <>
           <Image
-            src={memo_false}
+            src={'/image/memo/memo_false.avif'}
             alt="memo_flase"
             width={43}
             height={33}

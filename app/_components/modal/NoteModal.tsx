@@ -8,13 +8,6 @@ import axios from 'axios';
 import Image, { StaticImageData } from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 
-import amys_1 from '@/public/image/default/amys-1.jpg';
-import amys_2 from '@/public/image/default/amys-2.jpg';
-import amys_3 from '@/public/image/default/amys-3.jpg';
-import amys_4 from '@/public/image/default/amys-4.jpg';
-import amys_5 from '@/public/image/default/amys-5.jpg';
-import amys_6 from '@/public/image/default/amys-6.jpg';
-import amys_7 from '@/public/image/default/amys-7.jpg';
 import { change_state, onClose } from '@/redux/features/noteSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/hook';
 import styles from '@/styles/Note.module.css';
@@ -22,7 +15,13 @@ import { BtnNext, BtnPrev, TransitionEnd } from '@/utils/infiniteCarousel';
 
 import ImageDrag from '../ImageDrag';
 
-const amys = [amys_1, amys_2, amys_3, amys_4, amys_5, amys_6, amys_7];
+const amys = [
+  '/image/default/amys-1.avif',
+  '/image/default/amys-2.avif',
+  '/image/default/amys-3.avif',
+  '/image/default/amys-4.avif',
+  '/image/default/amys-5.avif',
+];
 
 export default function NoteModal() {
   const [noteName, setNoteName] = useState('');

@@ -1,12 +1,10 @@
 'use client';
 
-import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
 import { useCard } from '@/hook/useCard';
 import { useNote } from '@/hook/useNote';
-import markdown from '@/public/image/paper/markdown.png';
 import { Init } from '@/redux/features/cardSlice';
 import { select_note } from '@/redux/features/noteSlice';
 import { tag_change } from '@/redux/features/tagSlice';
@@ -14,22 +12,11 @@ import { useAppDispatch, useAppSelector } from '@/redux/hook';
 import styles from '@/styles/Write.module.css';
 import { CardType, NoteType } from '@/types/word_blog';
 
+import Note from '../Note';
 import ImagePaper from './ImagePaper';
+import MarkdownPaper from './markdown/MarkdownPaper';
 import TagAdd from './tag/TagAdd';
-
-const WordPaper = dynamic(
-  () => import('./word/WordPaper').then(mod => mod.default),
-  { ssr: false }
-);
-
-const MarkdownPaper = dynamic(
-  () => import('./markdown/MarkdownPaper').then(mod => mod.default),
-  { ssr: false }
-);
-
-const Note = dynamic(() => import('../Note').then(mod => mod.default), {
-  ssr: false,
-});
+import WordPaper from './word/WordPaper';
 
 export default function WriteContainer() {
   const [program, setProgram] = useState(1);
@@ -110,7 +97,7 @@ export default function WriteContainer() {
                 >
                   <span>마크 다운</span>
                   <Image
-                    src={markdown}
+                    src={'/image/paper/markdown.avif'}
                     alt="마크다운"
                     width={150}
                     height={150}

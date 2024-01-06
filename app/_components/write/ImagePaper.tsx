@@ -3,12 +3,6 @@ import { IoIosArrowForward } from '@react-icons/all-files/io/IoIosArrowForward';
 import Image from 'next/image';
 import { useRef, useState } from 'react';
 
-import Paper1 from '@/public/image/paper/paper1.png';
-import Paper2 from '@/public/image/paper/paper2.png';
-import Paper3 from '@/public/image/paper/paper3.png';
-import Paper4 from '@/public/image/paper/paper4.png';
-import Paper5 from '@/public/image/paper/paper5.png';
-import Paper6 from '@/public/image/paper/paper6.png';
 import styles from '@/styles/Write.module.css';
 import { BtnNext, BtnPrev, TransitionEnd } from '@/utils/infiniteCarousel';
 
@@ -19,7 +13,14 @@ export default function ImagePaper({
   paper: string;
   setPaper: (paper: string) => void;
 }) {
-  const papers = [Paper1, Paper2, Paper3, Paper4, Paper5, Paper6];
+  const papers = [
+    '/image/paper/paper1.avif',
+    '/image/paper/paper2.avif',
+    '/image/paper/paper3.avif',
+    '/image/paper/paper4.avif',
+    '/image/paper/paper5.avif',
+    '/image/paper/paper6.avif',
+  ];
 
   const [currentIndex, setCurrentIndex] = useState(1);
 

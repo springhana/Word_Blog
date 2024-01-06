@@ -47,7 +47,11 @@ export default function CardDetail({ id }: { id?: string | ObjectId }) {
       {error && loading ? null : (
         <div
           className={styles.card}
-          style={id ? {} : { backgroundImage: 'url(/image/background.jpeg)' }}
+          style={
+            id
+              ? {}
+              : { backgroundImage: 'url(/image/background/background.avif)' }
+          }
         >
           {id ? (
             card.program === 'word' ? (
