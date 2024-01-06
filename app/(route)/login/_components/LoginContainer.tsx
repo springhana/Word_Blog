@@ -7,7 +7,6 @@ import { useRouter } from 'next/navigation';
 import { signIn } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 
-import icon from '@/public/image/icon.jpeg';
 import { useAppSelector } from '@/redux/hook';
 import styles from '@/styles/Login.module.css';
 
@@ -27,7 +26,12 @@ export default function LoginContainer() {
   return (
     <div className={styles.login}>
       <div className={styles.title}>
-        <Image src={icon} alt={'이미지'} width={80} height={80} />
+        <Image
+          src={'/image/logo/icon.avif'}
+          alt={'이미지'}
+          width={80}
+          height={80}
+        />
         <p>로그인</p>
       </div>
 

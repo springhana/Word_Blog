@@ -1,7 +1,5 @@
 import Image, { StaticImageData } from 'next/image';
 
-import BannerImage_img from '@/public/image/banner_default.png';
-
 export default function BannerImage({
   image,
 }: {
@@ -11,7 +9,7 @@ export default function BannerImage({
     <>
       {image === 'default' || !image ? (
         <Image
-          src={BannerImage_img}
+          src={'/image/user/banner_default.avif'}
           alt="bannerImage"
           width={1000}
           height={1000}
