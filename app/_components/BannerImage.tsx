@@ -13,6 +13,7 @@ export default function BannerImage({
           alt="bannerImage"
           width={1000}
           height={1000}
+          layout="responsive"
           style={{ width: '100%', height: '100%' }}
           priority
         />
@@ -22,6 +23,7 @@ export default function BannerImage({
           alt="profile image"
           width={1000}
           height={1000}
+          layout="responsive"
           style={{ width: '100%', height: '100%' }}
           priority
         />
