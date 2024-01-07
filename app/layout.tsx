@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic';
 import { Suspense } from 'react';
 
 import { Providers } from '@/redux/provider';
+import ReactQueryProviders from '@/utils/react-query-provider';
 
 import Header from './_components/Header';
 import Sidebar from './_components/layout/Sidebar';
@@ -29,23 +30,25 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Suspense fallback={<Loading />}>
-          <Providers>
-            <div className="main-layout">
-              <div className="layout-inner">
-                <div className="layout-container">
-                  <Sidebar />
-                  <div className="content-container">
-                    <Header />
-                    <WirteModal />
-                    {children}
+        <ReactQueryProviders>
+          <Suspense fallback={<Loading />}>
+            <Providers>
+              <div className="main-layout">
+                <div className="layout-inner">
+                  <div className="layout-container">
+                    <Sidebar />
+                    <div className="content-container">
+                      <Header />
+                      <WirteModal />
+                      {children}
+                    </div>
+                    <Tag />
                   </div>
-                  <Tag />
                 </div>
               </div>
-            </div>
-          </Providers>
-        </Suspense>
+            </Providers>
+          </Suspense>
+        </ReactQueryProviders>
       </body>
     </html>
   );
