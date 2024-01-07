@@ -1,6 +1,7 @@
-import { UsersType } from '@/types/word_blog_user';
 import axios, { CancelTokenSource } from 'axios';
 import { useEffect, useState } from 'react';
+
+import { UsersType } from '@/types/word_blog_user';
 
 export const useUser = (_id: string, state: string) => {
   const [loading, setLoading] = useState(true);
@@ -38,7 +39,7 @@ export const useUser = (_id: string, state: string) => {
         cancel.cancel('Request canceled');
       }
     };
-  }, [_id]);
+  }, []);
   if (state === 'id') {
     return { loading, error, user, hasMore };
   } else if (state === 'email') {
