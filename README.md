@@ -10,6 +10,7 @@
 2. placeholder를 사용해서 스켈레톤 ui를 적용 시킴
 3. Next.js에서 기본적으로 이미지 캐싱, webp 포맷, lazy-loading
 4. 시도 해볼건 - 이미지 용량 압축 저장, 이미지 리사이징
+5. map에서 사용한 key값 index-> ex) "itme-card" + index
 
 # 추가구현
 - skeleton ui
