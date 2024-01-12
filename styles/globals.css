@@ -16,7 +16,7 @@ input[type='radio'] {
 .main-layout {
   height: 100vh;
   color: black;
-  background-color: #ffffff;
+  background-color: #f8fafc;
   overflow-y: auto;
 }
 .layout-inner {
@@ -148,7 +148,7 @@ input[type='radio'] {
 
 /* write_md */
 .w-md-editor-toolbar {
-  visibility: hidden;
+  /* visibility: hidden; */
 }
 .w-md-editor-text-input {
   resize: none;

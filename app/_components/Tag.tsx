@@ -65,9 +65,9 @@ export default function Tag() {
       if (windowWidth <= 764) {
         tagRef.current.style.right = '-100%';
       } else {
-        tagRef.current.style.right = '-30%';
+        tagRef.current.style.right = '-50%';
       }
-      tagBtnRef.current.style.left = '-50px';
+      tagBtnRef.current.style.left = '-60px';
       tagBtnRef.current.style.backgroundColor = '#fb6072';
       setToggle(0);
     }
