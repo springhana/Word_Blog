@@ -9,6 +9,7 @@ import { useEffect, useRef, useState } from 'react';
 
 import { useTag } from '@/hook/useTag';
 import { Init } from '@/redux/features/cardSlice';
+import { page_init } from '@/redux/features/pageSlice';
 import { tag_change } from '@/redux/features/tagSlice';
 import { onOpen } from '@/redux/features/writeSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/hook';
@@ -116,6 +117,7 @@ export default function Tag() {
             onClick={() => {
               dispatch(Init());
               dispatch(tag_change({ id: 'all', name: 'all' }));
+              dispatch(page_init());
               TagSlide();
             }}
             className={`${styles.hash_tag} ${
@@ -134,6 +136,7 @@ export default function Tag() {
                   onClick={() => {
                     dispatch(Init());
                     dispatch(tag_change({ id: item._id, name: item.name }));
+                    dispatch(page_init());
                     TagSlide();
                   }}
                   className={`${styles.hash_tag} ${
