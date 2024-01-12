@@ -3,6 +3,7 @@ import Image, { StaticImageData } from 'next/image';
 import { FileDrop } from 'react-file-drop';
 
 import styles from '@/styles/Images.module.css';
+import { compressImage } from '@/utils/compressImage ';
 
 import ImageEdit from '../(route)/edit/profile/[id]/_components/ImageEdit';
 
@@ -17,7 +18,7 @@ export default function ImageDrag({
   setFile: (file: File | undefined) => void;
   imgsize?: number;
 }) {
-  const DragImage = (files: FileList) => {
+  const DragImage = async (files: FileList) => {
     if (files[0].size >= 5000000) {
       alert('5MB 이상 파일은 업로드가 불가능합니다.');
     } else if (
@@ -25,7 +26,8 @@ export default function ImageDrag({
       files[0].type == 'image/jpeg' ||
       files[0].type == 'image/jpg'
     ) {
-      setFile(files[0]);
+      const resizeFile = await compressImage(files[0]);
+      setFile(resizeFile);
 
       const reader = new FileReader();
       reader.onload = e => {
@@ -37,11 +39,12 @@ export default function ImageDrag({
     }
   };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files ? e.target.files[0] : null;
 
     if (file) {
-      setFile(file);
+      const resizeFile = await compressImage(file);
+      setFile(resizeFile);
       const reader = new FileReader();
 
       reader.onload = async (e: ProgressEvent<FileReader>) => {
