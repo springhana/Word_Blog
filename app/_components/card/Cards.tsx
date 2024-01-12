@@ -16,21 +16,20 @@ export default function Cards({ tag }: { tag: string }) {
     setPage(pages);
   }, [pages]);
 
-  const { loading, error, cards, hasMore } = useCards(page, tag, 'tag') as {
+  const { loading, error, cards } = useCards(page, tag, 'tag') as {
     loading: boolean;
     error: boolean;
     cards: CardsType;
-    hasMore: boolean;
   };
 
   return (
     <div>
-      {!loading && !error && hasMore ? (
+      {cards.result ? (
         <div>
           <CardsItem
             cards={cards}
             loading={loading}
-            hasMore={hasMore}
+            error={error}
             page={page}
             setPage={setPage}
             tag={tag}

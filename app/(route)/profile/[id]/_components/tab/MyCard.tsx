@@ -21,21 +21,15 @@ export default function MyCard({ id }: { id: string }) {
     setPage(page + 1);
   };
 
-  const { loading, error, cards, hasMore } = useCards(
-    page,
-    'all',
-    'my',
-    id
-  ) as {
+  const { loading, error, cards } = useCards(page, 'all', 'my', id) as {
     loading: boolean;
     error: boolean;
     cards: CardsType;
-    hasMore: boolean;
   };
 
   return (
     <div>
-      {!loading && !error && hasMore && <Chart cards={cards} />}
+      {!loading && !error && <Chart cards={cards} />}
 
       <div className="memoTab">
         <MemoTab setState={setState} />
@@ -63,11 +57,11 @@ export default function MyCard({ id }: { id: string }) {
         </div>
       </div>
 
-      {hasMore && state === 'my' ? (
+      {state === 'my' ? (
         <CardsItem
           cards={cards}
           loading={loading}
-          hasMore={hasMore}
+          error={error}
           page={page}
           setPage={setPage}
           tag={'all'}

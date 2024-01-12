@@ -11,11 +11,10 @@ import CommentItem from './CommentItme';
 function CommentContainer({ _id }: { _id: string }) {
   const [page, setPage] = useState<number>(1);
 
-  const { loading, error, comments, hasMore } = useComment(_id, page) as {
+  const { loading, error, comments } = useComment(_id, page) as {
     loading: boolean;
     error: boolean;
     comments: CommentsType;
-    hasMore: boolean;
   };
 
   const observer: React.MutableRefObject<IntersectionObserver | null> =
@@ -26,15 +25,15 @@ function CommentContainer({ _id }: { _id: string }) {
       if (observer.current) observer.current.disconnect();
       observer.current = new IntersectionObserver(
         entries => {
-          if (entries[0].isIntersecting && hasMore) {
+          if (entries[0].isIntersecting && !error) {
             setPage(page + 1);
           }
         },
-        { threshold: 1.0 }
+        { threshold: 0.7 }
       );
       if (node) observer.current.observe(node);
     },
-    [loading, hasMore]
+    [loading]
   );
 
   const memoizedComment = useMemo(() => {
@@ -44,13 +43,13 @@ function CommentContainer({ _id }: { _id: string }) {
         page !== comments.totalPages
       ) {
         return (
-          <div key={index} ref={lastElementRef} style={{ color: 'red' }}>
+          <div key={item._id} ref={lastElementRef}>
             <CommentItem item={item} />
           </div>
         );
       } else {
         return (
-          <div key={index}>
+          <div key={item._id}>
             <CommentItem item={item} />
           </div>
         );
@@ -60,7 +59,7 @@ function CommentContainer({ _id }: { _id: string }) {
 
   return (
     <div>
-      {hasMore && !error && !loading ? (
+      {comments.result ? (
         <div>{memoizedComment}</div>
       ) : (
         <div className="search_result">댓글이 없습니다</div>
