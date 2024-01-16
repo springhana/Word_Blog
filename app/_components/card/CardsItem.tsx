@@ -13,14 +13,14 @@ import WordItem from './word/WordItem';
 export default function CardsItem({
   cards,
   loading,
-  hasMore,
+  error,
   page,
   setPage,
   tag,
 }: {
   cards: CardsType;
   loading: boolean;
-  hasMore: boolean;
+  error: boolean;
   page: number;
   setPage: (page: number) => void;
   tag: string;
@@ -36,16 +36,16 @@ export default function CardsItem({
       if (observer.current) observer.current.disconnect();
       observer.current = new IntersectionObserver(
         entries => {
-          if (entries[0].isIntersecting && hasMore) {
+          if (entries[0].isIntersecting && !error) {
             setPage(page + 1);
             dispatch(page_change(page + 1));
           }
         },
-        { threshold: 1.0 }
+        { threshold: 0.7 }
       );
       if (node) observer.current.observe(node);
     },
-    [loading, hasMore]
+    [loading]
   );
 
   const memoizedCard = useMemo(() => {
@@ -53,13 +53,13 @@ export default function CardsItem({
       if (cards.result.length === index + 1 && page !== cards.totalPages) {
         if (item.program === 'markdown') {
           return (
-            <div key={index} ref={lastElementRef}>
+            <div key={item._id as string} ref={lastElementRef}>
               <MdItem item={item} memorize={memorize} />
             </div>
           );
         } else if (item.program === 'word') {
           return (
-            <div key={index} ref={lastElementRef}>
+            <div key={item._id as string} ref={lastElementRef}>
               <WordItem item={item} memorize={memorize} />
             </div>
           );
@@ -67,13 +67,13 @@ export default function CardsItem({
       } else {
         if (item.program === 'markdown') {
           return (
-            <div key={index}>
+            <div key={item._id as string}>
               <MdItem item={item} memorize={memorize} />
             </div>
           );
         } else if (item.program === 'word') {
           return (
-            <div key={index}>
+            <div key={item._id as string}>
               <WordItem item={item} memorize={memorize} />
             </div>
           );
