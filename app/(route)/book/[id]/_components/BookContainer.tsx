@@ -15,6 +15,7 @@ import { setTitle } from '@/redux/features/headerSlice';
 import { change_state, onOpen } from '@/redux/features/noteSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/hook';
 import styles from '@/styles/Book.module.css';
+import { NoteType } from '@/types/word_blog';
 
 const Chart = dynamic(() => import('./Chart').then(mod => mod.default), {
   ssr: false,
@@ -146,7 +147,7 @@ export default function BookContainer() {
 
       {!loading && !error && hasMore && toggle ? (
         <div className={styles.books_inner}>
-          {note.map((item, index) => (
+          {note.map((item: NoteType, index: number) => (
             <div key={index} className={styles.book_item_container}>
               <div
                 className={styles.book_item}
