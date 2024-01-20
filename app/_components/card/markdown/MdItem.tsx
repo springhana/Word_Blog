@@ -34,7 +34,6 @@ export default function MdItem({
     tags: TagType[];
     hasMore: boolean;
   };
-
   const dispatch = useAppDispatch();
   const cardRef = useRef<HTMLDivElement>(null);
 

@@ -1,7 +1,5 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-
 import { useCards } from '@/hook/useCards';
 import { useAppSelector } from '@/redux/hook';
 import { CardsType } from '@/types/global';
@@ -9,14 +7,9 @@ import { CardsType } from '@/types/global';
 import CardsItem from './CardsItem';
 
 export default function Cards({ tag }: { tag: string }) {
-  const [page, setPage] = useState<number>(1);
   const pages = useAppSelector(state => state.pageReducer.page);
 
-  useEffect(() => {
-    setPage(pages);
-  }, [pages]);
-
-  const { loading, error, cards } = useCards(page, tag, 'tag') as {
+  const { loading, error, cards } = useCards(pages, tag, 'tag') as {
     loading: boolean;
     error: boolean;
     cards: CardsType;
@@ -28,10 +21,9 @@ export default function Cards({ tag }: { tag: string }) {
         <div>
           <CardsItem
             cards={cards}
+            page={pages}
             loading={loading}
             error={error}
-            page={page}
-            setPage={setPage}
             tag={tag}
           />
         </div>

@@ -12,11 +12,19 @@ export default function LikeCards({ id }: { id: string | ObjectId }) {
     hasMore: boolean;
   };
 
+  if (loading) {
+    return <div>Loading</div>;
+  }
+
+  if (error) {
+    return <div>Error</div>;
+  }
+
   return (
     <div>
-      {!loading && !error && hasMore && like.length > 0
-        ? like.map((item, index) => (
-            <div key={index}>
+      {hasMore && like.length > 0
+        ? like.map(item => (
+            <div key={item._id}>
               <CardDetail id={item._id} />
             </div>
           ))

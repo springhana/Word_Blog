@@ -5,7 +5,6 @@ import commentReducer from './features/commentSlice';
 import headerReducer from './features/headerSlice';
 import idReducer from './features/idSlice';
 import imageReducer from './features/imageSlice';
-import likeReducer from './features/likeSlice';
 import noteReducer from './features/noteSlice';
 import pageReducer from './features/pageSlice';
 import tagReducer from './features/tagSlice';
@@ -18,7 +17,6 @@ export const store = configureStore({
     writeReducer,
     noteReducer,
     pageReducer,
-    likeReducer,
     commentReducer,
     cardReducer,
     imageReducer,

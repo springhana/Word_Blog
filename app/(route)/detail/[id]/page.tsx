@@ -1,14 +1,6 @@
-import dynamic from 'next/dynamic';
+import CardDetail from '@/app/_components/card/CardDetail';
 
-const CardDetail = dynamic(
-  () => import('../../../_components/card/CardDetail').then(mod => mod.default),
-  { ssr: false }
-);
-
-const Comment = dynamic(
-  () => import('./_components/comment/Comment').then(mod => mod.default),
-  { ssr: false }
-);
+import Comment from './_components/comment/Comment';
 
 export default async function Detail() {
   return (

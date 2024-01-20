@@ -38,6 +38,7 @@ export default function Password({ user }: { user: string }) {
   return (
     <div className={styles.password}>
       <p>비밀 번호 변경</p>
+
       <div>
         <input
           type="text"

@@ -34,10 +34,19 @@ export default async function Cards(req: NextApiRequest, res: NextApiResponse) {
 
         collection
           .find(
-            req.query.tag !== 'all' && req.query.state === 'tag'
-              ? { tag: req.query.tag?.toString() }
+            req.query.state === 'tag'
+              ? req.query.tag !== 'all'
+                ? { tag: req.query.tag?.toString() }
+                : {}
               : req.query.state === 'my'
-                ? { author: new ObjectId(req.query.author?.toString()) }
+                ? req.query.tag === 'all'
+                  ? {
+                      author: new ObjectId(req.query.author?.toString()),
+                    }
+                  : {
+                      author: new ObjectId(req.query.author?.toString()),
+                      tag: req.query.tag?.toString(),
+                    }
                 : {}
           )
           .sort({ date: -1 })

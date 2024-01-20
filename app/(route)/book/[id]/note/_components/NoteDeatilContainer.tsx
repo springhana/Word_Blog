@@ -41,8 +41,8 @@ export default function NoteDeatilContainer() {
             <MemoTab />
           </div>
 
-          {note[0].cardID.map((item, index) => (
-            <div key={index}>
+          {note[0].cardID.map((item: string) => (
+            <div key={item}>
               <CardDetail id={item} />
             </div>
           ))}

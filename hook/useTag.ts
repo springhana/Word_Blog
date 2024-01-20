@@ -1,51 +1,42 @@
+import { useQuery } from '@tanstack/react-query';
 import axios, { CancelTokenSource } from 'axios';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 import { useAppSelector } from '@/redux/hook';
-import { TagType } from '@/types/word_blog';
 
 export const useTag = (id: string, state: string) => {
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
-  const [tags, setTags] = useState<TagType[]>([]);
-  const [hasMore, setHasMore] = useState(false);
-
   const tag = useAppSelector(state => state.tagReducer.state);
 
-  useEffect(() => {
-    setLoading(true);
-    setError(false);
-
-    const source = axios.CancelToken.source();
-    const cancel: CancelTokenSource = source;
-
-    const fetcgData = async () => {
+  const { data, isLoading, isError, isFetched, refetch } = useQuery({
+    gcTime: 1000 * 6000,
+    staleTime: 1000 * 6000,
+    enabled: !!id,
+    queryKey: [`tag-${id}`],
+    queryFn: async () => {
       try {
-        await axios
-          .get('/api/tag', {
-            params: { id: id, state: state },
-            cancelToken: source.token,
-          })
-          .then(res => {
-            if (res.data) {
-              setTags(res.data);
-              setHasMore(res.data);
-            }
-          });
-      } catch (e) {
-        if (axios.isCancel(e)) return;
-        setError(true);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetcgData();
+        const source = axios.CancelToken.source();
+        const cancel: CancelTokenSource = source;
 
-    return () => {
-      if (cancel) {
-        cancel.cancel('Request canceled');
+        const response = await axios.get('/api/tag', {
+          params: { id: id, state: state },
+          cancelToken: source.token,
+        });
+        if (cancel) {
+          cancel.cancel('Request canceled');
+        }
+
+        if (response.data) {
+          return response.data;
+        }
+      } catch (error) {
+        console.error(error);
       }
-    };
-  }, [id, tag]);
-  return { loading, error, tags, hasMore };
+    },
+  });
+
+  useEffect(() => {
+    refetch;
+  }, [tag]);
+
+  return { loading: isLoading, error: isError, tags: data, hasMore: isFetched };
 };

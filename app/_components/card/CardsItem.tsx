@@ -12,17 +12,15 @@ import WordItem from './word/WordItem';
 
 export default function CardsItem({
   cards,
+  page,
   loading,
   error,
-  page,
-  setPage,
   tag,
 }: {
   cards: CardsType;
+  page: number;
   loading: boolean;
   error: boolean;
-  page: number;
-  setPage: (page: number) => void;
   tag: string;
 }) {
   const dispatch = useAppDispatch();
@@ -37,7 +35,6 @@ export default function CardsItem({
       observer.current = new IntersectionObserver(
         entries => {
           if (entries[0].isIntersecting && !error) {
-            setPage(page + 1);
             dispatch(page_change(page + 1));
           }
         },

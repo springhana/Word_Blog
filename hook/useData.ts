@@ -1,47 +1,38 @@
+import { useQuery } from '@tanstack/react-query';
 import axios, { CancelTokenSource } from 'axios';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 export default function useData(id: string) {
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
-  const [data, setData] = useState({ card: 0, comment: 0, like: 0, note: 0 });
-  const [hasMore, setHasMore] = useState(false);
+  const { data, isLoading, isError, isFetched, refetch } = useQuery({
+    gcTime: 1000 * 6000 * 24,
+    staleTime: 1000 * 6000 * 24,
+    queryKey: [`data-${id}`],
+    queryFn: async () => {
+      try {
+        const source = axios.CancelToken.source();
+        const cancel: CancelTokenSource = source;
+
+        const response = await axios.get('/api/data', {
+          params: { _id: id },
+          cancelToken: source.token,
+        });
+        if (cancel) {
+          cancel.cancel('Request canceled');
+        }
+
+        if (response.data) {
+          return response.data;
+        }
+      } catch (error) {
+        if (axios.isCancel(error)) return;
+        console.error(error);
+      }
+    },
+  });
 
   useEffect(() => {
-    setLoading(true);
-    setError(false);
-
-    const source = axios.CancelToken.source();
-    const cancel: CancelTokenSource = source;
-    const fetchData = async () => {
-      try {
-        await axios
-          .get('/api/data', {
-            params: { _id: id },
-            cancelToken: source.token,
-          })
-          .then(res => {
-            if (res.data) {
-              console.log(res.data);
-              setData(res.data);
-              setHasMore(res.data);
-            }
-          });
-      } catch (e) {
-        if (axios.isCancel(e)) return;
-        setError(true);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-
-    return () => {
-      if (cancel) {
-        cancel.cancel('Request canceled');
-      }
-    };
+    refetch();
   }, [id]);
-  return { loading, error, data, hasMore };
+
+  return { loading: isLoading, error: isError, data, hasMore: isFetched };
 }

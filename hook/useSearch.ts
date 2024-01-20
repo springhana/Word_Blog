@@ -1,3 +1,4 @@
+import { useQuery } from '@tanstack/react-query';
 import axios, { CancelTokenSource } from 'axios';
 import { useEffect, useState } from 'react';
 
@@ -7,42 +8,42 @@ export const useSearch = (value: string) => {
   const [cards, setCards] = useState([]);
   const [hasMore, setHasMore] = useState(false);
 
-  useEffect(() => {
-    setLoading(true);
-    setError(false);
-
-    const source = axios.CancelToken.source();
-    const cancel: CancelTokenSource = source;
-
-    const fetchData = async () => {
+  const { data, isLoading, isError, isFetched, refetch } = useQuery({
+    gcTime: 1000 * 6000,
+    staleTime: 1000 * 6000,
+    enabled: !!value,
+    queryKey: ['search'],
+    queryFn: async () => {
       try {
-        if (value) {
-          await axios
-            .get('/api/search', {
-              params: { value: value },
-              cancelToken: source.token,
-            })
-            .then(res => {
-              if (res.data) {
-                setCards(res.data);
-                setHasMore(res.data.length > 0);
-              }
-            });
-        }
-      } catch (e) {
-        if (axios.isCancel(e)) return;
-        setError(true);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchData();
+        const source = axios.CancelToken.source();
+        const cancel: CancelTokenSource = source;
 
-    return () => {
-      if (cancel) {
-        cancel.cancel('Request canceled');
+        const respone = await axios.get('/api/search', {
+          params: { value: value },
+          cancelToken: source.token,
+        });
+        if (cancel) {
+          cancel.cancel('Request canceled');
+        }
+
+        if (respone.data) {
+          return respone.data;
+        }
+      } catch (error) {
+        if (axios.isCancel(error)) return;
+        console.error(error);
       }
-    };
+    },
+  });
+
+  useEffect(() => {
+    refetch();
   }, [value]);
-  return { loading, error, cards, hasMore };
+
+  return {
+    loading: isLoading,
+    error: isError,
+    cards: data,
+    hasMore: isFetched,
+  };
 };
