@@ -23,11 +23,20 @@ export default function CardDetail({ id }: { id?: string | ObjectId }) {
   const pathname = usePathname();
   const _id = pathname?.split('/')[2] as string;
   const router = useRouter();
-  const { loading, error, card } = useCard(id ? id : _id) as {
+  const { loading, error, card, hasMore } = useCard(id ? id : _id) as {
     loading: boolean;
     error: boolean;
     card: CardType;
+    hasMore: boolean;
   };
+
+  if (loading) {
+    return <div>Loading</div>;
+  }
+
+  if (error) {
+    return <div>Error</div>;
+  }
 
   return (
     <div>
@@ -44,7 +53,7 @@ export default function CardDetail({ id }: { id?: string | ObjectId }) {
         </div>
       )}
 
-      {error && loading ? null : (
+      {!hasMore ? null : (
         <div className={styles.card}>
           {id ? (
             card.program === 'word' ? (

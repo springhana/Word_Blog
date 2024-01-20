@@ -69,7 +69,7 @@ export default function NoteModal() {
         image:
           image && fileurl && filename
             ? fileurl + '/' + id + '/' + 'note' + '/' + filename
-            : amys[radnum],
+            : image,
       })
       .then(res => {
         if (res.data.post) {

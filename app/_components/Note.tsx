@@ -30,6 +30,13 @@ export default function Note({ author }: { author: string }) {
     }
   };
 
+  if (loading) {
+    return <div>Loading</div>;
+  }
+  if (error) {
+    return <div>Loading</div>;
+  }
+
   return (
     <div className={styles.note}>
       <div className={styles.note_add}>
@@ -50,7 +57,7 @@ export default function Note({ author }: { author: string }) {
       </div>
 
       <div className={styles.note_inner}>
-        {!loading && !error && hasMore
+        {hasMore
           ? note.map((item: NoteType, index: number) => {
               return (
                 <div
@@ -69,7 +76,9 @@ export default function Note({ author }: { author: string }) {
                       : { color: 'black' }
                   }
                 >
-                  {item.image || item.image !== 'default' ? (
+                  {item.image ||
+                  item.image !== 'default' ||
+                  item.image !== null ? (
                     <Image
                       src={item.image}
                       alt={item.image}

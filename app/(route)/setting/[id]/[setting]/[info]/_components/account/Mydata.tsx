@@ -6,6 +6,13 @@ import { UsersType } from '@/types/word_blog_user';
 export default function Mydata({ user }: { user: UsersType }) {
   const { loading, error, data, hasMore } = useData(user._id);
 
+  if (loading) {
+    return <div>Loading</div>;
+  }
+  if (error) {
+    return <div>error</div>;
+  }
+
   return (
     <div className={styles.mydata}>
       <div>
@@ -16,7 +23,7 @@ export default function Mydata({ user }: { user: UsersType }) {
         <span>이름: </span>
         {user.name}
       </div>
-      {!loading && !error && hasMore && (
+      {hasMore && (
         <>
           <div>
             <span>카드 수: </span>

@@ -1,47 +1,39 @@
+import { useQuery } from '@tanstack/react-query';
 import axios, { CancelTokenSource } from 'axios';
-import { useEffect, useState } from 'react';
 
 export const useSubscribe = (id: string, state: string) => {
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
-  const [subscribe, setSubscribe] = useState([]);
-  const [hasMore, setHasMore] = useState(false);
-
-  useEffect(() => {
-    setLoading(true);
-    setError(false);
-
-    const source = axios.CancelToken.source();
-    const cancel: CancelTokenSource = source;
-
-    const fetchData = async () => {
+  const { data, isLoading, isError, isFetched } = useQuery({
+    gcTime: 1000 * 6000,
+    staleTime: 1000 * 6000,
+    enabled: !!id,
+    queryKey: [`subscribe-${id}`],
+    queryFn: async () => {
       try {
-        await axios
-          .get('/api/subscribe', {
-            params: { author: id, state: state },
-            cancelToken: source.token,
-          })
-          .then(res => {
-            if (res.data) {
-              setSubscribe(res.data);
-              setHasMore(res.data);
-            }
-          });
-      } catch (e) {
-        if (axios.isCancel(e)) return;
-        setError(true);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchData();
+        const source = axios.CancelToken.source();
+        const cancel: CancelTokenSource = source;
 
-    return () => {
-      if (cancel) {
-        cancel.cancel('Request canceled');
-      }
-    };
-  }, [id]);
+        const response = await axios.get('/api/subscribe', {
+          params: { author: id, state: state },
+          cancelToken: source.token,
+        });
+        if (cancel) {
+          cancel.cancel('Request canceled');
+        }
 
-  return { loading, error, subscribe, hasMore };
+        if (response.data) {
+          return response.data;
+        }
+      } catch (error) {
+        if (axios.isCancel(error)) return;
+        console.error(error);
+      }
+    },
+  });
+
+  return {
+    loading: isLoading,
+    error: isError,
+    subscribe: data,
+    hasMore: isFetched,
+  };
 };

@@ -4,14 +4,13 @@ import { FcLike } from '@react-icons/all-files/fc/FcLike';
 import { FcLikePlaceholder } from '@react-icons/all-files/fc/FcLikePlaceholder';
 import axios from 'axios';
 import { ObjectId } from 'mongodb';
+import { useEffect, useState } from 'react';
 
 import { useLike } from '@/hook/useLike';
-import { change_state } from '@/redux/features/likeSlice';
-import { useAppDispatch, useAppSelector } from '@/redux/hook';
+import { useAppSelector } from '@/redux/hook';
 import styles from '@/styles/Card.module.css';
 
 export default function Like({ id }: { id: string | ObjectId }) {
-  const dispatch = useAppDispatch();
   const user = useAppSelector(state => state.idReducer.id);
 
   const { loading, error, like, hasMore } = useLike(id, 'id', user) as {
@@ -20,12 +19,22 @@ export default function Like({ id }: { id: string | ObjectId }) {
     like: { result: number; like: boolean };
     hasMore: boolean;
   };
+  const [likeLength, setLikeLength] = useState(0);
+  const [isLike, setIsLike] = useState(false);
 
   const LikeEvent = async () => {
     try {
       await axios.post('/api/like', { id: id, user: user }).then(res => {
         if (res.data.post) {
-          dispatch(change_state());
+          if (isLike) {
+            setIsLike(false);
+            if (likeLength > 0) {
+              setLikeLength(likeLength - 1);
+            }
+          } else {
+            setIsLike(true);
+            setLikeLength(likeLength + 1);
+          }
         }
       });
     } catch (e) {
@@ -33,26 +42,41 @@ export default function Like({ id }: { id: string | ObjectId }) {
     }
   };
 
+  useEffect(() => {
+    if (hasMore) {
+      setIsLike(like.like);
+      setLikeLength(like.result);
+    }
+  }, [hasMore]);
+
+  if (loading) {
+    return <div>Loading</div>;
+  }
+
+  if (error) {
+    return <div>Error</div>;
+  }
+
   return (
     <>
-      {!loading && !error && hasMore && (
+      {hasMore && (
         <div
           onClick={LikeEvent}
-          className={like.like ? styles.like_true : styles.like_false}
+          className={isLike ? styles.like_true : styles.like_false}
         >
-          {like.like ? (
+          {isLike ? (
             <>
               <span className={styles.like_icon}>
                 <FcLike />
               </span>
-              <span>{like.result}</span>
+              <span>{likeLength}</span>
             </>
           ) : (
             <>
               <span className={styles.like_icon}>
                 <FcLikePlaceholder />
               </span>
-              <span>{like.result}</span>
+              <span>{likeLength}</span>
             </>
           )}
         </div>

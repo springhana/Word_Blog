@@ -1,5 +1,6 @@
+import { useQuery } from '@tanstack/react-query';
 import axios, { CancelTokenSource } from 'axios';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { UsersType } from '@/types/word_blog_user';
 
@@ -9,40 +10,41 @@ export const useUser = (_id: string, state: string) => {
   const [user, setUser] = useState<UsersType | string | null>(null);
   const [hasMore, setHasMore] = useState(false);
 
-  useEffect(() => {
-    setLoading(true);
-    setError(false);
-
-    const source = axios.CancelToken.source();
-    const cancel: CancelTokenSource = source;
-
-    const fetchData = async () => {
+  const { data, isLoading, isError, isFetched } = useQuery({
+    gcTime: 1000 * 6000,
+    staleTime: 1000 * 6000,
+    enabled: !!_id,
+    queryKey: [`user-${_id}`],
+    queryFn: async () => {
       try {
+        const source = axios.CancelToken.source();
+        const cancel: CancelTokenSource = source;
+
         const response = await axios.get('/api/user', {
           params: { _id: _id, state: state },
           cancelToken: source.token,
         });
-        if (response.data) {
-          setUser(response.data);
-          setHasMore(response.data);
+        if (cancel) {
+          cancel.cancel('Request canceled');
         }
-      } catch (e) {
-        if (axios.isCancel(e)) return;
-        setError(true);
-      } finally {
-        setLoading(false);
+
+        if (response.data) {
+          return response.data;
+        }
+      } catch (error) {
+        console.error(error);
       }
-    };
-    fetchData();
-    return () => {
-      if (cancel) {
-        cancel.cancel('Request canceled');
-      }
-    };
-  }, []);
+    },
+  });
+
   if (state === 'id') {
-    return { loading, error, user, hasMore };
+    return {
+      loading: isLoading,
+      error: isError,
+      user: data,
+      hasMore: isFetched,
+    };
   } else if (state === 'email') {
-    return { user };
+    return { user: data };
   }
 };
