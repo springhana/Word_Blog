@@ -2,6 +2,7 @@
 import { BsBarChart } from '@react-icons/all-files/bs/BsBarChart';
 import { BsBarChartFill } from '@react-icons/all-files/bs/BsBarChartFill';
 import { HiViewGridAdd } from '@react-icons/all-files/hi/HiViewGridAdd';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import dynamic from 'next/dynamic';
 import Image, { StaticImageData } from 'next/image';
@@ -12,7 +13,7 @@ import ImageDrag from '@/app/_components/ImageDrag';
 import NoteModal from '@/app/_components/modal/NoteModal';
 import { useNote } from '@/hook/useNote';
 import { setTitle } from '@/redux/features/headerSlice';
-import { change_state, onOpen } from '@/redux/features/noteSlice';
+import { onOpen } from '@/redux/features/noteSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/hook';
 import styles from '@/styles/Book.module.css';
 import { NoteType } from '@/types/word_blog';
@@ -79,7 +80,6 @@ export default function BookContainer() {
           if (res.data.update) {
             setUpdate('');
             setValue('');
-            dispatch(change_state());
           }
         });
     } catch (error) {
@@ -92,13 +92,26 @@ export default function BookContainer() {
       await axios.delete('/api/note', { params: { id: id } }).then(res => {
         if (res.data.delete) {
           setRemove('');
-          dispatch(change_state());
         }
       });
     } catch (error) {
       console.error(error);
     }
   };
+  const queryClient = useQueryClient();
+
+  const { mutate } = useMutation({
+    mutationFn: async ({ id, type }: { id: string; type: boolean }) => {
+      if (type) {
+        NoteDelete(id);
+      } else {
+        NoteUpdate(id);
+      }
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [`note-${id}`] });
+    },
+  });
 
   const bookBackground = (index: number) => {
     if (index % 2 == 0) {
@@ -201,7 +214,7 @@ export default function BookContainer() {
                 {item.name === update ? (
                   <button
                     onClick={() => {
-                      NoteUpdate(item._id);
+                      mutate({ id: item._id, type: false });
                     }}
                     className={styles.btn_ok}
                   >
@@ -233,7 +246,7 @@ export default function BookContainer() {
                 {item.name === remove ? (
                   <button
                     onClick={() => {
-                      NoteDelete(item._id);
+                      mutate({ id: item._id, type: true });
                     }}
                     className={styles.btn_ok}
                   >

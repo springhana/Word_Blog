@@ -1,15 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import axios, { CancelTokenSource } from 'axios';
-import { useState } from 'react';
-
-import { UsersType } from '@/types/word_blog_user';
 
 export const useUser = (_id: string, state: string) => {
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
-  const [user, setUser] = useState<UsersType | string | null>(null);
-  const [hasMore, setHasMore] = useState(false);
-
   const { data, isLoading, isError, isFetched } = useQuery({
     gcTime: 1000 * 6000,
     staleTime: 1000 * 6000,

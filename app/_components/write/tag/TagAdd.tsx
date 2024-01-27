@@ -1,9 +1,10 @@
 'use client';
 
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { useState } from 'react';
 
-import { change_state, tag_change } from '@/redux/features/tagSlice';
+import { tag_change } from '@/redux/features/tagSlice';
 import { onClose } from '@/redux/features/writeSlice';
 import { useAppDispatch } from '@/redux/hook';
 import styles from '@/styles/Write.module.css';
@@ -17,7 +18,6 @@ export default function TagAdd({ id }: { id: string }) {
     try {
       await axios.post('/api/tag', { id: id, tag: tag }).then(res => {
         if (res.data.post) {
-          dispatch(change_state());
           dispatch(tag_change({ id: 'all', name: 'all' }));
           dispatch(onClose());
         }
@@ -26,6 +26,17 @@ export default function TagAdd({ id }: { id: string }) {
       console.error(error);
     }
   };
+
+  const queryClient = useQueryClient();
+
+  const { mutate } = useMutation({
+    mutationFn: async () => {
+      tagPost();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [`tag-${id}`] });
+    },
+  });
 
   return (
     <div className={styles.tag_add}>
@@ -36,7 +47,13 @@ export default function TagAdd({ id }: { id: string }) {
           setTag(e.target.value);
         }}
       />
-      <button onClick={tagPost}>태그 추가</button>
+      <button
+        onClick={() => {
+          mutate();
+        }}
+      >
+        태그 추가
+      </button>
     </div>
   );
 }

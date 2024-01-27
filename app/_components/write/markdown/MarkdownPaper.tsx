@@ -2,19 +2,14 @@
 
 import { FaEye } from '@react-icons/all-files/fa/FaEye';
 import { FaEyeSlash } from '@react-icons/all-files/fa/FaEyeSlash';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { StaticImageData } from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import { FileDrop } from 'react-file-drop';
 
-import { state_change } from '@/redux/features/cardSlice';
-import {
-  onClose,
-  writeEditID_change,
-  writeid_change,
-  writetag_change,
-} from '@/redux/features/writeSlice';
+import { onClose } from '@/redux/features/writeSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/hook';
 import stylse from '@/styles/Card.module.css';
 import { CardType } from '@/types/word_blog';
@@ -91,32 +86,21 @@ export default function MarkdownPaper({
         });
     }
 
-    await axios
-      .post('/api/post/card/markdown', {
-        md: md,
-        title: title,
-        tag: tag,
-        id: id,
-        note: select,
-        paper: paper,
-        program: program === 1 ? 'word' : 'markdown',
-        image:
-          image && fileurl && filename
-            ? fileurl + '/' + id + '/' + 'card' + '/' + filename
-            : imageUrl
-              ? imageUrl
-              : 'default',
-      })
-      .then(res => {
-        if (res.data.post) {
-          setMd('');
-          setTitle('제목');
-          dispatch(writeid_change(res.data.id));
-          dispatch(writetag_change('CS'));
-          dispatch(onClose());
-          dispatch(writeEditID_change(''));
-        }
-      });
+    await axios.post('/api/post/card/markdown', {
+      md: md,
+      title: title,
+      tag: tag,
+      id: id,
+      note: select,
+      paper: paper,
+      program: program === 1 ? 'word' : 'markdown',
+      image:
+        image && fileurl && filename
+          ? fileurl + '/' + id + '/' + 'card' + '/' + filename
+          : imageUrl
+            ? imageUrl
+            : 'default',
+    });
   };
 
   const EditMd = async () => {
@@ -144,33 +128,51 @@ export default function MarkdownPaper({
         });
     }
 
-    await axios
-      .put('/api/card', {
-        word: '',
-        meaning: '',
-        sentence: '',
-        author: card.author,
-        id: card._id,
-        md: md,
-        title: title,
-        memorize: card.memorize,
-        note: noteState,
-        paper: card.paper,
-        program: program === 1 ? 'word' : 'markdown',
-        image:
-          image && fileurl && filename
-            ? fileurl + '/' + card.author + '/' + 'card' + '/' + filename
-            : image,
-      })
-      .then(res => {
-        if (res.data.update) {
-          dispatch(onClose());
-          dispatch(writeEditID_change(''));
-          dispatch(state_change());
-          router.push(`/detail/${card._id}`);
-        }
-      });
+    await axios.put('/api/card', {
+      word: '',
+      meaning: '',
+      sentence: '',
+      author: card.author,
+      id: card._id,
+      md: md,
+      title: title,
+      memorize: card.memorize,
+      note: noteState,
+      paper: card.paper,
+      program: program === 1 ? 'word' : 'markdown',
+      image:
+        image && fileurl && filename
+          ? fileurl + '/' + card.author + '/' + 'card' + '/' + filename
+          : image,
+    });
   };
+
+  const queryClient = useQueryClient();
+  const { mutate } = useMutation({
+    mutationFn: async (id: boolean) => {
+      if (id) {
+        EditMd();
+      } else {
+        PostCard();
+      }
+    },
+    onSuccess: () => {
+      if (card?._id) {
+        queryClient.invalidateQueries({
+          queryKey: [`card-detail-${card._id}`],
+        });
+      }
+      queryClient.invalidateQueries({
+        queryKey: [`cards-${card?.tag ? card.tag : tag}`],
+      });
+      queryClient.invalidateQueries({
+        queryKey: [`cards-all`],
+      });
+      setMd('');
+      setTitle('제목');
+      dispatch(onClose());
+    },
+  });
 
   const DragImage = async (files: FileList) => {
     const filename = encodeURIComponent(files[0].name); // 인코딩해서 글자깨짐 방지
@@ -286,9 +288,9 @@ export default function MarkdownPaper({
         className={stylse.write_card_btn}
         onClick={() => {
           if (card?._id) {
-            EditMd();
+            mutate(true);
           } else {
-            PostCard();
+            mutate(false);
           }
         }}
       >

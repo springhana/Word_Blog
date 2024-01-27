@@ -19,6 +19,7 @@ export default function Memorize({
 }) {
   const [memori, setMemori] = useState(memorize);
   const _id = useAppSelector(state => state.idReducer.id);
+
   const MemorizeEvent = async () => {
     if (author === _id) {
       try {
