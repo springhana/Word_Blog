@@ -1,17 +1,11 @@
 'use client';
 
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { StaticImageData } from 'next/image';
-import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 
-import { state_change } from '@/redux/features/cardSlice';
-import {
-  onClose,
-  writeEditID_change,
-  writeid_change,
-  writetag_change,
-} from '@/redux/features/writeSlice';
+import { onClose } from '@/redux/features/writeSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/hook';
 import stylse from '@/styles/Card.module.css';
 import { CardType } from '@/types/word_blog';
@@ -44,29 +38,7 @@ export default function WordPaper({
 
   const dispatch = useAppDispatch();
   const select = useAppSelector(state => state.noteReducer.select);
-  const router = useRouter();
   const noteState = useAppSelector(state => state.noteReducer.select);
-
-  useEffect(() => {
-    if (card?._id) {
-      setWord(card.word || '');
-      setMeaning(card.meaning || '');
-      setSentence(card.sentence || '');
-      setImage(card.image || 'default');
-    }
-  }, []);
-
-  useEffect(() => {
-    function handleResize() {
-      setWindowWidth(window.innerWidth);
-    }
-
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
 
   const CardPost = async () => {
     let filename;
@@ -88,32 +60,20 @@ export default function WordPaper({
           fileurl = res.url;
         });
     }
-    await axios
-      .post('/api/post/card/word', {
-        word: word,
-        meaning: meaning,
-        sentence: sentence,
-        tag: tag,
-        id: id,
-        note: select,
-        paper: paper,
-        program: program === 1 ? 'word' : 'markdown',
-        image:
-          image && fileurl && filename
-            ? fileurl + '/' + id + '/' + 'card' + '/' + filename
-            : 'default',
-      })
-      .then(res => {
-        if (res.data.post) {
-          setWord('');
-          setMeaning('');
-          setSentence('');
-          dispatch(writeid_change(res.data.id));
-          dispatch(writetag_change(tag));
-          dispatch(onClose());
-          dispatch(writeEditID_change(''));
-        }
-      });
+    await axios.post('/api/post/card/word', {
+      word: word,
+      meaning: meaning,
+      sentence: sentence,
+      tag: tag,
+      id: id,
+      note: select,
+      paper: paper,
+      program: program === 1 ? 'word' : 'markdown',
+      image:
+        image && fileurl && filename
+          ? fileurl + '/' + id + '/' + 'card' + '/' + filename
+          : 'default',
+    });
   };
 
   const EditWord = async () => {
@@ -140,33 +100,52 @@ export default function WordPaper({
         });
     }
 
-    await axios
-      .put('/api/card', {
-        author: card.author,
-        id: card._id,
-        word: word,
-        meaning: meaning,
-        sentence: sentence,
-        memorize: card.memorize,
-        note: noteState,
-        paper: card.paper,
-        program: program === 1 ? 'word' : 'markdown',
-        md: '',
-        title: '',
-        image:
-          image && fileurl && filename
-            ? fileurl + '/' + card.author + '/' + 'card' + '/' + filename
-            : image,
-      })
-      .then(res => {
-        if (res.data.update) {
-          dispatch(onClose());
-          dispatch(writeEditID_change(''));
-          dispatch(state_change());
-          router.push(`/detail/${card._id}`);
-        }
-      });
+    await axios.put('/api/card', {
+      author: card.author,
+      id: card._id,
+      word: word,
+      meaning: meaning,
+      sentence: sentence,
+      memorize: card.memorize,
+      note: noteState,
+      paper: card.paper,
+      program: program === 1 ? 'word' : 'markdown',
+      md: '',
+      title: '',
+      image:
+        image && fileurl && filename
+          ? fileurl + '/' + card.author + '/' + 'card' + '/' + filename
+          : image,
+    });
   };
+  const queryClient = useQueryClient();
+
+  const { mutate } = useMutation({
+    mutationFn: async (id: boolean) => {
+      if (id) {
+        EditWord();
+      } else {
+        CardPost();
+      }
+    },
+    onSuccess: () => {
+      if (card?._id) {
+        queryClient.invalidateQueries({
+          queryKey: [`card-detail-${card._id}`],
+        });
+      }
+      queryClient.invalidateQueries({
+        queryKey: [`cards-${card?.tag ? card.tag : tag}`],
+      });
+      queryClient.invalidateQueries({
+        queryKey: [`cards-all`],
+      });
+      setWord('');
+      setMeaning('');
+      setSentence('');
+      dispatch(onClose());
+    },
+  });
 
   const handleResizeHeight = (textarea: HTMLTextAreaElement) => {
     if (textarea) {
@@ -174,6 +153,27 @@ export default function WordPaper({
       textarea.style.height = textarea.scrollHeight + 'px';
     }
   };
+
+  useEffect(() => {
+    if (card?._id) {
+      setWord(card.word || '');
+      setMeaning(card.meaning || '');
+      setSentence(card.sentence || '');
+      setImage(card.image || 'default');
+    }
+  }, [mutate]);
+
+  useEffect(() => {
+    function handleResize() {
+      setWindowWidth(window.innerWidth);
+    }
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   return (
     <div className={stylse.write_card}>
@@ -233,9 +233,9 @@ export default function WordPaper({
         className={stylse.post_btn}
         onClick={() => {
           if (card?._id) {
-            EditWord();
+            mutate(true);
           } else {
-            CardPost();
+            mutate(false);
           }
         }}
       >

@@ -43,7 +43,7 @@ export const useCards = (
   const { refetch } = useQuery({
     gcTime: 1000 * 6000,
     staleTime: 1000 * 6000,
-    queryKey: [`cards-${tag}-${page}`],
+    queryKey: [`cards-${tag}`],
     queryFn: async () => {
       try {
         setError(false);

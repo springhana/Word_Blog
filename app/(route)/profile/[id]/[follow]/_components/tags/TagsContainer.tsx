@@ -1,10 +1,10 @@
 'use client';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
 import { useTag } from '@/hook/useTag';
 import { setTitle } from '@/redux/features/headerSlice';
-import { change_state } from '@/redux/features/tagSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/hook';
 import styles from '@/styles/Profile.module.css';
 import { TagType } from '@/types/word_blog';
@@ -35,7 +35,6 @@ export default function TagsContainer() {
           if (res.data.update) {
             setUpdate('');
             setValue('');
-            dispatch(change_state());
           }
         });
     } catch (error) {
@@ -50,13 +49,28 @@ export default function TagsContainer() {
         .then(res => {
           if (res.data.delete) {
             setRemove('');
-            dispatch(change_state());
           }
         });
     } catch (error) {
       console.error(error);
     }
   };
+
+  const queryClient = useQueryClient();
+
+  const { mutate } = useMutation({
+    mutationFn: async ({ id, type }: { id: string; type: boolean }) => {
+      if (type) {
+        TagDelete(id);
+      } else {
+        TagUpdate(id);
+      }
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['key'] });
+    },
+  });
+
   return (
     <div>
       {!loading && !error && hasMore
@@ -80,7 +94,7 @@ export default function TagsContainer() {
                 {item.name === update ? (
                   <button
                     onClick={() => {
-                      TagUpdate(item._id);
+                      mutate({ id: item._id, type: false });
                     }}
                     className={styles.btn_ok}
                   >
@@ -110,7 +124,7 @@ export default function TagsContainer() {
                 {item.name === remove ? (
                   <button
                     onClick={() => {
-                      TagDelete(item._id);
+                      mutate({ id: item._id, type: true });
                     }}
                     className={styles.btn_ok}
                   >

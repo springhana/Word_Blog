@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import axios, { CancelTokenSource } from 'axios';
 import { ObjectId } from 'mongodb';
 import { useEffect } from 'react';
@@ -11,6 +11,8 @@ export const useLike = (
   user?: string
 ) => {
   const pages = useAppSelector(state => state.pageReducer.page);
+
+  const queryClient = useQueryClient();
 
   const { data, isLoading, isError, isFetched, refetch } = useQuery({
     gcTime: 1000 * 6000,
@@ -40,9 +42,25 @@ export const useLike = (
     },
   });
 
+  const { mutate } = useMutation({
+    mutationFn: async () => {
+      return axios.post('/api/like', { id: _id, user: user });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [`like-${_id}`] });
+    },
+  });
+
+  // 홈으로 가면 pages가 계속 변해서 refech가 일어남 해결
   useEffect(() => {
     refetch();
   }, [pages]);
 
-  return { loading: isLoading, error: isError, like: data, hasMore: isFetched };
+  return {
+    loading: isLoading,
+    error: isError,
+    like: data,
+    hasMore: isFetched,
+    mutate,
+  };
 };

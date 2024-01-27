@@ -1,6 +1,7 @@
 'use client';
 
 import { IoArrowBack } from '@react-icons/all-files/io5/IoArrowBack';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { StaticImageData } from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
@@ -51,23 +52,21 @@ export default function UserEdit() {
     }
   }, [loading, pathname]);
 
-  const UpdateUser = async () => {
-    try {
-      await axios
-        .put('/api/update/profile', {
-          _id: pathname,
-          name: name,
-          intro: self_Intro,
-        })
-        .then(res => {
-          if (res.data.update) {
-            router.push(`/profile/${pathname}`);
-          }
-        });
-    } catch (e) {
-      console.error(e);
-    }
-  };
+  const queryClient = useQueryClient();
+
+  const { mutate } = useMutation({
+    mutationFn: async () => {
+      return await axios.put('/api/update/profile', {
+        _id: pathname,
+        name: name,
+        intro: self_Intro,
+      });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [`user-${pathname}`] });
+      router.push(`/profile/${pathname}`);
+    },
+  });
 
   const ImageEvent = (image: StaticImageData | string, type: string) => {
     if (type === 'image') {
@@ -147,7 +146,12 @@ export default function UserEdit() {
                 다음으로
               </span>
             ) : (
-              <span onClick={UpdateUser} className={styles.edit_modal_btn_next}>
+              <span
+                onClick={() => {
+                  mutate();
+                }}
+                className={styles.edit_modal_btn_next}
+              >
                 저장하기
               </span>
             )}
