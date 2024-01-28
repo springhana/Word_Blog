@@ -6,11 +6,13 @@
 - 상태관리 Redux -> zustand
 - 서버 상태관리 react-queryx⭕
 - 이미지 성능 최적화⭕
+
 1. avif 사용으로 용량과 시간을 최소로 만들었음⭕
 2. placeholder를 사용해서 스켈레톤 ui를 적용 시킴
 3. Next.js에서 기본적으로 이미지 캐싱, webp 포맷, lazy-loading⭕
 4. 시도 해볼건 - 이미지 용량 압축 저장, 이미지 리사이징⭕
 5. map에서 사용한 key값 index-> ex) "itme-card" + index
+6. 이미지 압축 드래그에만 적용되어 있음
 
 # 추가구현
 - skeleton ui
