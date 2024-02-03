@@ -8,9 +8,12 @@ import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 
 import styles from '@/styles/Book.module.css';
 
-const ForceGraph2D = dynamic(() => import('react-force-graph-2d'), {
-  ssr: false,
-});
+const ForceGraph2D = dynamic(
+  () => import('react-force-graph-2d').then(mod => mod.default),
+  {
+    ssr: false,
+  }
+);
 
 export default function Chart({ note }: { note: NoteType[] }) {
   if (!note) {

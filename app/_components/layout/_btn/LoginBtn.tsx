@@ -18,17 +18,17 @@ const LoginBtn = ({ session }: { session: SessionType | null }) => {
   };
 
   return (
-    <div
-      className={styles.item}
-      onClick={async () => {
-        if (session) {
-          signOut();
-        } else {
-          signIn();
-        }
-      }}
-    >
-      <Link href={itme.link}>
+    <Link href={itme.link}>
+      <div
+        className={styles.item}
+        onClick={async () => {
+          if (session) {
+            signOut();
+          } else {
+            signIn();
+          }
+        }}
+      >
         <div className={styles.item_icon}>
           {session ? itme.icon() : itme.visited_icon()}
         </div>
@@ -36,8 +36,8 @@ const LoginBtn = ({ session }: { session: SessionType | null }) => {
         <div className={styles.item_label}>
           {session ? itme.visited_Label : itme.label}
         </div>
-      </Link>
-    </div>
+      </div>
+    </Link>
   );
 };
 export default LoginBtn;

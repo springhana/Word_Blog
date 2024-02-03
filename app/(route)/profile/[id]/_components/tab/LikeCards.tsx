@@ -1,8 +1,10 @@
 import { ObjectId } from 'mongodb';
+import dynamic from 'next/dynamic';
 
-import CardDetail from '@/app/_components/card/CardDetail';
 import { useLike } from '@/hook/useLike';
 import { LikeType } from '@/types/word_blog';
+
+const CardDetail = dynamic(() => import('@/app/_components/card/CardDetail'));
 
 export default function LikeCards({ id }: { id: string | ObjectId }) {
   const { loading, error, like, hasMore } = useLike(id, 'user') as {

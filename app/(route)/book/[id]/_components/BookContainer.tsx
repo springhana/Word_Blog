@@ -10,13 +10,17 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 import ImageDrag from '@/app/_components/ImageDrag';
-import NoteModal from '@/app/_components/modal/NoteModal';
 import { useNote } from '@/hook/useNote';
 import { setTitle } from '@/redux/features/headerSlice';
 import { onOpen } from '@/redux/features/noteSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/hook';
 import styles from '@/styles/Book.module.css';
 import { NoteType } from '@/types/word_blog';
+
+const NoteModal = dynamic(
+  () => import('@/app/_components/modal/NoteModal').then(mod => mod.default),
+  { ssr: false }
+);
 
 const Chart = dynamic(() => import('./Chart').then(mod => mod.default), {
   ssr: false,

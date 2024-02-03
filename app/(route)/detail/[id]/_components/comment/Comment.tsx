@@ -1,7 +1,6 @@
 'use client';
 
 import axios from 'axios';
-import dynamic from 'next/dynamic';
 import { usePathname } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 
@@ -11,10 +10,7 @@ import { setTitle } from '@/redux/features/headerSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/hook';
 import styles from '@/styles/CardDetail.module.css';
 
-const CommentContainer = dynamic(
-  () => import('./CommentContainer').then(mod => mod.default),
-  { ssr: false }
-);
+import CommentContainer from './CommentContainer';
 
 export default function Comment() {
   const [comment, setComment] = useState('');
