@@ -111,7 +111,7 @@ input[type='radio'] {
   padding: 20px;
   background-color: white;
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: center;
   cursor: pointer;
   transition: 0.2s all;

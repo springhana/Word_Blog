@@ -1,7 +1,7 @@
 /* ------ Sidebar ------ */
 .sidebar {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   padding: 10px 30px;
   min-width: 40px;
 }
@@ -157,7 +157,7 @@ a .item_active,
   .sidebar {
     grid-column: span 1;
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
   }
 
   /* ----- SidebarItem ------ */
