@@ -15,7 +15,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  align-items: start;
+  align-items: flex-start;
   overflow-y: auto;
 }
 .note_inner::-webkit-scrollbar {

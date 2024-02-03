@@ -19,7 +19,7 @@
 }
 .card_profile a {
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: center;
 }
 .card_profile a span {
@@ -27,7 +27,7 @@
   font-weight: bold;
   display: flex;
   flex-direction: column;
-  align-items: start;
+  align-items: flex-start;
 }
 .card_profile a span div:nth-child(1) {
   color: #566370;
