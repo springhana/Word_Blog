@@ -1,12 +1,15 @@
 'use client';
 
 import { IoArrowBack } from '@react-icons/all-files/io5/IoArrowBack';
+import dynamic from 'next/dynamic';
 import { usePathname, useRouter } from 'next/navigation';
 
 import Login from '@/app/_components/Login';
 import { useAppSelector } from '@/redux/hook';
-
-import Account from './_components/Account';
+const Account = dynamic(
+  () => import('./_components/Account').then(mod => mod.default),
+  { ssr: false }
+);
 
 export default function Settings() {
   let pathname = usePathname();

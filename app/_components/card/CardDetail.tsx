@@ -5,6 +5,7 @@ import '@uiw/react-md-editor/markdown-editor.css';
 
 import { IoArrowBack } from '@react-icons/all-files/io5/IoArrowBack';
 import { ObjectId } from 'mongodb';
+import dynamic from 'next/dynamic';
 import { usePathname, useRouter } from 'next/navigation';
 
 import Md from '@/app/(route)/detail/[id]/_components/card/Md';
@@ -14,9 +15,12 @@ import { useAppSelector } from '@/redux/hook';
 import styles from '@/styles/CardDetail.module.css';
 import { CardType } from '@/types/word_blog';
 
-import CardNote from './CardNote';
 import MdItem from './markdown/MdItem';
 import WordItem from './word/WordItem';
+
+const CardNote = dynamic(() => import('./CardNote').then(mod => mod.default), {
+  ssr: false,
+});
 
 export default function CardDetail({ id }: { id?: string | ObjectId }) {
   const memorize = useAppSelector(state => state.cardReducer.memorize);

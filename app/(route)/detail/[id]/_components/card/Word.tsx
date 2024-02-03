@@ -69,6 +69,7 @@ export default function Word({ item }: { item: CardType }) {
               <Image
                 src={item.image}
                 alt={item.image}
+                layout="responsive"
                 width={1000}
                 height={1000}
                 className={styles.card_image}

@@ -1,12 +1,13 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import React, { useCallback, useMemo, useRef, useState } from 'react';
 
 import { useComment } from '@/hook/useComment';
 import { CommentsType } from '@/types/global';
 import { CommentType } from '@/types/word_blog';
 
-import CommentItem from './CommentItme';
+const CommentItem = dynamic(() => import('./CommentItme'));
 
 function CommentContainer({ _id }: { _id: string }) {
   const [page, setPage] = useState<number>(1);

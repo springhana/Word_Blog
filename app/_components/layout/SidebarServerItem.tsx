@@ -55,18 +55,19 @@ export default function SidebarServerItem({
   return (
     <>
       {item.map((item, index) => (
-        <div
-          key={index}
-          className={pathname === item.link ? styles.item_active : styles.item}
-        >
-          <Link href={user ? item.link : '/login'}>
+        <Link href={user ? item.link : '/login'} key={index}>
+          <div
+            className={
+              pathname === item.link ? styles.item_active : styles.item
+            }
+          >
             <div className={styles.item_icon}>
               {pathname === item.link ? item.visited_icon() : item.icon()}
             </div>
             <div className={styles.item_label}>{item.label}</div>
-          </Link>
-          <div></div>
-        </div>
+            <div></div>
+          </div>
+        </Link>
       ))}
     </>
   );

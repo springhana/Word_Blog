@@ -1,6 +1,6 @@
+import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
 
-import CardsItem from '@/app/_components/card/CardsItem';
 import MemoTab from '@/app/_components/MemoTab';
 import { useCards } from '@/hook/useCards';
 import { memorize_change } from '@/redux/features/cardSlice';
@@ -9,7 +9,13 @@ import { useAppDispatch, useAppSelector } from '@/redux/hook';
 import { CardsType } from '@/types/global';
 
 import Chart from '../Chart';
-import LikeCards from './LikeCards';
+
+const CardsItem = dynamic(() => import('@/app/_components/card/CardsItem'));
+
+const LikeCards = dynamic(
+  () => import('./LikeCards').then(mod => mod.default),
+  { ssr: false }
+);
 
 export default function MyCard({ id }: { id: string }) {
   const dispatch = useAppDispatch();

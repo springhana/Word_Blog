@@ -3,6 +3,7 @@
 import axios from 'axios';
 import { ObjectId } from 'mongodb';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 import { useAppSelector } from '@/redux/hook';
@@ -19,9 +20,9 @@ export default function Memorize({
 }) {
   const [memori, setMemori] = useState(memorize);
   const _id = useAppSelector(state => state.idReducer.id);
-
+  const router = useRouter();
   const MemorizeEvent = async () => {
-    if (author === _id) {
+    if (_id) {
       try {
         await axios.put('/api/update/memorize', { id: id }).then(res => {
           if (res.data.update) {
@@ -31,6 +32,8 @@ export default function Memorize({
       } catch (e) {
         console.error(e);
       }
+    } else {
+      router.push('/login');
     }
   };
 

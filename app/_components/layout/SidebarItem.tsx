@@ -15,13 +15,13 @@ export default function SidebarItem({
   const pathname = usePathname();
 
   return (
-    <div className={pathname === link ? styles.item_active : styles.item}>
-      <Link href={link}>
+    <Link href={link}>
+      <div className={pathname === link ? styles.item_active : styles.item}>
         <div className={styles.item_icon}>
           {pathname === link ? visited_icon : icon}
         </div>
         <div className={styles.item_label}>{label}</div>
-      </Link>
-    </div>
+      </div>
+    </Link>
   );
 }

@@ -68,8 +68,8 @@
   border: 0px;
   transform: rotate(0deg) translateY(0px);
 }
-.item a,
-.item_active a,
+a .item,
+a .item_active,
 .setting_btn {
   height: 50px;
   display: flex;

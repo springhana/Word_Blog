@@ -3,12 +3,12 @@
 import { IoArrowBack } from '@react-icons/all-files/io5/IoArrowBack';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
+import dynamic from 'next/dynamic';
 import { StaticImageData } from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import { CSSProperties, useEffect, useState } from 'react';
 
 import BannerImage from '@/app/_components/BannerImage';
-import ImageEditModal from '@/app/_components/modal/ImageEditModal';
 import UserImage from '@/app/_components/UserImage';
 import { useUser } from '@/hook/useUser';
 import { onOpen } from '@/redux/features/imageSlice';
@@ -17,6 +17,10 @@ import styles from '@/styles/Edit.module.css';
 import { UsersType } from '@/types/word_blog_user';
 
 import ImageEdit from './ImageEdit';
+
+const ImageEditModal = dynamic(
+  () => import('@/app/_components/modal/ImageEditModal')
+);
 
 export default function UserEdit() {
   const dispatch = useAppDispatch();

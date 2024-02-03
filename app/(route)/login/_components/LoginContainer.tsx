@@ -1,7 +1,6 @@
 'use client';
 
 import { FaGithub } from '@react-icons/all-files/fa/FaGithub';
-import { FcGoogle } from '@react-icons/all-files/fc/FcGoogle';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { signIn } from 'next-auth/react';
@@ -44,10 +43,10 @@ export default function LoginContainer() {
           <FaGithub size={20} />
           Github 계정으로 로그인
         </button>
-        <button>
+        {/* <button>
           <FcGoogle size={20} />
           Google 계정으로 로그인
-        </button>
+        </button> */}
       </div>
 
       <div className={styles.login_email}>

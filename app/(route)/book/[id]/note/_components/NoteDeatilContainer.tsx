@@ -1,14 +1,21 @@
 'use client';
 
 import { IoArrowBack } from '@react-icons/all-files/io5/IoArrowBack';
+import dynamic from 'next/dynamic';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
-import CardDetail from '@/app/_components/card/CardDetail';
 import MemoTab from '@/app/_components/MemoTab';
 import { useNote } from '@/hook/useNote';
 import { setTitle } from '@/redux/features/headerSlice';
 import { useAppDispatch } from '@/redux/hook';
+
+const CardDetail = dynamic(
+  () => import('@/app/_components/card/CardDetail').then(mod => mod.default),
+  {
+    ssr: false,
+  }
+);
 
 export default function NoteDeatilContainer() {
   const pathname = usePathname();
