@@ -78,9 +78,9 @@ export default function Word({ item }: { item: CardType }) {
           )}
 
           <div className={styles.card_word}>
-            <div>{item.word}</div>
-            <div>{item.meaning}</div>
-            <div>{item.sentence}</div>
+            <div>단어: {item.word}</div>
+            <div>뜻: {item.meaning}</div>
+            <div>어휘: {item.sentence}</div>
           </div>
 
           <div className={`${styles.card_like} markdown`}>

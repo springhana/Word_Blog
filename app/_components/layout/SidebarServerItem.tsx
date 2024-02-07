@@ -55,7 +55,11 @@ export default function SidebarServerItem({
   return (
     <>
       {item.map((item, index) => (
-        <Link href={user ? item.link : '/login'} key={index}>
+        <Link
+          href={user ? item.link : '/login'}
+          key={index}
+          className={styles.moblie_item}
+        >
           <div
             className={
               pathname === item.link ? styles.item_active : styles.item

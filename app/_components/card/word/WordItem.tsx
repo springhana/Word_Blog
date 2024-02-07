@@ -87,7 +87,6 @@ export default function WordItem({
           date={item.updateDate ? item.updateDate : item.date}
         />
       </div>
-
       <div className={styles.card_info} style={Papers(item.paper)}>
         <div className={styles.card_info_inner}>
           <Link href={`/detail/${item._id}`} className={styles.card_detail}>
@@ -96,9 +95,7 @@ export default function WordItem({
                 <Image
                   src={item.image}
                   alt={item.image}
-                  width={180}
-                  height={180}
-                  layout="responsive"
+                  fill
                   placeholder="blur"
                   blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8f821HgAHkQKbZgg/jgAAAABJRU5ErkJggg=="
                   className={styles.card_image}
@@ -107,34 +104,11 @@ export default function WordItem({
             )}
 
             <div className={styles.card_word}>
-              <div>
-                {item.word && item.word.length > 14
-                  ? `${item.word?.slice(0, 13)}...`
-                  : item.word}
-              </div>
-              <div>
-                {item.meaning && item.meaning.length > 14
-                  ? `${item.meaning?.slice(0, 13)}...`
-                  : item.meaning}
-              </div>
-              <div>
-                {item.sentence && item.sentence.length > 14
-                  ? `${item.sentence?.slice(0, 13)}...`
-                  : item.sentence}
-              </div>
+              <div>{item.word}</div>
+              <div>{item.meaning}</div>
+              <div>{item.sentence}</div>
             </div>
           </Link>
-
-          <div className={styles.card_like}>
-            <Memorize
-              memorize={item.memorize}
-              id={item._id}
-              author={item.author}
-            />
-            <div>
-              <Like id={item._id} />
-            </div>
-          </div>
         </div>
         <Setting
           id={item._id}
@@ -143,7 +117,6 @@ export default function WordItem({
           author={item.author}
         />
       </div>
-
       <div
         className={styles.card_tag}
         onClick={() => {
@@ -157,6 +130,12 @@ export default function WordItem({
             <span>{tags[0].name}</span>
           </>
         )}
+      </div>
+      <div className={styles.card_like}>
+        <Memorize memorize={item.memorize} id={item._id} author={item.author} />
+        <div>
+          <Like id={item._id} />
+        </div>
       </div>
     </div>
   );

@@ -18,7 +18,7 @@ const LoginBtn = ({ session }: { session: SessionType | null }) => {
   };
 
   return (
-    <Link href={itme.link}>
+    <Link href={itme.link} className={styles.moblie_item}>
       <div
         className={styles.item}
         onClick={async () => {

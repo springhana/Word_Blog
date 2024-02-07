@@ -71,10 +71,10 @@
   font-size: 30px;
 }
 .card_word div {
-  height: 60px;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
+  margin-top: 10px;
 }
 .card_like {
   display: flex;

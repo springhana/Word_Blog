@@ -1,6 +1,14 @@
+'use client';
+
 import Image from 'next/image';
 
+import { WindowWidth } from '@/utils/windowWidth';
+
+import AddWordBtn from './AddWordBtn';
+
 export default function Vedio() {
+  const { windowWidth } = WindowWidth();
+
   return (
     <div>
       <Image
@@ -10,9 +18,14 @@ export default function Vedio() {
         width={50}
         height={64.5}
       />
-      <video autoPlay muted loop className="home_vedio">
-        <source src="video/homeBanner1.mp4" type="video/mp4" />
-      </video>
+      <div className="word_blog_banner">
+        <Image
+          src="/image/background/word_banner.avif"
+          alt="word_blog_banner"
+          fill
+        />
+      </div>
+      {windowWidth < 764 && <AddWordBtn />}
     </div>
   );
 }
