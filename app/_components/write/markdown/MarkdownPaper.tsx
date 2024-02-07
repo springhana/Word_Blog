@@ -13,6 +13,7 @@ import { onClose } from '@/redux/features/writeSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/hook';
 import stylse from '@/styles/Card.module.css';
 import { CardType } from '@/types/word_blog';
+import { WindowWidth } from '@/utils/windowWidth';
 
 import ImageDrag from '../../ImageDrag';
 import MarkdownEditor from './MarkdownEditor';
@@ -36,7 +37,6 @@ export default function MarkdownPaper({
   const [imageUrl, setImageUrl] = useState('');
   const [image, setImage] = useState<string | StaticImageData>('');
   const [file, setFile] = useState<File | undefined>(undefined);
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   const dispatch = useAppDispatch();
   const select = useAppSelector(state => state.noteReducer.select);
@@ -45,24 +45,14 @@ export default function MarkdownPaper({
 
   const ref_md = useRef<HTMLDivElement>(null);
 
+  const { windowWidth } = WindowWidth();
+
   useEffect(() => {
     if (card?._id) {
       setTitle(card.title || '');
       setMd(card.md || '');
       setImage(card.image || 'default');
     }
-  }, []);
-
-  useEffect(() => {
-    function handleResize() {
-      setWindowWidth(window.innerWidth);
-    }
-
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
   }, []);
 
   const PostCard = async () => {

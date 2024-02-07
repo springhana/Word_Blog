@@ -98,9 +98,7 @@ export default function MdItem({
                 <Image
                   src={item.image}
                   alt={item.image}
-                  width={180}
-                  height={180}
-                  layout="responsive"
+                  fill
                   placeholder="blur"
                   blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8f821HgAHkQKbZgg/jgAAAABJRU5ErkJggg=="
                   className={styles.card_image}
@@ -108,23 +106,8 @@ export default function MdItem({
               </div>
             )}
 
-            <div className={styles.card_word}>
-              {item.title && item.title.length > 14
-                ? `${item.title.slice(0, 13)}...`
-                : item.title}
-            </div>
+            <div className={styles.card_word}>{item.title}</div>
           </Link>
-
-          <div className={styles.card_like}>
-            <Memorize
-              memorize={item.memorize}
-              id={item._id}
-              author={item.author}
-            />
-            <div>
-              <Like id={item._id} />
-            </div>
-          </div>
         </div>
         <Setting
           id={item._id}
@@ -147,6 +130,12 @@ export default function MdItem({
             <span>{tags[0].name}</span>
           </>
         )}
+      </div>
+      <div className={styles.card_like}>
+        <Memorize memorize={item.memorize} id={item._id} author={item.author} />
+        <div>
+          <Like id={item._id} />
+        </div>
       </div>
     </div>
   );

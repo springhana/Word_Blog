@@ -44,7 +44,8 @@
     "react-image-crop": "^11.0.1",
     "react-redux": "^8.1.3",
     "sharp": "^0.33.1",
-    "zlib": "^1.0.5"
+    "zlib": "^1.0.5",
+    "zustand": "^4.5.0"
   },
   "devDependencies": {
     "@tanstack/react-query-devtools": "^5.17.8",

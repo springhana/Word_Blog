@@ -14,6 +14,7 @@ import { tag_change } from '@/redux/features/tagSlice';
 import { onOpen } from '@/redux/features/writeSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/hook';
 import styles from '@/styles/Sidebar.module.css';
+import { WindowWidth } from '@/utils/windowWidth';
 
 export default function Tag() {
   const dispatch = useAppDispatch();
@@ -24,26 +25,12 @@ export default function Tag() {
   const tag = useAppSelector(state => state.tagReducer.tag);
   const id = useAppSelector(state => state.idReducer.id);
   const { loading, error, tags, hasMore } = useTag(id, 'all');
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [toggle, setToggle] = useState(0);
+
+  const { windowWidth } = WindowWidth();
+
   useEffect(() => {
     dispatch(tag_change({ id: 'all', name: 'all' }));
-
-    function handleResize() {
-      setWindowWidth(window.innerWidth);
-      if (tagRef.current && tagBtnRef.current && window.innerWidth > 768) {
-        tagRef.current.style.removeProperty('right');
-        tagBtnRef.current.style.removeProperty('left');
-        tagBtnRef.current.style.backgroundColor = '#fb6072';
-        setToggle(0);
-      }
-    }
-
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
   }, []);
 
   const TagSlide = () => {

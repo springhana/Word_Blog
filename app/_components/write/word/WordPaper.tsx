@@ -9,6 +9,8 @@ import { onClose } from '@/redux/features/writeSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/hook';
 import stylse from '@/styles/Card.module.css';
 import { CardType } from '@/types/word_blog';
+import { PostImage } from '@/utils/postImage';
+import { WindowWidth } from '@/utils/windowWidth';
 
 import ImageDrag from '../../ImageDrag';
 
@@ -30,7 +32,6 @@ export default function WordPaper({
   const [sentence, setSentence] = useState('');
   const [file, setFile] = useState<File | undefined>(undefined);
   const [image, setImage] = useState<string | StaticImageData>('');
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   const ref_word = useRef<HTMLTextAreaElement>(null);
   const ref_meaning = useRef<HTMLTextAreaElement>(null);
@@ -40,26 +41,11 @@ export default function WordPaper({
   const select = useAppSelector(state => state.noteReducer.select);
   const noteState = useAppSelector(state => state.noteReducer.select);
 
+  const { windowWidth } = WindowWidth();
+
   const CardPost = async () => {
-    let filename;
-    let fileurl;
-    if (file) {
-      filename = encodeURIComponent(new Date() + file.name);
-      await axios
-        .post(`/api/post/image?file=${filename}&id=${id}&state=card`)
-        .then(async res => {
-          const formData = new FormData();
-          Object.entries({ ...res.data.fields, file }).forEach(
-            ([key, value]) => {
-              formData.append(key, value as string | Blob);
-            }
-          );
-          return await fetch(res.data.url, { method: 'POST', body: formData });
-        })
-        .then(res => {
-          fileurl = res.url;
-        });
-    }
+    const { url, name } = await PostImage(file || undefined, id);
+
     await axios.post('/api/post/card/word', {
       word: word,
       meaning: meaning,
@@ -70,8 +56,8 @@ export default function WordPaper({
       paper: paper,
       program: program === 1 ? 'word' : 'markdown',
       image:
-        image && fileurl && filename
-          ? fileurl + '/' + id + '/' + 'card' + '/' + filename
+        image && url && name
+          ? url + '/' + id + '/' + 'card' + '/' + name
           : 'default',
     });
   };
@@ -80,25 +66,8 @@ export default function WordPaper({
     if (!card) {
       return;
     }
-    let filename;
-    let fileurl;
-    if (file) {
-      filename = encodeURIComponent(new Date() + file.name);
-      await axios
-        .post(`/api/post/image?file=${filename}&id=${card.author}&state=card`)
-        .then(async res => {
-          const formData = new FormData();
-          Object.entries({ ...res.data.fields, file }).forEach(
-            ([key, value]) => {
-              formData.append(key, value as string | Blob);
-            }
-          );
-          return await fetch(res.data.url, { method: 'POST', body: formData });
-        })
-        .then(res => {
-          fileurl = res.url;
-        });
-    }
+
+    const { url, name } = await PostImage(file || undefined, card.author);
 
     await axios.put('/api/card', {
       author: card.author,
@@ -113,8 +82,8 @@ export default function WordPaper({
       md: '',
       title: '',
       image:
-        image && fileurl && filename
-          ? fileurl + '/' + card.author + '/' + 'card' + '/' + filename
+        image && url && name
+          ? url + '/' + card.author + '/' + 'card' + '/' + name
           : image,
     });
   };
@@ -143,6 +112,7 @@ export default function WordPaper({
       setWord('');
       setMeaning('');
       setSentence('');
+      setFile(undefined);
       dispatch(onClose());
     },
   });
@@ -162,18 +132,6 @@ export default function WordPaper({
       setImage(card.image || 'default');
     }
   }, [mutate]);
-
-  useEffect(() => {
-    function handleResize() {
-      setWindowWidth(window.innerWidth);
-    }
-
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
 
   return (
     <div className={stylse.write_card}>
