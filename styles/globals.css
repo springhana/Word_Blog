@@ -46,8 +46,12 @@ input[type='radio'] {
 }
 @media (max-width: 764px) {
   /* ----- Layout ----- */
+
+  .layout-container {
+    grid-template-columns: repeat(8, 1fr);
+  }
   .content-container {
-    grid-column: span 4;
+    grid-column: span 7;
   }
 }
 

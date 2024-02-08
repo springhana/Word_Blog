@@ -12,7 +12,6 @@ import AddWordBtn from '../AddWordBtn';
 import LoginBtn from './_btn/LoginBtn';
 import SidebarItem from './SidebarItem';
 import SidebarLogo from './SidebarLogo';
-import { SidebarMove } from './SidebarMove';
 import SidebarServerItem from './SidebarServerItem';
 
 export default async function Sidebar() {
@@ -51,8 +50,6 @@ export default async function Sidebar() {
         <LoginBtn session={session} />
         <AddWordBtn />
       </div>
-
-      <SidebarMove />
     </div>
   );
 }
