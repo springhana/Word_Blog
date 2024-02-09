@@ -4,10 +4,13 @@ import '@uiw/react-md-editor/markdown-editor.css';
 import '@uiw/react-markdown-preview/markdown.css';
 
 import { HiHashtag } from '@react-icons/all-files/hi/HiHashtag';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
+import { ObjectId } from 'mongodb';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRef } from 'react';
+import { toast } from 'react-toastify';
 
 import { useTag } from '@/hook/useTag';
 import { Init } from '@/redux/features/cardSlice';
@@ -37,30 +40,32 @@ export default function MdItem({
   const dispatch = useAppDispatch();
   const cardRef = useRef<HTMLDivElement>(null);
 
-  if (memorize === 'On' && !item.memorize) {
-    return null;
-  } else if (memorize === 'Off' && item.memorize) {
-    return null;
-  }
+  const queryClient = useQueryClient();
 
-  const Delete = async () => {
-    try {
-      await axios
-        .delete(`/api/card`, { params: { id: item._id, author: item.author } })
-        .then(res => {
-          if (res.data.delete && cardRef.current) {
-            cardRef.current.style.opacity = '0';
-            setTimeout(() => {
-              if (cardRef.current) {
-                cardRef.current.style.display = 'none';
-              }
-            }, 500);
+  const { mutate } = useMutation({
+    mutationFn: async (id: string | ObjectId) => {
+      await axios.delete(`/api/card`, {
+        params: { id: item._id, author: item.author },
+      });
+    },
+    onSuccess: id => {
+      toast.success('카드 삭제 성공');
+      if (cardRef.current) {
+        cardRef.current.style.opacity = '0';
+        setTimeout(() => {
+          if (cardRef.current) {
+            cardRef.current.style.display = 'none';
           }
-        });
-    } catch (error) {
-      console.error(error);
-    }
-  };
+        }, 500);
+      }
+      queryClient.invalidateQueries({
+        queryKey: [`card-detail-${id}`],
+      });
+    },
+    onError: () => {
+      toast.error('카드 에러');
+    },
+  });
 
   const Papers = (paper: string) => {
     switch (paper) {
@@ -80,6 +85,11 @@ export default function MdItem({
         return { backgroundImage: 'url(/image/paper/paper1.avif)' };
     }
   };
+  if (memorize === 'On' && !item.memorize) {
+    return null;
+  } else if (memorize === 'Off' && item.memorize) {
+    return null;
+  }
 
   return (
     <div className={styles.card} ref={cardRef}>
@@ -114,7 +124,9 @@ export default function MdItem({
         <Setting
           id={item._id}
           state={'card'}
-          Delete={Delete}
+          Delete={() => {
+            mutate(item._id);
+          }}
           author={item.author}
         />
       </div>
