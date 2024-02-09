@@ -1,13 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import axios, { CancelTokenSource } from 'axios';
-import { useEffect } from 'react';
-
-import { useAppSelector } from '@/redux/hook';
 
 export const useTag = (id: string, state: string) => {
-  const tag = useAppSelector(state => state.tagReducer.state);
-
-  const { data, isLoading, isError, isFetched, refetch } = useQuery({
+  const { data, isLoading, isError, isFetched } = useQuery({
     gcTime: 1000 * 6000,
     staleTime: 1000 * 6000,
     enabled: !!id,
@@ -33,10 +28,6 @@ export const useTag = (id: string, state: string) => {
       }
     },
   });
-
-  useEffect(() => {
-    refetch;
-  }, [tag]);
 
   return { loading: isLoading, error: isError, tags: data, hasMore: isFetched };
 };

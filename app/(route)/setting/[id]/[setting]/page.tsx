@@ -4,7 +4,7 @@ import { IoArrowBack } from '@react-icons/all-files/io5/IoArrowBack';
 import dynamic from 'next/dynamic';
 import { usePathname, useRouter } from 'next/navigation';
 
-import Login from '@/app/_components/Login';
+import Login from '@/app/_components/Loading/Login';
 import { useAppSelector } from '@/redux/hook';
 const Account = dynamic(
   () => import('./_components/Account').then(mod => mod.default),

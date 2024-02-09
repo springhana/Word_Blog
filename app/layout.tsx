@@ -2,6 +2,7 @@ import '@/styles/globals.css';
 
 import dynamic from 'next/dynamic';
 import { Suspense } from 'react';
+import { ToastContainer } from 'react-toastify';
 
 import { Providers } from '@/redux/provider';
 import ReactQueryProviders from '@/utils/react-query-provider';
@@ -40,6 +41,7 @@ export default function RootLayout({
                     <div className="content-container">
                       <Header />
                       <WirteModal />
+                      <ToastContainer />
                       {children}
                     </div>
                     <Tag />

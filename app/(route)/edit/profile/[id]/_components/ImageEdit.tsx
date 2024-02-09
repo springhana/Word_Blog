@@ -1,8 +1,9 @@
 'use client';
 
 import { FaCameraRetro } from '@react-icons/all-files/fa/FaCameraRetro';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 
+import { Loader } from '@/app/_components/Loading/Loader';
 import stylse from '@/styles/Images.module.css';
 
 export default function ImageEdit({
@@ -13,7 +14,7 @@ export default function ImageEdit({
   imgsize?: number;
 }) {
   const imageInput = useRef<HTMLInputElement>(null);
-
+  const [isFile, setIsFile] = useState(false);
   return (
     <div
       className={stylse.image_edit}
@@ -27,11 +28,20 @@ export default function ImageEdit({
         ref={imageInput}
         type="file"
         name="profile"
-        onChange={handleFileChange}
+        onChange={e => {
+          handleFileChange(e);
+          setIsFile(true);
+        }}
         style={{ display: 'none' }}
       />
-      <span>{imgsize && `${imgsize} x ${imgsize}`}</span>
-      <FaCameraRetro size={20} />
+      {isFile ? (
+        <Loader />
+      ) : (
+        <>
+          <span>{imgsize && `${imgsize} x ${imgsize}`}</span>
+          <FaCameraRetro size={20} />
+        </>
+      )}
     </div>
   );
 }

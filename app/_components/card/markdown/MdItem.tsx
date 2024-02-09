@@ -106,7 +106,9 @@ export default function MdItem({
               </div>
             )}
 
-            <div className={styles.card_word}>{item.title}</div>
+            <div className={styles.card_word}>
+              <div>{item.title}</div>
+            </div>
           </Link>
         </div>
         <Setting

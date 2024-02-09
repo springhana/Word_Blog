@@ -8,11 +8,13 @@ import { StaticImageData } from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import { FileDrop } from 'react-file-drop';
+import { toast } from 'react-toastify';
 
 import { onClose } from '@/redux/features/writeSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/hook';
 import stylse from '@/styles/Card.module.css';
 import { CardType } from '@/types/word_blog';
+import { PostImage } from '@/utils/postImage';
 import { WindowWidth } from '@/utils/windowWidth';
 
 import ImageDrag from '../../ImageDrag';
@@ -56,25 +58,7 @@ export default function MarkdownPaper({
   }, []);
 
   const PostCard = async () => {
-    let filename;
-    let fileurl;
-    if (file) {
-      filename = encodeURIComponent(new Date() + file.name);
-      await axios
-        .post(`/api/post/image?file=${filename}&id=${id}&state=card`)
-        .then(async res => {
-          const formData = new FormData();
-          Object.entries({ ...res.data.fields, file }).forEach(
-            ([key, value]) => {
-              formData.append(key, value as string | Blob);
-            }
-          );
-          return await fetch(res.data.url, { method: 'POST', body: formData });
-        })
-        .then(res => {
-          fileurl = res.url;
-        });
-    }
+    const { url, name } = await PostImage(file || undefined, id, 'card');
 
     await axios.post('/api/post/card/markdown', {
       md: md,
@@ -85,8 +69,8 @@ export default function MarkdownPaper({
       paper: paper,
       program: program === 1 ? 'word' : 'markdown',
       image:
-        image && fileurl && filename
-          ? fileurl + '/' + id + '/' + 'card' + '/' + filename
+        image && url && name
+          ? url + '/' + id + '/' + 'card' + '/' + name
           : imageUrl
             ? imageUrl
             : 'default',
@@ -97,26 +81,7 @@ export default function MarkdownPaper({
     if (!card) {
       return;
     }
-
-    let filename;
-    let fileurl;
-    if (file) {
-      filename = encodeURIComponent(new Date() + file.name);
-      await axios
-        .post(`/api/post/image?file=${filename}&id=${card.author}&state=card`)
-        .then(async res => {
-          const formData = new FormData();
-          Object.entries({ ...res.data.fields, file }).forEach(
-            ([key, value]) => {
-              formData.append(key, value as string | Blob);
-            }
-          );
-          return await fetch(res.data.url, { method: 'POST', body: formData });
-        })
-        .then(res => {
-          fileurl = res.url;
-        });
-    }
+    const { url, name } = await PostImage(file || undefined, id, 'card');
 
     await axios.put('/api/card', {
       word: '',
@@ -131,8 +96,8 @@ export default function MarkdownPaper({
       paper: card.paper,
       program: program === 1 ? 'word' : 'markdown',
       image:
-        image && fileurl && filename
-          ? fileurl + '/' + card.author + '/' + 'card' + '/' + filename
+        image && url && name
+          ? url + '/' + card.author + '/' + 'card' + '/' + name
           : image,
     });
   };
@@ -161,6 +126,10 @@ export default function MarkdownPaper({
       setMd('');
       setTitle('제목');
       dispatch(onClose());
+      toast.success('카드 작성 성공');
+    },
+    onError: () => {
+      toast.error('프로필 수정 에러');
     },
   });
 

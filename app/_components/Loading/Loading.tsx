@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import styles from '@/styles/Loading.module.css';
+import styles from '@/styles/Loading/Loading.module.css';
 
 export const Loading = () => {
   return (
