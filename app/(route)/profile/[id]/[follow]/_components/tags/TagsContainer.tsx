@@ -2,6 +2,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 
 import { useTag } from '@/hook/useTag';
 import { setTitle } from '@/redux/features/headerSlice';
@@ -27,47 +28,25 @@ export default function TagsContainer() {
     dispatch(setTitle('tags'));
   }, []);
 
-  const TagUpdate = async (tagId: string) => {
-    try {
-      await axios
-        .put('/api/tag', { id: id, name: value, tagId: tagId })
-        .then(res => {
-          if (res.data.update) {
-            setUpdate('');
-            setValue('');
-          }
-        });
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const TagDelete = async (userId: string) => {
-    try {
-      await axios
-        .delete('/api/tag', { params: { id: id, userId: userId } })
-        .then(res => {
-          if (res.data.delete) {
-            setRemove('');
-          }
-        });
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   const queryClient = useQueryClient();
 
   const { mutate } = useMutation({
-    mutationFn: async ({ id, type }: { id: string; type: boolean }) => {
+    mutationFn: async ({ userId, type }: { userId: string; type: boolean }) => {
       if (type) {
-        TagDelete(id);
+        await axios.delete('/api/tag', { params: { id: id, userId: userId } });
       } else {
-        TagUpdate(id);
+        await axios.put('/api/tag', { id: id, name: value, tagId: userId });
       }
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['key'] });
+      queryClient.invalidateQueries({ queryKey: [`tag-${id}`] });
+      setRemove('');
+      setUpdate('');
+      setValue('');
+      toast.success('태그 성공');
+    },
+    onError: () => {
+      toast.error('태그 에러');
     },
   });
 
@@ -94,7 +73,7 @@ export default function TagsContainer() {
                 {item.name === update ? (
                   <button
                     onClick={() => {
-                      mutate({ id: item._id, type: false });
+                      mutate({ userId: item._id, type: false });
                     }}
                     className={styles.btn_ok}
                   >
@@ -124,7 +103,7 @@ export default function TagsContainer() {
                 {item.name === remove ? (
                   <button
                     onClick={() => {
-                      mutate({ id: item._id, type: true });
+                      mutate({ userId: item._id, type: true });
                     }}
                     className={styles.btn_ok}
                   >

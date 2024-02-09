@@ -7,6 +7,7 @@ import dynamic from 'next/dynamic';
 import { StaticImageData } from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import { CSSProperties, useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 
 import BannerImage from '@/app/_components/BannerImage';
 import UserImage from '@/app/_components/UserImage';
@@ -68,7 +69,11 @@ export default function UserEdit() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [`user-${pathname}`] });
+      toast.success('프로필 수정 성공');
       router.push(`/profile/${pathname}`);
+    },
+    onError: () => {
+      toast.error('프로필 수정 에러');
     },
   });
 

@@ -3,6 +3,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { useState } from 'react';
+import { toast } from 'react-toastify';
 
 import { tag_change } from '@/redux/features/tagSlice';
 import { onClose } from '@/redux/features/writeSlice';
@@ -14,27 +15,21 @@ export default function TagAdd({ id }: { id: string }) {
 
   const dispatch = useAppDispatch();
 
-  const tagPost = async () => {
-    try {
-      await axios.post('/api/tag', { id: id, tag: tag }).then(res => {
-        if (res.data.post) {
-          dispatch(tag_change({ id: 'all', name: 'all' }));
-          dispatch(onClose());
-        }
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   const queryClient = useQueryClient();
 
   const { mutate } = useMutation({
     mutationFn: async () => {
-      tagPost();
+      await axios.post('/api/tag', { id: id, tag: tag });
     },
     onSuccess: () => {
+      dispatch(tag_change({ id: 'all', name: 'all' }));
+      dispatch(onClose());
+      toast.success('태그 추가 성공');
       queryClient.invalidateQueries({ queryKey: [`tag-${id}`] });
+    },
+
+    onError: () => {
+      toast.error('태그 에러');
     },
   });
 

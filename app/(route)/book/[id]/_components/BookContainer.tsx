@@ -8,6 +8,7 @@ import dynamic from 'next/dynamic';
 import Image, { StaticImageData } from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 
 import ImageDrag from '@/app/_components/ImageDrag';
 import { useNote } from '@/hook/useNote';
@@ -16,6 +17,7 @@ import { onOpen } from '@/redux/features/noteSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/hook';
 import styles from '@/styles/Book.module.css';
 import { NoteType } from '@/types/word_blog';
+import { PostImage } from '@/utils/postImage';
 
 const NoteModal = dynamic(
   () => import('@/app/_components/modal/NoteModal').then(mod => mod.default),
@@ -48,44 +50,16 @@ export default function BookContainer() {
 
   const NoteUpdate = async (id: string) => {
     try {
-      let filename;
-      let fileurl;
-      if (file) {
-        filename = encodeURIComponent(new Date() + file.name);
-        await axios
-          .post(`/api/post/image?file=${filename}&id=${id}&state=note`)
-          .then(async res => {
-            const formData = new FormData();
-            Object.entries({ ...res.data.fields, file }).forEach(
-              ([key, value]) => {
-                formData.append(key, value as string | Blob);
-              }
-            );
-            return await fetch(res.data.url, {
-              method: 'POST',
-              body: formData,
-            });
-          })
-          .then(res => {
-            fileurl = res.url;
-          });
-      }
+      const { url, name } = await PostImage(file || undefined, id, 'note');
 
-      await axios
-        .put('/api/note', {
-          id: id,
-          name: value,
-          image:
-            image && fileurl && filename
-              ? fileurl + '/' + id + '/' + 'note' + '/' + filename
-              : image,
-        })
-        .then(res => {
-          if (res.data.update) {
-            setUpdate('');
-            setValue('');
-          }
-        });
+      await axios.put('/api/note', {
+        id: id,
+        name: value,
+        image:
+          image && url && name
+            ? url + '/' + id + '/' + 'note' + '/' + name
+            : image,
+      });
     } catch (error) {
       console.error(error);
     }
@@ -93,11 +67,7 @@ export default function BookContainer() {
 
   const NoteDelete = async (id: string) => {
     try {
-      await axios.delete('/api/note', { params: { id: id } }).then(res => {
-        if (res.data.delete) {
-          setRemove('');
-        }
-      });
+      await axios.delete('/api/note', { params: { id: id } });
     } catch (error) {
       console.error(error);
     }
@@ -113,7 +83,14 @@ export default function BookContainer() {
       }
     },
     onSuccess: () => {
+      setUpdate('');
+      setValue('');
+      setRemove('');
+      toast.success('노트 성공');
       queryClient.invalidateQueries({ queryKey: [`note-${id}`] });
+    },
+    onError: () => {
+      toast.error('노트 에러');
     },
   });
 

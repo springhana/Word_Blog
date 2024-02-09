@@ -19,6 +19,9 @@
 
 .image_pic {
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .image {
   width: 100%;

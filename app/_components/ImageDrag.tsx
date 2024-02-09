@@ -67,21 +67,19 @@ export default function ImageDrag({
     >
       <div
         className={styles.image_pic}
-        style={
-          image
-            ? {
-                width: imgsize ? imgsize : '350px',
-                height: imgsize ? imgsize : '350px',
-              }
-            : {
-                width: imgsize ? imgsize : '350px',
-                height: imgsize ? imgsize : '350px',
-              }
-        }
+        style={{
+          width: imgsize ? imgsize : '350px',
+          height: imgsize ? imgsize : '350px',
+        }}
       >
         {image !== 'default' && image ? (
           <div className={styles.image}>
-            <Image src={image} alt={'image'} width={1000} height={1000} />
+            <Image
+              src={image}
+              alt={'image'}
+              width={imgsize ? imgsize : 350}
+              height={imgsize ? imgsize : 350}
+            />
             <div
               className={styles.image_delete}
               onClick={() => {
@@ -93,9 +91,7 @@ export default function ImageDrag({
             </div>
           </div>
         ) : (
-          <>
-            <ImageEdit handleFileChange={handleFileChange} imgsize={imgsize} />
-          </>
+          <ImageEdit handleFileChange={handleFileChange} imgsize={imgsize} />
         )}
       </div>
     </FileDrop>

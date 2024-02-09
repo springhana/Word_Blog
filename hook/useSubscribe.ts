@@ -5,7 +5,6 @@ export const useSubscribe = (id: string, state: string) => {
   const { data, isLoading, isError, isFetched } = useQuery({
     gcTime: 1000 * 6000,
     staleTime: 1000 * 6000,
-    enabled: !!id,
     queryKey: [`subscribe-${id}`],
     queryFn: async () => {
       try {

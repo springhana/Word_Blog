@@ -1,5 +1,6 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect } from 'react';
@@ -7,13 +8,17 @@ import { useEffect } from 'react';
 import UserImage from '@/app/_components/UserImage';
 import { useUser } from '@/hook/useUser';
 import { setTitle } from '@/redux/features/headerSlice';
-import { useAppDispatch } from '@/redux/hook';
+import { useAppDispatch, useAppSelector } from '@/redux/hook';
 import styles from '@/styles/Profile.module.css';
 import { SessionType } from '@/types/global';
 import { UsersType } from '@/types/word_blog_user';
 
 import BannerImage from '../../../../_components/BannerImage';
-import SubscribeBtn from '../../../../_components/SubscribeBtn';
+
+const FollowersBtn = dynamic(
+  () => import('../[follow]/_components/FollowersBtn').then(mod => mod.default),
+  { ssr: false }
+);
 
 export default function ProfileContainer({
   session,
@@ -22,7 +27,11 @@ export default function ProfileContainer({
 }) {
   const pathname = usePathname();
   const id = pathname?.split('/')[2] as string;
+
   const dispatch = useAppDispatch();
+
+  const my_id = useAppSelector(state => state.idReducer.id);
+
   const { loading, error, user, hasMore } = useUser(id, 'id') as {
     loading: boolean;
     error: boolean;
@@ -54,7 +63,7 @@ export default function ProfileContainer({
                 <Link href={`/edit/profile/${id}`}>프로필 수정</Link>
               </p>
             ) : (
-              <SubscribeBtn user={user._id} />
+              <FollowersBtn id={my_id} userId={id} />
             )}
             <div className={styles.name}>{user.name}</div>
             {user.intro ? <div>{user.intro}</div> : null}

@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 
 import { Init } from '@/redux/features/cardSlice';
 import { page_change } from '@/redux/features/pageSlice';
-import { writeid_change, writetag_change } from '@/redux/features/writeSlice';
+// import { writeid_change, writetag_change } from '@/redux/features/writeSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/hook';
 import { CardsType } from '@/types/global';
 import { CardType } from '@/types/word_blog';
@@ -25,7 +25,7 @@ export const useCards = (
   });
 
   const init = useAppSelector(state => state.cardReducer.init);
-  const write = useAppSelector(state => state.writeReducer);
+  // const write = useAppSelector(state => state.writeReducer);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -102,50 +102,50 @@ export const useCards = (
     refetch();
   }, [page, tag]);
 
-  useEffect(() => {
-    const source = axios.CancelToken.source();
-    const cancel: CancelTokenSource = source;
+  // useEffect(() => {
+  //   const source = axios.CancelToken.source();
+  //   const cancel: CancelTokenSource = source;
 
-    const fetchData = async () => {
-      try {
-        await axios
-          .get('/api/card', {
-            params: { _id: write.id, tag: write.tag },
-            cancelToken: source.token,
-          })
-          .then(res => {
-            if (res.data) {
-              const card = {
-                result: [...new Set([res.data, ...cards.result])],
-                totalPages: cards.totalPages,
-                currentPage: cards.currentPage,
-              };
+  //   const fetchData = async () => {
+  //     try {
+  //       await axios
+  //         .get('/api/card', {
+  //           params: { _id: write.id, tag: write.tag },
+  //           cancelToken: source.token,
+  //         })
+  //         .then(res => {
+  //           if (res.data) {
+  //             const card = {
+  //               result: [...new Set([res.data, ...cards.result])],
+  //               totalPages: cards.totalPages,
+  //               currentPage: cards.currentPage,
+  //             };
 
-              setCards(card);
-            }
-          });
-      } catch (e) {
-        if (axios.isCancel(e)) return;
-        setError(true);
-      } finally {
-        setLoading(false);
-        dispatch(writeid_change(''));
-        dispatch(writetag_change(''));
-      }
-    };
+  //             setCards(card);
+  //           }
+  //         });
+  //     } catch (e) {
+  //       if (axios.isCancel(e)) return;
+  //       setError(true);
+  //     } finally {
+  //       setLoading(false);
+  //       dispatch(writeid_change(''));
+  //       dispatch(writetag_change(''));
+  //     }
+  //   };
 
-    if (write.id) {
-      setError(false);
-      setLoading(true);
-      fetchData();
-    }
+  //   if (write.id) {
+  //     setError(false);
+  //     setLoading(true);
+  //     fetchData();
+  //   }
 
-    return () => {
-      if (cancel) {
-        cancel.cancel('Request canceled');
-      }
-    };
-  }, [write.id]);
+  //   return () => {
+  //     if (cancel) {
+  //       cancel.cancel('Request canceled');
+  //     }
+  //   };
+  // }, [write.id]);
 
   return { loading, error, cards };
 };

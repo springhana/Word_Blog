@@ -1,6 +1,6 @@
 import { getServerSession } from 'next-auth';
 
-import Login from '@/app/_components/Login';
+import Login from '@/app/_components/Loading/Login';
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
 import styles from '@/styles/Book.module.css';
 import { SessionType } from '@/types/global';

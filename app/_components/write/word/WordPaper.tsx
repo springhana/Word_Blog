@@ -4,6 +4,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { StaticImageData } from 'next/image';
 import { useEffect, useRef, useState } from 'react';
+import { toast } from 'react-toastify';
 
 import { onClose } from '@/redux/features/writeSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/hook';
@@ -44,7 +45,7 @@ export default function WordPaper({
   const { windowWidth } = WindowWidth();
 
   const CardPost = async () => {
-    const { url, name } = await PostImage(file || undefined, id);
+    const { url, name } = await PostImage(file || undefined, id, 'card');
 
     await axios.post('/api/post/card/word', {
       word: word,
@@ -67,7 +68,11 @@ export default function WordPaper({
       return;
     }
 
-    const { url, name } = await PostImage(file || undefined, card.author);
+    const { url, name } = await PostImage(
+      file || undefined,
+      card.author,
+      'card'
+    );
 
     await axios.put('/api/card', {
       author: card.author,
@@ -114,6 +119,10 @@ export default function WordPaper({
       setSentence('');
       setFile(undefined);
       dispatch(onClose());
+      toast.success('카드 작성 성공');
+    },
+    onError: () => {
+      toast.error('카드 작성 에러');
     },
   });
 

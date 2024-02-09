@@ -1,8 +1,10 @@
 import { HiHashtag } from '@react-icons/all-files/hi/HiHashtag';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { toast } from 'react-toastify';
 
 import Like from '@/app/_components/card/Like';
 import Memorize from '@/app/_components/card/Memorize';
@@ -30,19 +32,22 @@ export default function Md({ item }: { item: CardType }) {
     hasMore: boolean;
   };
 
-  const Delete = async () => {
-    try {
-      await axios
-        .delete(`/api/card`, { params: { id: item._id, author: item.author } })
-        .then(res => {
-          if (res.data.delete) {
-            router.push('/');
-          }
-        });
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const queryClient = useQueryClient();
+  const { mutate } = useMutation({
+    mutationFn: async () => {
+      await axios.delete(`/api/card`, {
+        params: { id: item._id, author: item.author },
+      });
+    },
+    onSuccess: () => {
+      router.push('/');
+      toast.success('카드 삭제 성공');
+      queryClient.invalidateQueries({ queryKey: [`card-detail-${item._id}`] });
+    },
+    onError: () => {
+      toast.error('카드 에러');
+    },
+  });
 
   return (
     <div className={styles.card_container}>
@@ -76,7 +81,9 @@ export default function Md({ item }: { item: CardType }) {
               <Image
                 src={item.image}
                 alt={item.image}
-                fill
+                layout="responsive"
+                width={1000}
+                height={1000}
                 className={styles.card_image}
               />
             </div>
@@ -102,7 +109,9 @@ export default function Md({ item }: { item: CardType }) {
         <Setting
           id={item._id}
           state={'card'}
-          Delete={Delete}
+          Delete={() => {
+            mutate();
+          }}
           author={item.author}
         />
       </div>

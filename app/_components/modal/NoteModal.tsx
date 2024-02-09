@@ -4,14 +4,17 @@ import { IoIosArrowBack } from '@react-icons/all-files/io/IoIosArrowBack';
 import { IoIosArrowForward } from '@react-icons/all-files/io/IoIosArrowForward';
 import { IoAdd } from '@react-icons/all-files/io5/IoAdd';
 import { IoClose } from '@react-icons/all-files/io5/IoClose';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import Image, { StaticImageData } from 'next/image';
 import { useEffect, useRef, useState } from 'react';
+import { toast } from 'react-toastify';
 
-import { change_state, onClose } from '@/redux/features/noteSlice';
+import { onClose } from '@/redux/features/noteSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/hook';
 import styles from '@/styles/Note.module.css';
 import { BtnNext, BtnPrev, TransitionEnd } from '@/utils/infiniteCarousel';
+import { PostImage } from '@/utils/postImage';
 
 import ImageDrag from '../ImageDrag';
 
@@ -41,43 +44,38 @@ export default function NoteModal() {
   }, []);
 
   const PostNote = async () => {
-    const radnum = Math.floor(Math.random() * 7);
-    let filename;
-    let fileurl;
-    if (file) {
-      filename = encodeURIComponent(new Date() + file.name);
-      await axios
-        .post(`/api/post/image?file=${filename}&id=${id}&state=note`)
-        .then(async res => {
-          const formData = new FormData();
-          Object.entries({ ...res.data.fields, file }).forEach(
-            ([key, value]) => {
-              formData.append(key, value as string | Blob);
-            }
-          );
-          return await fetch(res.data.url, { method: 'POST', body: formData });
-        })
-        .then(res => {
-          fileurl = res.url;
-        });
-    }
+    const { url, name } = await PostImage(file || undefined, id, 'note');
 
     await axios
       .post('/api/note', {
         id: id,
         name: noteName,
         image:
-          image && fileurl && filename
-            ? fileurl + '/' + id + '/' + 'note' + '/' + filename
+          image && url && name
+            ? url + '/' + id + '/' + 'note' + '/' + name
             : image,
       })
       .then(res => {
         if (res.data.post) {
-          dispatch(onClose());
-          dispatch(change_state());
         }
       });
   };
+
+  const queryClient = useQueryClient();
+
+  const { mutate } = useMutation({
+    mutationFn: async () => {
+      PostNote();
+    },
+    onSuccess: () => {
+      dispatch(onClose());
+      toast.success('노트 성공');
+      queryClient.invalidateQueries({ queryKey: [`note-${id}`] });
+    },
+    onError: () => {
+      toast.error('노트 에러');
+    },
+  });
 
   const handlePrevSlide = () => {
     if (ref_all.current && ref_one.current) {
@@ -176,7 +174,11 @@ export default function NoteModal() {
           }}
         />
         <div className={styles.note_input_btn}>
-          <div onClick={PostNote}>
+          <div
+            onClick={() => {
+              mutate();
+            }}
+          >
             <IoAdd size={25} />
           </div>
           <div

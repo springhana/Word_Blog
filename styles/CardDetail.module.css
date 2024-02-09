@@ -58,7 +58,7 @@
   align-items: center;
 }
 .card_image_pic {
-  width: 70%;
+  max-width: 70%;
 }
 .card_image {
   border-radius: 10px;

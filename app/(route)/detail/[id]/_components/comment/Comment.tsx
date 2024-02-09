@@ -1,11 +1,12 @@
 'use client';
 
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { usePathname } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
+import { toast } from 'react-toastify';
 
 import User from '@/app/_components/card/User';
-import { change_state, commentID_change } from '@/redux/features/commentSlice';
 import { setTitle } from '@/redux/features/headerSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/hook';
 import styles from '@/styles/CardDetail.module.css';
@@ -25,20 +26,27 @@ export default function Comment() {
     dispatch(setTitle('detail'));
   }, []);
 
-  const commentPost = async () => {
-    await axios
-      .post('/api/comment', {
+  const queryClient = useQueryClient();
+
+  const { mutate } = useMutation({
+    mutationFn: async () => {
+      await axios.post('/api/comment', {
         id: _id,
         author: user,
         comment: comment,
-      })
-      .then(res => {
-        if (res.data.post) {
-          dispatch(change_state());
-          dispatch(commentID_change(res.data.id));
-        }
       });
-  };
+    },
+    onSuccess: () => {
+      toast.success('댓글 추가 성공');
+      setComment('');
+      queryClient.invalidateQueries({
+        queryKey: [`comments-${_id}`],
+      });
+    },
+    onError: () => {
+      toast.error('댓글 에러');
+    },
+  });
 
   const handleResizeHeight = () => {
     if (textarea.current) {
@@ -65,7 +73,9 @@ export default function Comment() {
             }}
           />
           <button
-            onClick={commentPost}
+            onClick={() => {
+              mutate();
+            }}
             disabled={comment.length <= 0}
             style={comment.length <= 0 ? {} : { cursor: 'pointer' }}
           >
