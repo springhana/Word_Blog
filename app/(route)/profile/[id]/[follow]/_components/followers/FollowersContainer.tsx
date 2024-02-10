@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 
 import User from '@/app/_components/card/User';
-import { Loader } from '@/app/_components/Loading/Loader';
+import { Loader } from '@/app/_components/ss/Loader';
 import { useSubscribe } from '@/hook/useSubscribe';
 import { setTitle } from '@/redux/features/headerSlice';
 import { useAppDispatch } from '@/redux/hook';
