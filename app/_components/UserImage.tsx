@@ -19,7 +19,8 @@ export default function UserImage({
             borderRadius: '50%',
             border: '3px solid white',
           }}
-          priority
+          placeholder="blur"
+          blurDataURL="iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8VA8AAmkBc7YFeIIAAAAASUVORK5CYII="
         />
       ) : (
         <Image
@@ -31,7 +32,8 @@ export default function UserImage({
             borderRadius: '50%',
             border: '3px solid white',
           }}
-          priority
+          placeholder="blur"
+          blurDataURL="iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8VA8AAmkBc7YFeIIAAAAASUVORK5CYII="
         />
       )}
     </div>

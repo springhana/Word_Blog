@@ -3,7 +3,7 @@
 import { FaCameraRetro } from '@react-icons/all-files/fa/FaCameraRetro';
 import { useRef, useState } from 'react';
 
-import { Loader } from '@/app/_components/Loading/Loader';
+import { Loader } from '@/app/_components/loading/Loader';
 import stylse from '@/styles/Images.module.css';
 
 export default function ImageEdit({

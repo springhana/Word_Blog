@@ -11,20 +11,18 @@ export default function BannerImage({
         <Image
           src={'/image/user/banner_default.avif'}
           alt="bannerImage"
-          width={1000}
-          height={1000}
-          layout="responsive"
-          style={{ width: '100%', height: '100%' }}
+          fill
+          placeholder="blur"
+          blurDataURL="iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8VA8AAmkBc7YFeIIAAAAASUVORK5CYII="
           priority
         />
       ) : (
         <Image
           src={image}
           alt="profile image"
-          width={1000}
-          height={1000}
-          layout="responsive"
-          style={{ width: '100%', height: '100%' }}
+          fill
+          placeholder="blur"
+          blurDataURL="iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8VA8AAmkBc7YFeIIAAAAASUVORK5CYII="
           priority
         />
       )}

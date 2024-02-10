@@ -1,4 +1,5 @@
 'use client';
+
 import { init_note } from '@/redux/features/noteSlice';
 import { onClose, writeEditID_change } from '@/redux/features/writeSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/hook';

@@ -1,3 +1,5 @@
+'use client';
+
 import { HiHashtag } from '@react-icons/all-files/hi/HiHashtag';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
@@ -58,22 +60,6 @@ export default function Md({ item }: { item: CardType }) {
         />
       </div>
 
-      <div
-        className={styles.card_tag}
-        onClick={() => {
-          dispatch(Init());
-          dispatch(tag_change({ id: tags[0]._id, name: tags[0].name }));
-          router.push('/');
-        }}
-      >
-        {hasMore && !loading && !error && (
-          <>
-            <HiHashtag />
-            <span>{tags[0].name}</span>
-          </>
-        )}
-      </div>
-
       <div className={styles.card_info}>
         <div className={styles.card_info_inner}>
           {item.image === 'default' ? null : (
@@ -84,6 +70,8 @@ export default function Md({ item }: { item: CardType }) {
                 layout="responsive"
                 width={1000}
                 height={1000}
+                placeholder="blur"
+                blurDataURL="iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8VA8AAmkBc7YFeIIAAAAASUVORK5CYII="
                 className={styles.card_image}
               />
             </div>
@@ -92,6 +80,22 @@ export default function Md({ item }: { item: CardType }) {
           <div className={styles.card_md}>
             <div>{item.title}</div>
             <Markdown source={item.md as string} className={styles.markdown} />
+          </div>
+
+          <div
+            className={styles.card_tag}
+            onClick={() => {
+              dispatch(Init());
+              dispatch(tag_change({ id: tags[0]._id, name: tags[0].name }));
+              router.push('/');
+            }}
+          >
+            {hasMore && !loading && !error && (
+              <>
+                <HiHashtag />
+                <span>{tags[0].name}</span>
+              </>
+            )}
           </div>
 
           <div className={styles.card_like}>

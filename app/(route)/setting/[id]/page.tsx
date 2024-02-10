@@ -1,7 +1,7 @@
 import dynamic from 'next/dynamic';
 import { getServerSession } from 'next-auth';
 
-import Login from '@/app/_components/Loading/Login';
+import Login from '@/app/_components/loading/Login';
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
 import { SessionType } from '@/types/global';
 

@@ -16,6 +16,7 @@ import { useAppDispatch } from '@/redux/hook';
 import styles from '@/styles/Card.module.css';
 import { CardType, TagType } from '@/types/word_blog';
 
+import { SkeletonCard } from '../../loading/skeleton/SkeletonCard';
 import Setting from '../../Setting';
 import Like from '../Like';
 import Memorize from '../Memorize';
@@ -90,6 +91,14 @@ export default function WordItem({
     return null;
   }
 
+  if (loading) {
+    return <SkeletonCard />;
+  }
+
+  if (error) {
+    return <div>Error...</div>;
+  }
+
   return (
     <div className={styles.card} ref={cardRef}>
       <div className={styles.card_profile}>
@@ -108,7 +117,7 @@ export default function WordItem({
                   alt={item.image}
                   fill
                   placeholder="blur"
-                  blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8f821HgAHkQKbZgg/jgAAAABJRU5ErkJggg=="
+                  blurDataURL="iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8VA8AAmkBc7YFeIIAAAAASUVORK5CYII="
                   className={styles.card_image}
                 />
               </div>
@@ -137,7 +146,7 @@ export default function WordItem({
           dispatch(tag_change({ id: tags[0]._id, name: tags[0].name }));
         }}
       >
-        {hasMore && !loading && !error && (
+        {hasMore && (
           <>
             <HiHashtag />
             <span>{tags[0].name}</span>

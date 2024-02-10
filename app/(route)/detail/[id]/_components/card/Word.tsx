@@ -1,3 +1,5 @@
+'use client';
+
 import { HiHashtag } from '@react-icons/all-files/hi/HiHashtag';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
@@ -54,21 +56,7 @@ export default function Word({ item }: { item: CardType }) {
           date={item.updateDate ? item.updateDate : item.date}
         />
       </div>
-      <div
-        className={styles.card_tag}
-        onClick={() => {
-          dispatch(Init());
-          dispatch(tag_change({ id: tags[0]._id, name: tags[0].name }));
-          router.push('/');
-        }}
-      >
-        {hasMore && !loading && !error && (
-          <>
-            <HiHashtag />
-            <span>{tags[0].name}</span>
-          </>
-        )}
-      </div>
+
       <div className={styles.card_info}>
         <div className={styles.card_info_inner}>
           {item.image === 'default' ? null : (
@@ -79,6 +67,8 @@ export default function Word({ item }: { item: CardType }) {
                 layout="responsive"
                 width={1000}
                 height={1000}
+                placeholder="blur"
+                blurDataURL="iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8VA8AAmkBc7YFeIIAAAAASUVORK5CYII="
                 className={styles.card_image}
               />
             </div>
@@ -88,6 +78,22 @@ export default function Word({ item }: { item: CardType }) {
             <div>단어: {item.word}</div>
             <div>뜻: {item.meaning}</div>
             <div>어휘: {item.sentence}</div>
+          </div>
+
+          <div
+            className={styles.card_tag}
+            onClick={() => {
+              dispatch(Init());
+              dispatch(tag_change({ id: tags[0]._id, name: tags[0].name }));
+              router.push('/');
+            }}
+          >
+            {hasMore && !loading && !error && (
+              <>
+                <HiHashtag />
+                <span>{tags[0].name}</span>
+              </>
+            )}
           </div>
 
           <div className={`${styles.card_like} markdown`}>

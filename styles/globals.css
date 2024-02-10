@@ -93,7 +93,6 @@ input[type='radio'] {
   max-height: 64.5px;
   left: calc(50% - 25px);
   top: -31px;
-  z-index: 1;
 }
 
 .word_blog_banner {
