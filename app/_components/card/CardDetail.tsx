@@ -15,6 +15,7 @@ import { useAppSelector } from '@/redux/hook';
 import styles from '@/styles/CardDetail.module.css';
 import { CardType } from '@/types/word_blog';
 
+import { SkeletonCard } from '../loading/skeleton/SkeletonCard';
 import MdItem from './markdown/MdItem';
 import WordItem from './word/WordItem';
 
@@ -35,7 +36,7 @@ export default function CardDetail({ id }: { id?: string | ObjectId }) {
   };
 
   if (loading) {
-    return <div>Loading</div>;
+    return <SkeletonCard />;
   }
 
   if (error) {
@@ -56,7 +57,6 @@ export default function CardDetail({ id }: { id?: string | ObjectId }) {
           <span>뒤로가기</span>
         </div>
       )}
-
       {!hasMore ? null : (
         <div className={styles.card}>
           {id ? (

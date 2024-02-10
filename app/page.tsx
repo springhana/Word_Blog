@@ -1,9 +1,6 @@
-'use client';
-
-import 'react-toastify/dist/ReactToastify.css';
-
 import ViewCard from './_components/card/ViewCard';
 import Vedio from './_components/Vedio';
+
 export default function Home() {
   return (
     <div className="home">

@@ -78,5 +78,6 @@ export default function CardsItem({
       }
     });
   }, [cards.result, cards.totalPages, tag, page, memorize]);
+
   return <div>{memoizedCard}</div>;
 }

@@ -4,6 +4,7 @@ import { useCards } from '@/hook/useCards';
 import { useAppSelector } from '@/redux/hook';
 import { CardsType } from '@/types/global';
 
+import { SkeletonCard } from '../loading/skeleton/SkeletonCard';
 import CardsItem from './CardsItem';
 
 export default function Cards({ tag }: { tag: string }) {
@@ -14,6 +15,10 @@ export default function Cards({ tag }: { tag: string }) {
     error: boolean;
     cards: CardsType;
   };
+
+  if (loading) {
+    return cards?.result.map(item => <SkeletonCard key={item} />);
+  }
 
   return (
     <div>
