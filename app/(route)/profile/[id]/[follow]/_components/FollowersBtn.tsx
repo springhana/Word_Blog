@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic';
 
-import { Loader } from '@/app/_components/ss/Loader';
+import { Loader } from '@/app/_components/loading/Loader';
 import { useSubscribe } from '@/hook/useSubscribe';
 import { SubscribeType } from '@/types/word_blog';
 
