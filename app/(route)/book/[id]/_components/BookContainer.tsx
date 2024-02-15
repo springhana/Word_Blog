@@ -48,38 +48,23 @@ export default function BookContainer() {
     dispatch(setTitle('book'));
   }, []);
 
-  const NoteUpdate = async (id: string) => {
-    try {
-      const { url, name } = await PostImage(file || undefined, id, 'note');
-
-      await axios.put('/api/note', {
-        id: id,
-        name: value,
-        image:
-          image && url && name
-            ? url + '/' + id + '/' + 'note' + '/' + name
-            : image,
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const NoteDelete = async (id: string) => {
-    try {
-      await axios.delete('/api/note', { params: { id: id } });
-    } catch (error) {
-      console.error(error);
-    }
-  };
   const queryClient = useQueryClient();
 
   const { mutate } = useMutation({
     mutationFn: async ({ id, type }: { id: string; type: boolean }) => {
       if (type) {
-        NoteDelete(id);
+        await axios.delete('/api/note', { params: { id: id } });
       } else {
-        NoteUpdate(id);
+        const { url, name } = await PostImage(file || undefined, id, 'note');
+
+        await axios.put('/api/note', {
+          id: id,
+          name: value,
+          image:
+            image && url && name
+              ? url + '/' + id + '/' + 'note' + '/' + name
+              : image,
+        });
       }
     },
     onSuccess: () => {
