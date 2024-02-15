@@ -44,62 +44,55 @@ export default function WordPaper({
 
   const { windowWidth } = WindowWidth();
 
-  const CardPost = async () => {
-    const { url, name } = await PostImage(file || undefined, id, 'card');
-
-    await axios.post('/api/post/card/word', {
-      word: word,
-      meaning: meaning,
-      sentence: sentence,
-      tag: tag,
-      id: id,
-      note: select,
-      paper: paper,
-      program: program === 1 ? 'word' : 'markdown',
-      image:
-        image && url && name
-          ? url + '/' + id + '/' + 'card' + '/' + name
-          : 'default',
-    });
-  };
-
-  const EditWord = async () => {
-    if (!card) {
-      return;
-    }
-
-    const { url, name } = await PostImage(
-      file || undefined,
-      card.author,
-      'card'
-    );
-
-    await axios.put('/api/card', {
-      author: card.author,
-      id: card._id,
-      word: word,
-      meaning: meaning,
-      sentence: sentence,
-      memorize: card.memorize,
-      note: noteState,
-      paper: card.paper,
-      program: program === 1 ? 'word' : 'markdown',
-      md: '',
-      title: '',
-      image:
-        image && url && name
-          ? url + '/' + card.author + '/' + 'card' + '/' + name
-          : image,
-    });
-  };
   const queryClient = useQueryClient();
 
   const { mutate } = useMutation({
-    mutationFn: async (id: boolean) => {
-      if (id) {
-        EditWord();
+    mutationFn: async (isId: boolean) => {
+      if (isId) {
+        if (!card) {
+          return;
+        }
+
+        const { url, name } = await PostImage(
+          file || undefined,
+          card.author,
+          'card'
+        );
+
+        await axios.put('/api/card', {
+          author: card.author,
+          id: card._id,
+          word: word,
+          meaning: meaning,
+          sentence: sentence,
+          memorize: card.memorize,
+          note: noteState,
+          paper: card.paper,
+          program: program === 1 ? 'word' : 'markdown',
+          md: '',
+          title: '',
+          image:
+            image && url && name
+              ? url + '/' + card.author + '/' + 'card' + '/' + name
+              : image,
+        });
       } else {
-        CardPost();
+        const { url, name } = await PostImage(file || undefined, id, 'card');
+
+        await axios.post('/api/post/card/word', {
+          word: word,
+          meaning: meaning,
+          sentence: sentence,
+          tag: tag,
+          id: id,
+          note: select,
+          paper: paper,
+          program: program === 1 ? 'word' : 'markdown',
+          image:
+            image && url && name
+              ? url + '/' + id + '/' + 'card' + '/' + name
+              : 'default',
+        });
       }
     },
     onSuccess: () => {

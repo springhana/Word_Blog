@@ -52,6 +52,7 @@ export default function DeleteModal({
               } else if (state === 'comment') {
                 Delete(id);
               }
+              dispatch(onClose_delete());
             }}
           >
             삭제

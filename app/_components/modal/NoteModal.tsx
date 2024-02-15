@@ -43,29 +43,25 @@ export default function NoteModal() {
     dispatch(onClose());
   }, []);
 
-  const PostNote = async () => {
-    const { url, name } = await PostImage(file || undefined, id, 'note');
-
-    await axios
-      .post('/api/note', {
-        id: id,
-        name: noteName,
-        image:
-          image && url && name
-            ? url + '/' + id + '/' + 'note' + '/' + name
-            : image,
-      })
-      .then(res => {
-        if (res.data.post) {
-        }
-      });
-  };
-
   const queryClient = useQueryClient();
 
   const { mutate } = useMutation({
     mutationFn: async () => {
-      PostNote();
+      const { url, name } = await PostImage(file || undefined, id, 'note');
+
+      await axios
+        .post('/api/note', {
+          id: id,
+          name: noteName,
+          image:
+            image && url && name
+              ? url + '/' + id + '/' + 'note' + '/' + name
+              : image,
+        })
+        .then(res => {
+          if (res.data.post) {
+          }
+        });
     },
     onSuccess: () => {
       dispatch(onClose());
