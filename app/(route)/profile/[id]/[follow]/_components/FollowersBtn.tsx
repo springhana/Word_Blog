@@ -39,7 +39,7 @@ export default function FollowersBtn({
   return (
     <div>
       {hasMore &&
-        (subscribe[0].userID.some(item => item === userId) ? (
+        (subscribe[0]?.userID.some(item => item === userId) ? (
           <SubscribeBtn user={userId} value="구독해체" />
         ) : (
           <SubscribeBtn user={userId} value="구독" />
