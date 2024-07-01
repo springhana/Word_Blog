@@ -17,7 +17,9 @@ export default function Cards({ tag }: { tag: string }) {
   };
 
   if (loading) {
-    return cards?.result.map(item => <SkeletonCard key={item} />);
+    return Array.from({ length: 8 }).map((_, index) => (
+      <SkeletonCard key={index} />
+    ));
   }
 
   return (

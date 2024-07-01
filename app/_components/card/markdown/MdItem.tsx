@@ -9,7 +9,7 @@ import axios from 'axios';
 import { ObjectId } from 'mongodb';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 
 import { useTag } from '@/hook/useTag';
@@ -19,7 +19,7 @@ import { useAppDispatch } from '@/redux/hook';
 import styles from '@/styles/Card.module.css';
 import { CardType, TagType } from '@/types/word_blog';
 
-import { SkeletonCard } from '../../loading/skeleton/SkeletonCard';
+import { Card, SkeletonCard } from '../../loading/skeleton/SkeletonCard';
 import Setting from '../../Setting';
 import Like from '../Like';
 import Memorize from '../Memorize';
@@ -32,6 +32,8 @@ export default function MdItem({
   item: CardType;
   memorize: string;
 }) {
+  const [imageLoading, setImageLoading] = useState(true);
+
   const { loading, error, tags, hasMore } = useTag(item.tag, 'one') as {
     loading: boolean;
     error: boolean;
@@ -114,6 +116,7 @@ export default function MdItem({
           <Link href={`/detail/${item._id}`} className={styles.card_detail}>
             {item.image === 'default' || !item.image ? null : (
               <div className={styles.card_image_pic}>
+                {item.image && imageLoading && <Card />}
                 <Image
                   src={item.image}
                   alt={item.image}
@@ -126,7 +129,11 @@ export default function MdItem({
             )}
 
             <div className={styles.card_word}>
-              <div>{item.title}</div>
+              <div>
+                {item.title && item.title.length > 20
+                  ? `${item.title.slice(0, 20)}...`
+                  : item.title}
+              </div>
             </div>
           </Link>
         </div>
