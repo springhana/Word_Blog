@@ -5,11 +5,13 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 import { toast } from 'react-toastify';
 
 import Like from '@/app/_components/card/Like';
 import Memorize from '@/app/_components/card/Memorize';
 import User from '@/app/_components/card/User';
+import { Card } from '@/app/_components/loading/skeleton/SkeletonCard';
 import Setting from '@/app/_components/Setting';
 import { useTag } from '@/hook/useTag';
 import { Init } from '@/redux/features/cardSlice';
@@ -19,6 +21,7 @@ import styles from '@/styles/CardDetail.module.css';
 import { CardType, TagType } from '@/types/word_blog';
 
 export default function Word({ item }: { item: CardType }) {
+  const [imageLoading, setImageLoading] = useState(true);
   const router = useRouter();
   const dispatch = useAppDispatch();
 
@@ -61,15 +64,15 @@ export default function Word({ item }: { item: CardType }) {
         <div className={styles.card_info_inner}>
           {item.image === 'default' ? null : (
             <div className={styles.card_image_pic}>
+              {item.image && imageLoading && <Card />}
               <Image
                 src={item.image}
                 alt={item.image}
-                layout="responsive"
-                width={1000}
-                height={1000}
+                fill
                 placeholder="blur"
                 blurDataURL="iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8VA8AAmkBc7YFeIIAAAAASUVORK5CYII="
                 className={styles.card_image}
+                onLoad={() => setImageLoading(false)}
               />
             </div>
           )}
