@@ -129,7 +129,11 @@ export default function MdItem({
             )}
 
             <div className={styles.card_word}>
-              <div>{item.title}</div>
+              <div>
+                {item.title && item.title.length > 20
+                  ? `${item.title.slice(0, 20)}...`
+                  : item.title}
+              </div>
             </div>
           </Link>
         </div>

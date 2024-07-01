@@ -127,9 +127,21 @@ export default function WordItem({
             )}
 
             <div className={styles.card_word}>
-              <div>{item.word}</div>
-              <div>{item.meaning}</div>
-              <div>{item.sentence}</div>
+              <div>
+                {item.word && item.word.length > 20
+                  ? `${item.word.slice(0, 20)}...`
+                  : item.word}
+              </div>
+              <div>
+                {item.meaning && item.meaning.length > 20
+                  ? `${item.meaning.slice(0, 20)}...`
+                  : item.meaning}
+              </div>
+              <div>
+                {item.sentence && item.sentence.length > 20
+                  ? `${item.sentence?.slice(0, 20)}...`
+                  : item.sentence}
+              </div>
             </div>
           </Link>
         </div>
