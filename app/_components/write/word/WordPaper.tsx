@@ -148,7 +148,7 @@ export default function WordPaper({
         <div>
           <textarea
             ref={ref_meaning}
-            value={word}
+            value={meaning}
             onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
               if (ref_meaning.current) {
                 handleResizeHeight(ref_meaning.current);
@@ -162,7 +162,7 @@ export default function WordPaper({
         <div>
           <textarea
             ref={ref_word}
-            value={meaning}
+            value={word}
             onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
               if (ref_word.current) {
                 handleResizeHeight(ref_word.current);
