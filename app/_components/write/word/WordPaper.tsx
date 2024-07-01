@@ -147,7 +147,7 @@ export default function WordPaper({
       <div className={stylse.write_card_info}>
         <div>
           <textarea
-            ref={ref_word}
+            ref={ref_meaning}
             value={word}
             onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
               if (ref_meaning.current) {
@@ -161,7 +161,7 @@ export default function WordPaper({
         </div>
         <div>
           <textarea
-            ref={ref_meaning}
+            ref={ref_word}
             value={meaning}
             onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
               if (ref_word.current) {

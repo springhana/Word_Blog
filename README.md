@@ -24,6 +24,7 @@
 ## 요구 사항
 - Node.JS: 20
 - React: 18
+- next: 13
 - yarn: 1.22.19
 
 ## 설치
@@ -67,8 +68,7 @@ $ yarn dev
 
   <div>
     <p><strong>State</strong></p>
-    <p>현재 Redux를 사용해서 상태관리를 했지만 Zustand로 리펙토링을 할 예정입니다.</p>
-    <img src="https://img.shields.io/badge/zustand-764ABC?style=for-the-badge&logo=redux&logoColor=white"/>&nbsp 
+    <img src="https://img.shields.io/badge/redux-764ABC?style=for-the-badge&logo=redux&logoColor=white"/>&nbsp 
     <img src="https://img.shields.io/badge/reactquery-FF4154?style=for-the-badge&logo=redux&logoColor=white"/>&nbsp 
   </div>
 </div>
