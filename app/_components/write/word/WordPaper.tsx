@@ -151,7 +151,7 @@ export default function WordPaper({
             value={word}
             onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
               if (ref_meaning.current) {
-                handleResizeHeight(ref_word.current);
+                handleResizeHeight(ref_meaning.current);
               }
               setMeaning(e.target.value);
             }}
@@ -165,7 +165,7 @@ export default function WordPaper({
             value={meaning}
             onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
               if (ref_word.current) {
-                handleResizeHeight(ref_meaning.current);
+                handleResizeHeight(ref_word.current);
               }
               setWord(e.target.value);
             }}
