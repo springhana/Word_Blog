@@ -60,7 +60,7 @@ const Flex = css`
   gap: 100px;
 `;
 
-const Card = styled.div`
+export const Card = styled.div`
   max-width: 500px;
   width: 100%;
   height: 389px;
