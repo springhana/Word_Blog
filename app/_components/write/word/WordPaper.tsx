@@ -150,10 +150,10 @@ export default function WordPaper({
             ref={ref_word}
             value={word}
             onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
-              if (ref_word.current) {
-                handleResizeHeight(ref_word.current);
+              if (ref_meaning.current) {
+                handleResizeHeight(ref_meaning.current);
               }
-              setWord(e.target.value);
+              setMeaning(e.target.value);
             }}
             placeholder="뜻"
             rows={1}
@@ -164,10 +164,10 @@ export default function WordPaper({
             ref={ref_meaning}
             value={meaning}
             onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
-              if (ref_meaning.current) {
-                handleResizeHeight(ref_meaning.current);
+              if (ref_word.current) {
+                handleResizeHeight(ref_word.current);
               }
-              setMeaning(e.target.value);
+              setWord(e.target.value);
             }}
             placeholder="단어"
             rows={1}
