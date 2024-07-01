@@ -6,7 +6,7 @@ import axios from 'axios';
 import { ObjectId } from 'mongodb';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 
 import { useTag } from '@/hook/useTag';
@@ -16,7 +16,7 @@ import { useAppDispatch } from '@/redux/hook';
 import styles from '@/styles/Card.module.css';
 import { CardType, TagType } from '@/types/word_blog';
 
-import { SkeletonCard } from '../../loading/skeleton/SkeletonCard';
+import { Card, SkeletonCard } from '../../loading/skeleton/SkeletonCard';
 import Setting from '../../Setting';
 import Like from '../Like';
 import Memorize from '../Memorize';
@@ -29,6 +29,7 @@ export default function WordItem({
   item: CardType;
   memorize?: string;
 }) {
+  const [imageLoading, setImageLoading] = useState(true);
   const { loading, error, tags, hasMore } = useTag(item.tag, 'one') as {
     loading: boolean;
     error: boolean;
@@ -112,6 +113,7 @@ export default function WordItem({
           <Link href={`/detail/${item._id}`} className={styles.card_detail}>
             {item.image === 'default' || !item.image ? null : (
               <div className={styles.card_image_pic}>
+                {item.image && imageLoading && <Card />}
                 <Image
                   src={item.image}
                   alt={item.image}
@@ -119,6 +121,7 @@ export default function WordItem({
                   placeholder="blur"
                   blurDataURL="iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8VA8AAmkBc7YFeIIAAAAASUVORK5CYII="
                   className={styles.card_image}
+                  onLoad={() => setImageLoading(false)}
                 />
               </div>
             )}
